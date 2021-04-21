@@ -1,8 +1,8 @@
 <template>
-  <div class="block" @touchstart="touchstart" @touchmove="touchmove">
-    <el-carousel height="100vh">
-      <el-carousel-item v-for="item in imgurl" :key="item">
-        <el-image style="width: 100%" :src="item" :fit="fit"></el-image>
+  <div class="block" @touchstart="touchstart" @touchmove="touchmove" @touchend="touchend">
+    <el-carousel height="100vh" ref="carousel" :loop='false'>
+      <el-carousel-item v-for="(item,index) in imgurl" :key="item">
+        <el-image style="width: 100%" :src="item" @click='adClick(index)'></el-image>
       </el-carousel-item>
     </el-carousel>
     <div class="background"></div>
@@ -18,6 +18,8 @@ export default {
         require("@/assets/images/home_ad2.png"),
         require("@/assets/images/home_ad3.png"),
       ],
+      startPoint: [],
+      endPoint: []
     };
   },
   setup() {},
@@ -26,22 +28,28 @@ export default {
     touchstart(e) {
       // 如果你要阻止点击事件，请反注释下一行代码this
       // e.preventDefault()
-      this.startX = e.touches[0].clientX;
-      this.startY = e.touches[0].clientY;
+      let startPoint =[]
+      this.startX = e.changedTouches[0].clientX;
+      this.startY = e.changedTouches[0].clientY;
+      startPoint = [e.changedTouches[0].clientX,e.changedTouches[0].clientY]
+      this.startPoint = [e.changedTouches[0].clientX,e.changedTouches[0].clientY]
+      return e
     },
+    touchstartRes() {
+    },
+
     touchmove(e) {
-    
-      // e.preventDefault()
-      this.moveX = e.touches[0].clientX;
-      this.moveY = e.touches[0].clientY;
-      this.startX - this.moveX <= 0
-        ? this.$refs.carousel.prev()
-        : this.$refs.carousel.next()
-      if (this.startX - this.moveX <= -100) {
-        // 右滑触发
-        // do something
-      }
+      let that = this
     },
+    touchend(e) {
+      this.touchstartRes()
+      this.endPoint = [e.changedTouches[0].clientX,e.changedTouches[0].clientY]
+      this.endPoint[0] - this.startPoint[0] > 20?this.$refs.carousel.prev() : false
+      this.endPoint[0] - this.startPoint[0] < -20?this.$refs.carousel.next() : false
+    },
+    adClick(i) {
+      i === 2 ? console.log('登陆操作') : false
+    }
   },
 };
 </script>

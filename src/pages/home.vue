@@ -59,7 +59,9 @@
     </van-popup> -->
     <van-sticky v-if="popShow" :offset-bottom="0" position="bottom">
       <div class="mask-play">
-        <p>{{'‘' + playInfo.name + '’' + '-'  + playInfo.artists[0].name+ '——专辑:' + playInfo.album.name}}</p>
+        <!-- <router-link :to="{name: 'lyrics',query: { id: playInfo.id}}"> -->
+          <p>{{'‘' + playInfo.name + '’' + '-'  + playInfo.artists[0].name+ '——专辑:' + playInfo.album.name}}</p>
+        <!-- </router-link> -->
         <audio v-if="playShow" controls>
         <source :src="currentMp3" type="audio/mpeg" />
       </audio>
@@ -172,11 +174,11 @@ export default {
 <style lang="scss" scoped>
 .block {
   height: auto;
-  background: #151618;
+  background: rgb(30, 19, 29);
 }
 .el-carousel__item h3 {
   color: #151618;
-  background: #151618;
+  background: rgb(30, 19, 29);
   font-size: 14px;
   line-height: 150px;
   margin: 0;

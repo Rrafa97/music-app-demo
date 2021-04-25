@@ -23,7 +23,11 @@ const routes = [
   {
     path: '/lyrics',
     name: 'lyrics',
-    component: () => import(/* webpackChunkName: "about" */ '../pages/lyrics.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../pages/lyrics.vue'),
+    meta: {
+      title: '歌曲详情',
+      keepAlive: true
+    }
   }
 ]
 

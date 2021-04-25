@@ -1,6 +1,5 @@
 <template>
   <div class="main-color">
-    <van-notice-bar mode="closeable">网站并没有做PC端适配，请使用手机打开此网页/或者浏览器打开调试工具使用移动端UI</van-notice-bar>
     <div
       class="block"
       @touchstart="touchstart"
@@ -35,6 +34,7 @@
         </template>
       </van-field>
     </van-sticky>
+
     <!-- <van-button type="danger" @click="serch">搜索</van-button> -->
     <div v-for="(index, item) in songs" key="item">
       <!-- <van-card

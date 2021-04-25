@@ -1,5 +1,6 @@
 <template>
   <div class="main-color">
+    <van-notice-bar mode="closeable">网站并没有做PC端适配，请使用手机打开此网页/或者浏览器打开调试工具使用移动端UI</van-notice-bar>
     <div
       class="block"
       @touchstart="touchstart"
@@ -18,11 +19,22 @@
       <div class="background"></div>
     </div>
     <!-- <van-field class="main-color" v-model="state.text" label="输入搜索歌曲" /> -->
-    <van-field v-model="state.text" center clearable placeholder="输入搜索歌曲">
-      <template #button>
-        <van-button size="small" type="danger" @click="serch">搜索</van-button>
-      </template>
-    </van-field>
+
+    <van-sticky :offset-top="0" position="top">
+      <van-field
+        v-model="state.text"
+        center
+        clearable
+        placeholder="输入搜索歌曲"
+        class="serch-box"
+      >
+        <template #button>
+          <van-button size="small" type="danger" @click="serch"
+            >搜索</van-button
+          >
+        </template>
+      </van-field>
+    </van-sticky>
     <!-- <van-button type="danger" @click="serch">搜索</van-button> -->
     <div v-for="(index, item) in songs" key="item">
       <!-- <van-card
@@ -35,15 +47,16 @@
      -->
       <van-card
         v-if="cardShow"
-        :desc="'艺术家：' + index.artists[0].name"
-        :title="'歌曲名:  ' + index.name"
-        :thumb="index.artists[0].img1v1Url"
-        @click="getSong(index.id,index)"
+        :desc="'艺术家：' + index.ar[0].name"
+        :title="index.name"
+        :thumb="index.al.picUrl"
+        :centered="false"
+        @click="getSong(index.id, index)"
         class="main-color"
       >
         <template #tags>
           <van-tag class="main-color" plain type="danger"
-            >专辑：{{ index.album.name }}</van-tag
+            >专辑：{{ index.al.name }}</van-tag
           >
         </template>
       </van-card>
@@ -60,18 +73,28 @@
     <van-sticky v-if="popShow" :offset-bottom="0" position="bottom">
       <div class="mask-play">
         <!-- <router-link :to="{name: 'lyrics',query: { id: playInfo.id}}"> -->
-          <p>{{'‘' + playInfo.name + '’' + '-'  + playInfo.artists[0].name+ '——专辑:' + playInfo.album.name}}</p>
+        <p @click="toSongs">
+          {{
+            "‘" +
+            playInfo.name +
+            "’" +
+            "-" +
+            playInfo.ar[0].name +
+            "——专辑:" +
+            playInfo.al.name
+          }}
+        </p>
         <!-- </router-link> -->
         <audio v-if="playShow" controls>
-        <source :src="currentMp3" type="audio/mpeg" />
-      </audio>
+          <source :src="currentMp3" type="audio/mpeg" />
+        </audio>
       </div>
     </van-sticky>
   </div>
 </template>
 
 <script lang="ts">
-import { SERCH_KEYWORDS, GET_SONG } from "../api/index.js";
+import { SERCH_KEY, SERCH_HOT, GET_SONG } from "../api/index.js";
 import { reactive } from "vue";
 export default {
   data() {
@@ -90,7 +113,7 @@ export default {
       playShow: false,
       currentMp3: "",
       popShow: false,
-      playInfo: false
+      playInfo: false,
     };
   },
   setup() {
@@ -100,6 +123,10 @@ export default {
       digit: "",
       number: "",
       password: "",
+    });
+    SERCH_HOT().then((res) => {
+      console.log(res.data.result.hots[0].first);
+      state.text = res.data.result.hots[0].first;
     });
     return { state };
   },
@@ -131,29 +158,30 @@ export default {
         ? this.$refs.carousel.next()
         : false;
     },
+
     serch() {
       if (this.state.text === "") {
         this.$toast.fail("输入关键词");
       } else {
-        SERCH_KEYWORDS(this.state.text).then((res) => {
+        SERCH_KEY(this.state.text).then((res) => {
           this.songs = res.data.result.songs;
-          console.log(this.songs[0].album.name);
+          console.log(this.songs[0]);
           this.cardShow = true;
         });
       }
     },
     setPlayInfo(song) {
-      this.playInfo = song
-      console.log(this.playInfo)
+      this.playInfo = song;
+      console.log(this.playInfo);
     },
-    getSong(id,song) {
+    getSong(id, song) {
       this.currentMp3 = "";
       this.playShow = false;
-      this.setPlayInfo(song)
+      this.setPlayInfo(song);
       GET_SONG(id).then((res) => {
         console.log(res.data.data[0].url);
-        if(res.data.data[0].url === '') {
-          this.$toast.fail("暂时没有资源")
+        if (res.data.data[0].url === "") {
+          this.$toast.fail("暂时没有资源");
         }
         this.currentMp3 = res.data.data[0].url;
         this.popShow = true;
@@ -166,6 +194,13 @@ export default {
     login() {
       console.log("登陆操作");
       this.homeAdShow = false;
+    },
+    toSongs() {
+      console.log(this.playInfo.id);
+      this.$router.push({
+        name: "lyrics",
+        query: { id: this.playInfo.id },
+      });
     },
   },
 };
@@ -183,6 +218,9 @@ export default {
   line-height: 150px;
   margin: 0;
 }
+.van-card__title {
+  font-size: 18px;
+}
 .main-color {
   color: aliceblue;
   background: rgba($color: #000000, $alpha: 0);
@@ -190,9 +228,13 @@ export default {
 .mask-play {
   padding: 16px 0;
   background: rgba($color: #000000, $alpha: 0.5);
-
+  text-align: center;
   p {
     margin-bottom: 16px;
   }
+}
+.serch-box {
+  color: white;
+  background: rgba(230, 210, 213, 0.7);
 }
 </style>

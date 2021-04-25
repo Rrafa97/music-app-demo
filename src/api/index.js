@@ -20,3 +20,20 @@ export function GET_SONG (songId) {
     }
   })
 }
+
+export function SERCH_HOT () {
+  return instance({
+    method: 'get',
+    url: 'http://rrafa.icu:3000/search/hot/',
+  })
+}
+
+export function SERCH_KEY (keywords) {
+  return instance({
+    method: 'get',
+    url: 'http://rrafa.icu:3000/cloudsearch',
+    params: {
+      keywords: keywords
+    }
+  })
+}

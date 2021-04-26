@@ -37,3 +37,23 @@ export function SERCH_KEY (keywords) {
     }
   })
 }
+
+export function GET_LYRIC( id ) {
+  return instance ({
+    method: 'get',
+    url: 'http://rrafa.icu:3000/lyric',
+    params: {
+      id: id
+    }
+  })
+}
+
+export function SONGS_DETAIL(ids) {
+  return instance ({
+    method: 'get',
+    url: 'http://rrafa.icu:3000/song/detail',
+    params: {
+      ids: ids
+    }
+  })
+}

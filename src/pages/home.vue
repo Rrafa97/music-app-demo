@@ -72,7 +72,6 @@
     </van-popup> -->
     <van-sticky v-if="popShow" :offset-bottom="0" position="bottom">
       <div class="mask-play">
-        <!-- <router-link :to="{name: 'lyrics',query: { id: playInfo.id}}"> -->
         <p @click="toSongs">
           {{
             "‘" +
@@ -84,10 +83,10 @@
             playInfo.al.name
           }}
         </p>
-        <!-- </router-link> -->
-        <audio v-if="playShow" controls>
+        <audio v-if="playShow" ref="audio" controls>
           <source :src="currentMp3" type="audio/mpeg" />
         </audio>
+        <!-- <playsmall v-if="playShow" :playInfo="playInfo"></playsmall> -->
       </div>
     </van-sticky>
   </div>
@@ -95,7 +94,8 @@
 
 <script lang="ts">
 import { SERCH_KEY, SERCH_HOT, GET_SONG } from "../api/index.js";
-import { reactive } from "vue";
+import { reactive, ref, watch, provide } from "vue";
+// import playsmall from "@/pages/playsmall";
 export default {
   data() {
     return {
@@ -113,8 +113,11 @@ export default {
       playShow: false,
       currentMp3: "",
       popShow: false,
-      playInfo: false,
+      // playInfo: false,
     };
+  },
+  components: {
+    // playsmall,
   },
   setup() {
     const state = reactive({
@@ -124,11 +127,16 @@ export default {
       number: "",
       password: "",
     });
+    var playInfo = false;
+    const audio = ref(null);
     SERCH_HOT().then((res) => {
       console.log(res.data.result.hots[0].first);
       state.text = res.data.result.hots[0].first;
     });
-    return { state };
+    // watch( audio.current, () => {
+    //   console.log(audio.current)
+    // })
+    return { audio, state, playInfo };
   },
   methods: {
     touch() {},
@@ -158,7 +166,12 @@ export default {
         ? this.$refs.carousel.next()
         : false;
     },
-
+    currentTime() {
+      console.log(this.audio.currentTime);
+      watch(this.audio.current, () => {
+        console.log(this.audio.current);
+      });
+    },
     serch() {
       if (this.state.text === "") {
         this.$toast.fail("输入关键词");
@@ -199,7 +212,11 @@ export default {
       console.log(this.playInfo.id);
       this.$router.push({
         name: "lyrics",
-        query: { id: this.playInfo.id },
+        query: {
+          id: this.playInfo.id,
+          mp3: this.currentMp3,
+          info: this.playInfo,
+        },
       });
     },
   },

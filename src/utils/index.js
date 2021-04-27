@@ -12,8 +12,16 @@ export function formlrc (lrc) {
 
 export function makeDurationToSeconds (time) {
   var str = time;
-  var arr = str.split(/[:.]/);
-  var str_ = parseInt(arr[0])*60 + parseInt(arr[1])
+  var arr = str.split(/[:]/);
+  var str_ = parseFloat((parseInt(arr[0])*60 + parseFloat(arr[1])).toFixed(1))
   // let arr_ = arr[1].split('.')
   return str_
+}
+
+export function transfromTimeToMins(time) {
+  let secsum = parseInt(time)
+  let min = parseInt(secsum/60)
+  let sec = secsum - min*60
+  let ms = time.toString().split('.')[1]
+  return min + ':' + sec + ':' + ms
 }

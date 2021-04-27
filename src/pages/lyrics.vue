@@ -7,7 +7,13 @@
         src="http://cdn.jsdelivr.net/gh/zjkwdy/website-cdn/assets/images/other/playing_lp.png"
       />
       <div id="player-cover">
-        <van-image round id="rotage" class="record" fit="contain" :src="ad" />
+        <van-image
+          round
+          id="rotage"
+          class="record"
+          fit="contain"
+          :src="song.al.picUrl"
+        />
       </div>
 
       <van-image
@@ -26,25 +32,25 @@
         src="http://cdn.jsdelivr.net/gh/zjkwdy/website-cdn/assets/images/other/playing_stylus_lp_bg.png"
         alt=""
       /> -->
-      <audio autoplay ref="audioPlay" controls>
-        <source :src="currentMp3" type="audio/mpeg" />
-      </audio>
+      <audio autoplay ref="audioPlay" :src="currentMp3" controls></audio>
+
       <div class="lyric_area">
-        <ul class="lyric" ref="lyric">
+        <div>{{ song.name }}</div>
+        <div>专辑：{{ song.al.name }}</div>
+        <div>
+          歌手：<span v-for="(item, index) in song.ar">{{ item.name }}·</span>
+        </div>
+        <ul class="lyric-ar" ref="lyric">
           {{
             currentLyric
           }}
         </ul>
-        <ul ref="lyric">
-          {{
-            currentLyric
-          }}
-        </ul>
-        <ul ref="lyric">
-          {{
-            currentLyric
-          }}
-        </ul>
+        <van-slider
+          v-model="playTime"
+          bar-height="4px"
+          @change="onChange"
+          active-color="#ee0a24"
+        />
       </div>
     </div>
   </div>
@@ -52,7 +58,7 @@
 
 <script>
 import { GET_LYRIC, GET_SONG, SONGS_DETAIL } from "../api/index.js";
-import { formlrc } from "@/utils"
+import { formlrc,transfromTimeToMins } from "@/utils"
 import { useRoute } from "vue-router";
 import { ref } from 'vue'
 export default {
@@ -63,55 +69,84 @@ export default {
       PlayLyric: [],
       currentMp3: '',
       audioShow: false,
+      song: {},
+      resShow: false,
+      currentLyric: '',
+      playTime: 0
     }
-  },
-  watch: {
-    // lyricCurrent () {
-    //   this.lyric.forEach((element, index) => {
-    //     if (this.lyricCurrent == element.time) {
-    //       this.lyricMove.top = -index * 2.5 + 6 + "rem";
-    //       this.currentRow = index; //通过比较我们歌词属性里的时间与当前播放时间，来定位到该歌词
-    //     }
-    //   });
-    // }
   },
   setup () {
     const currentMp3 = useRoute().query.mp3
     const info = useRoute().query.playInfo
-    const audioPlay = ref(null)
-    const lyric = ref(null)
-    var currentLyric = ''
-    var resShow = true
-    let song = {}
-    SONGS_DETAIL(useRoute().query.id).then(res => {
-      song = res.data.songs[0]
-      resShow = true
-      console.log(song)
-    })
+    var audioPlay = ref(null)
+    // const lyric = ref(null)
     console.log(info)
-    return { info, currentMp3, song, resShow, audioPlay, lyric, currentLyric }
+    return { info, audioPlay, currentMp3 }
   },
   mounted () {
+    function arrout (arr) {
+      let arrout = [[]]
+      arr.forEach((element, index) => {
+        let sum = index
+        element.forEach((ele, i) => {
+          if (i + index === index) {
+            arrout.push(ele)
+            if (index !== 0) {
+              for (let index_ = 0; index_ < Math.abs(index - i) - 1; index_++) {
+                arrout.push(arr[index - index_][index_ + index])
+              }
+            }
+          }
+        })
+      })
+      return arrout
+    }
+    SONGS_DETAIL(useRoute().query.id).then(res => {
+      this.song = res.data.songs[0]
+      this.resShow = true
+      console.log(this.song)
+    })
     // console.log(this.makeDurationToSeconds(this.ts))
-    this.getTime()
     GET_LYRIC(this.$route.query.id).then(res => {
+      // console.log(res.data.lrc.lyric)
       this.lyric = formlrc(res.data.lrc.lyric)
-      console.log(this.lyric[0].lrc)
-      this.currentLyric = this.lyric[0].lrc
+      // console.log(this.lyric)
+      // this.currentLyric = this.lyric[0].lrc
+      this.getTime()
     })
   },
   methods: {
     sortRule (a, b) {
       return a.time - b.time;
     },
+    onChange() {
+      this.getCurrentMediaPlayTime()
+    },
+
     getTime () {
-      setInterval(() => {
-        // console.log(this.audioPlay.currentTime)
-      }, 3000);
       let that = this
+      console.log(this.audioPlay)
       this.audioPlay.ontimeupdate = function () {
-        // console.log(that.audioPlay.currentTime)
+        let curTime = that.audioPlay.currentTime
+        that.lyric.forEach((element, index) => {
+          let index__ = that.lyric
+          let curn = parseFloat(that.audioPlay.currentTime.toFixed(1))
+          if (curn >= index__[index].time - 0.5 && curn <= index__[index + 1].time) {
+            that.currentLyric = element.lrc
+          }
+        })
+        that.setPlayButtomAnim(parseInt(parseInt(curTime)/that.lyric[that.lyric.length -2].time * 100))
       }
+    },
+    setPlayButtomAnim(time) {
+      this.playTime = time
+    },
+
+    getCurrentMediaPlayTime() {
+      let curPlay = parseInt(this.audioPlay.currentTime)
+      let allTime = this.lyric[this.lyric.length -2].time
+      let suoudTime = this.playTime / 100 * allTime
+      this.audioPlay.currentTime = suoudTime
     },
     mainLy () {
       var lineNo = 0
@@ -247,13 +282,13 @@ audio {
   width: 100vw;
 }
 .lyric_area {
-  height: 300px;
-  overflow: hidden;
+  // height: 300px;
+  // overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 15px;
+  width: 70%;
 }
 #lyric {
   line-height: 20px;
@@ -262,7 +297,8 @@ audio {
 #lyric .lineHigh {
   color: red;
 }
-.lyric {
+.lyric-ar {
+  height: 128px;
   font-size: 24px;
   margin: 16px;
 }

@@ -51,6 +51,7 @@
           @change="onChange"
           active-color="#ee0a24"
         />
+        {{showPlayTime}}
       </div>
     </div>
   </div>
@@ -72,7 +73,8 @@ export default {
       song: {},
       resShow: false,
       currentLyric: '',
-      playTime: 0
+      playTime: 0,
+      showPlayTime: ''
     }
   },
   setup () {
@@ -136,12 +138,15 @@ export default {
           }
         })
         that.setPlayButtomAnim(parseInt(parseInt(curTime)/that.lyric[that.lyric.length -2].time * 100))
+        that.setShowPlayTime(curTime)
       }
     },
     setPlayButtomAnim(time) {
       this.playTime = time
     },
-
+    setShowPlayTime(time) {
+      this.showPlayTime = transfromTimeToMins(time)
+    },
     getCurrentMediaPlayTime() {
       let curPlay = parseInt(this.audioPlay.currentTime)
       let allTime = this.lyric[this.lyric.length -2].time

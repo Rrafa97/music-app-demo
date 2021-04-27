@@ -226,11 +226,11 @@ export default {
 <style lang="scss" scoped>
 .block {
   height: auto;
-  background: rgb(30, 19, 29);
+  background: rgb(98, 22, 36);
 }
 .el-carousel__item h3 {
   color: #151618;
-  background: rgb(30, 19, 29);
+  background: rgb(98, 22, 36);
   font-size: 14px;
   line-height: 150px;
   margin: 0;

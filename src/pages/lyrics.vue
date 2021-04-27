@@ -110,10 +110,11 @@ export default {
     })
     // console.log(this.makeDurationToSeconds(this.ts))
     GET_LYRIC(this.$route.query.id).then(res => {
-      // console.log(res.data.lrc.lyric)
-      this.lyric = formlrc(res.data.lrc.lyric)
-      // console.log(this.lyric)
-      // this.currentLyric = this.lyric[0].lrc
+      if(res.data.nolyric === true) {
+        this.currentLyric = '纯音乐，无歌词'
+      } else {
+        this.lyric = formlrc(res.data.lrc.lyric)
+      }
       this.getTime()
     })
   },

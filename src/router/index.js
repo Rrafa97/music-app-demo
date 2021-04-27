@@ -18,7 +18,10 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: () => import(/* webpackChunkName: "about" */ '../pages/home.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../pages/home.vue'),
+    meta: {
+      keepAlive: true
+    }
   },
   {
     path: '/lyrics',

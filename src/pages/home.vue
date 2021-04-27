@@ -197,8 +197,9 @@ export default {
           this.$toast.fail("暂时没有资源");
         }
         this.currentMp3 = res.data.data[0].url;
-        this.popShow = true;
-        this.playShow = true;
+        // this.popShow = true;
+        // this.playShow = true;
+        this.toSongs()
       });
     },
     adClick(i) {

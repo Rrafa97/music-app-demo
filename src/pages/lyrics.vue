@@ -23,7 +23,12 @@
         alt=""
       />
       <van-image
-        class="stylus_l"
+        class="stylus_l record-arm"
+        @touchmove="touchmove"
+        @touchstart="touchstart"
+        @touchend="touchend"
+        ref="recordArm"
+        id="recordArm"
         src="http://cdn.jsdelivr.net/gh/zjkwdy/website-cdn/assets/images/other/playing_stylus_lp.png"
         alt=""
       />
@@ -32,7 +37,7 @@
         src="http://cdn.jsdelivr.net/gh/zjkwdy/website-cdn/assets/images/other/playing_stylus_lp_bg.png"
         alt=""
       /> -->
-      <audio autoplay ref="audioPlay" :src="currentMp3" controls></audio>
+      <audio loop autoplay ref="audioPlay" :src="currentMp3" controls></audio>
 
       <div class="lyric_area">
         <div>{{ song.name }}</div>
@@ -51,8 +56,11 @@
           @change="onChange"
           active-color="#ee0a24"
         />
-        <van-divider  :style="{ color: '#fff', borderColor: '#1989fa', padding: '0 16px' }" content-position="right">{{showPlayTime}}</van-divider>
-        
+        <van-divider
+          :style="{ color: '#fff', borderColor: '#1989fa', padding: '0 16px' }"
+          content-position="right"
+          >{{ showPlayTime }}</van-divider
+        >
       </div>
     </div>
   </div>
@@ -60,9 +68,9 @@
 
 <script>
 import { GET_LYRIC, GET_SONG, SONGS_DETAIL } from "../api/index.js";
-import { formlrc,transfromTimeToMins } from "@/utils"
+import { formlrc, transfromTimeToMins } from "@/utils"
 import { useRoute } from "vue-router";
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 export default {
   data () {
     return {
@@ -75,16 +83,21 @@ export default {
       resShow: false,
       currentLyric: '',
       playTime: 0,
-      showPlayTime: ''
+      showPlayTime: '',
+      nolyric: false,
+      startPoint: [],
+      endPoint: [],
     }
   },
   setup () {
     const currentMp3 = useRoute().query.mp3
     const info = useRoute().query.playInfo
     var audioPlay = ref(null)
-    // const lyric = ref(null)
-    console.log(info)
-    return { info, audioPlay, currentMp3 }
+    var recordArm = ref(null)
+    onMounted(() => {
+      console.log(recordArm)
+    })
+    return { info, audioPlay, currentMp3, recordArm }
   },
   mounted () {
     function arrout (arr) {
@@ -107,11 +120,9 @@ export default {
     SONGS_DETAIL(useRoute().query.id).then(res => {
       this.song = res.data.songs[0]
       this.resShow = true
-      console.log(this.song)
     })
-    // console.log(this.makeDurationToSeconds(this.ts))
     GET_LYRIC(this.$route.query.id).then(res => {
-      if(res.data.nolyric === true) {
+      if (res.data.nolyric === true) {
         this.currentLyric = '纯音乐，无歌词'
       } else {
         this.lyric = formlrc(res.data.lrc.lyric)
@@ -123,35 +134,45 @@ export default {
     sortRule (a, b) {
       return a.time - b.time;
     },
-    onChange() {
+    onChange () {
       this.getCurrentMediaPlayTime()
     },
 
     getTime () {
       let that = this
-      console.log(this.audioPlay)
-      this.audioPlay.ontimeupdate = function () {
-        let curTime = that.audioPlay.currentTime
-        that.lyric.forEach((element, index) => {
-          let index__ = that.lyric
-          let curn = parseFloat(that.audioPlay.currentTime.toFixed(1))
-          if (curn >= index__[index].time - 0.5 && curn <= index__[index + 1].time) {
-            that.currentLyric = element.lrc
-          }
-        })
-        that.setPlayButtomAnim(parseInt(parseInt(curTime)/that.lyric[that.lyric.length -2].time * 100))
-        that.setShowPlayTime(curTime)
+      this.audioPlay.canPlay = setTimeout(() => {
+        canPlay()
+      }, 500);
+      function canPlay () {
+        that.audioPlay.ontimeupdate = function () {
+          let curTime = that.audioPlay.currentTime
+          that.lyric.forEach((element, index) => {
+            let index__ = that.lyric
+            let curn = parseFloat(that.audioPlay.currentTime.toFixed(1))
+            if (curn >= index__[index].time - 0.1 && curn <= index__[index + 1].time) {
+              if (element.lrc === '' || element.lrc === undefined || element.lrc === null) {
+                // that.currentLyric = ''
+                this.nolyric = true
+              } else {
+                that.currentLyric = element.lrc
+              }
+
+            }
+          })
+          that.setPlayButtomAnim(parseInt(parseInt(curTime) / that.lyric[that.lyric.length - 2].time * 100))
+          that.setShowPlayTime(curTime)
+        }
       }
     },
-    setPlayButtomAnim(time) {
+    setPlayButtomAnim (time) {
       this.playTime = time
     },
-    setShowPlayTime(time) {
+    setShowPlayTime (time) {
       this.showPlayTime = transfromTimeToMins(time)
     },
-    getCurrentMediaPlayTime() {
+    getCurrentMediaPlayTime () {
       let curPlay = parseInt(this.audioPlay.currentTime)
-      let allTime = this.lyric[this.lyric.length -2].time
+      let allTime = this.lyric[this.lyric.length - 2].time
       let suoudTime = this.playTime / 100 * allTime
       this.audioPlay.currentTime = suoudTime
     },
@@ -163,14 +184,52 @@ export default {
       var ul = this.lyric
 
     },
+    touchstart (e) {
+      let startPoint = [e.changedTouches[0].clientX, e.changedTouches[0].clientY]
+      // console.log(e.changedTouches[0].clientX,e.changedTouches[0].clientY)
+      this.startPoint = startPoint
+      // this.stylus.style.left = '32px'
+      // console.log(this.stylus.style)
+      this.setStylusCla()
+    },
+    touchmove (e) {
+      let line = e.changedTouches[0].clientX - this.startPoint[0]
+      // console.log(e.changedTouches[0].clientX - this.startPoint[0])
+      if (parseInt(line / 5) < 10 && parseInt(line / 5) > -10) {
+        let sr = 'scale(0.6) rotate(' + -parseInt(line / 5) + 'deg)'
+        document.getElementById('recordArm').style.transform = sr
+      }
+    },
+    touchend (e) {
+      this.endPoint = [e.changedTouches[0].clientX, e.changedTouches[0].clientY]
+      if (this.startPoint[0] - this.endPoint[0] > 10) {
+        console.log('播放')
+      } else if (this.endPoint[0] - this.startPoint[0] > 10) {
+        console.log('放开')
+      }
+    },
+    setStylusCla () {
+      let ele = document.getElementById('recordArm')
+      // document.getElementById('rotage').style='animation: roateZ 5s linear infinite'
+      // console.log(document.getElementById('rotage').style.animation)
+      if (this.audioPlay.paused) {
+        document.getElementById('recordArm').style.transform = 'scale(0.6) '
+        document.getElementById('rotage').style.animationPlayState = 'pause'
+        this.audioPlay.play()
+      } else {
+        document.getElementById('recordArm').style.transform = 'scale(0.6) rotate(-10deg)'
+        document.getElementById('rotage').style.animationPlayState = 'running'
+        this.audioPlay.pause()
+      }
 
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .bacg-abs {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -264,6 +323,14 @@ export default {
   // translate: scale(0.4);
 }
 
+.animasion-pause {
+  animation-play-state: paused;
+}
+
+.animasion-play {
+  animation-play-state: running;
+}
+
 audio {
   display: none;
   width: 0px;
@@ -272,9 +339,13 @@ audio {
 .stylus_l {
   position: absolute;
   transform: scale(0.6);
-  top: -38%;
-  right: 0;
+  top: -18%;
+  // height: 60%;
+  // width: 60%;
+  right: 10%;
   z-index: 3000;
+  transition: 0.3s;
+  transform-origin: right top;
 }
 .player-main {
   display: flex;
@@ -307,6 +378,7 @@ audio {
 .lyric-ar {
   // height: 128px;
   font-size: 24px;
+  white-space: nowrap;
   margin: 16px;
 }
 </style>

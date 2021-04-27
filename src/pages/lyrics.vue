@@ -51,7 +51,8 @@
           @change="onChange"
           active-color="#ee0a24"
         />
-        {{showPlayTime}}
+        <van-divider  :style="{ color: '#fff', borderColor: '#1989fa', padding: '0 16px' }" content-position="right">{{showPlayTime}}</van-divider>
+        
       </div>
     </div>
   </div>
@@ -281,7 +282,7 @@ audio {
   align-items: center;
   flex-direction: column;
   position: relative;
-  margin-top: 64px;
+  // margin-top: 64px;
 }
 .record {
   height: 100vw;
@@ -304,7 +305,7 @@ audio {
   color: red;
 }
 .lyric-ar {
-  height: 128px;
+  // height: 128px;
   font-size: 24px;
   margin: 16px;
 }

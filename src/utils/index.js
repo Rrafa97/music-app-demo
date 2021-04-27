@@ -23,5 +23,8 @@ export function transfromTimeToMins(time) {
   let min = parseInt(secsum/60)
   let sec = secsum - min*60
   let ms = time.toFixed(1).toString().split('.')[1]
+  if(sec.toString().length <= 1) {
+    sec = '0'+sec
+  }
   return min + ':' + sec
 }

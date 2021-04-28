@@ -72,6 +72,7 @@ import { formlrc, transfromTimeToMins } from "@/utils"
 import { useRoute } from "vue-router";
 import { onMounted, ref } from 'vue'
 export default {
+  name: 'lyrics',
   data () {
     return {
       lyric: [],

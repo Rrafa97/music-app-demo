@@ -86,7 +86,6 @@
         <audio v-if="playShow" ref="audio" controls>
           <source :src="currentMp3" type="audio/mpeg" />
         </audio>
-        <!-- <playsmall v-if="playShow" :playInfo="playInfo"></playsmall> -->
       </div>
     </van-sticky>
   </div>
@@ -97,6 +96,7 @@ import { SERCH_KEY, SERCH_HOT, GET_SONG } from "../api/index.js";
 import { reactive, ref, watch, provide } from "vue";
 // import playsmall from "@/pages/playsmall";
 export default {
+  name: 'home',
   data() {
     return {
       imgurl: [

@@ -20,6 +20,7 @@ const routes = [
     name: 'home',
     component: () => import(/* webpackChunkName: "about" */ '../pages/home.vue'),
     meta: {
+      index:1,
       keepAlive: true
     }
   },
@@ -29,7 +30,8 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../pages/lyrics.vue'),
     meta: {
       title: '歌曲详情',
-      keepAlive: true
+      index:2,
+      keepAlive: false
     }
   }
 ]

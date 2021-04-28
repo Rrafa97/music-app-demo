@@ -1,11 +1,27 @@
 <template>
-  <router-view></router-view>
+  <router-view v-slot="{ Component }">
+    <keep-alive :include="cachedViews" :exclude="normalViews">
+      <component :is="Component" />
+    </keep-alive>
+  </router-view>
 </template>
 
 <script>
-
+import { watch } from 'vue'
+import { useRouter } from 'vue-router'
 export default {
-  name: 'App'
+  name: 'App',
+  setup () {
+    let cachedViews = ['home']
+    let normalViews = ['lyrics']
+    function router (to, from) {
+      if (!cachedViews.includes(to.name) && !normalViews.includes(to.name)) {
+        cachedViews.push(to.name)
+      }
+    }
+    watch((useRouter().to, useRouter().from), () => {router()})
+    return { cachedViews, normalViews }
+  }
 }
 </script>
 

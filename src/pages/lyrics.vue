@@ -215,7 +215,7 @@ export default {
     },
     setStylusCla () {
       let ele = document.getElementById('recordArm')
-      console.log(this.rotage)
+      console.log(this.rotage.$el)
       // document.getElementById('rotage').style='animation: roateZ 5s linear infinite'
       // console.log(document.getElementById('rotage').style.animation)
       if (this.audioPlay.paused) {

@@ -19,7 +19,6 @@ export default {
         cachedViews.push(to.name)
       }
     }
-    watch((useRouter().to, useRouter().from), () => {router()})
     return { cachedViews, normalViews }
   }
 }

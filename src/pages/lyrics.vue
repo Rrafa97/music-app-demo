@@ -10,6 +10,7 @@
         <van-image
           round
           id="rotage"
+          ref="rotage"
           class="record"
           fit="contain"
           :src="song.al.picUrl"
@@ -66,7 +67,7 @@
   </div>
 </template>
 
-<script>
+<script lang="js">
 import { GET_LYRIC, GET_SONG, SONGS_DETAIL } from "../api/index.js";
 import { formlrc, transfromTimeToMins } from "@/utils"
 import { useRoute } from "vue-router";
@@ -94,30 +95,33 @@ export default {
     const currentMp3 = useRoute().query.mp3
     const info = useRoute().query.playInfo
     var audioPlay = ref(null)
-    var recordArm = ref(null)
+    var recordArm = ref(1)
+    var rotage = ref(null)
+    function add() {
+      recordArm.value ++
+    }
     onMounted(() => {
-      console.log(recordArm)
     })
-    return { info, audioPlay, currentMp3, recordArm }
+    return { info, audioPlay, currentMp3, recordArm,add,rotage }
   },
   mounted () {
-    function arrout (arr) {
-      let arrout = [[]]
-      arr.forEach((element, index) => {
-        let sum = index
-        element.forEach((ele, i) => {
-          if (i + index === index) {
-            arrout.push(ele)
-            if (index !== 0) {
-              for (let index_ = 0; index_ < Math.abs(index - i) - 1; index_++) {
-                arrout.push(arr[index - index_][index_ + index])
-              }
-            }
-          }
-        })
-      })
-      return arrout
-    }
+    // function arrout (arr:Array<Array<number>>) {
+    //   let arrout: Array<Array<number>>
+    //   (arr as any).forEach((element, index) => {
+    //     let sum: number = index
+    //     element.forEach((ele, i) => {
+    //       if (i + index === index) {
+    //         arrout.push(ele)
+    //         if (index !== 0) {
+    //           for (let index_ = 0; index_ < Math.abs(index - i) - 1; index_++) {
+    //             // arrout.push(arr[index - index_][index_ + index])
+    //           }
+    //         }
+    //       }
+    //     })
+    //   })
+    //   return arrout
+    // }
     SONGS_DETAIL(useRoute().query.id).then(res => {
       this.song = res.data.songs[0]
       this.resShow = true
@@ -187,7 +191,7 @@ export default {
     },
     touchstart (e) {
       let startPoint = [e.changedTouches[0].clientX, e.changedTouches[0].clientY]
-      // console.log(e.changedTouches[0].clientX,e.changedTouches[0].clientY)
+      console.log(startPoint)
       this.startPoint = startPoint
       // this.stylus.style.left = '32px'
       // console.log(this.stylus.style)
@@ -196,7 +200,7 @@ export default {
     touchmove (e) {
       let line = e.changedTouches[0].clientX - this.startPoint[0]
       // console.log(e.changedTouches[0].clientX - this.startPoint[0])
-      if (parseInt(line / 5) < 10 && parseInt(line / 5) > -10) {
+      if (parseInt(line / 5.34) < 10 && parseInt(line / 5.34) > -10) {
         let sr = 'scale(0.6) rotate(' + -parseInt(line / 5) + 'deg)'
         document.getElementById('recordArm').style.transform = sr
       }
@@ -211,15 +215,16 @@ export default {
     },
     setStylusCla () {
       let ele = document.getElementById('recordArm')
+      console.log(this.rotage)
       // document.getElementById('rotage').style='animation: roateZ 5s linear infinite'
       // console.log(document.getElementById('rotage').style.animation)
       if (this.audioPlay.paused) {
         document.getElementById('recordArm').style.transform = 'scale(0.6) '
-        document.getElementById('rotage').style.animationPlayState = 'pause'
+        document.getElementById('rotage').style.animationPlayState = 'running'
         this.audioPlay.play()
       } else {
         document.getElementById('recordArm').style.transform = 'scale(0.6) rotate(-10deg)'
-        document.getElementById('rotage').style.animationPlayState = 'running'
+        document.getElementById('rotage').style.animationPlayState = 'paused'
         this.audioPlay.pause()
       }
 
@@ -343,7 +348,7 @@ audio {
   top: -18%;
   // height: 60%;
   // width: 60%;
-  right: 10%;
+  right: 16%;
   z-index: 3000;
   transition: 0.3s;
   transform-origin: right top;

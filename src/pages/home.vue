@@ -1,6 +1,6 @@
 <template>
   <div class="main-color">
-    <div
+    <!-- <div
       class="block"
       @touchstart="touchstart"
       @touchend="touchend"
@@ -16,7 +16,7 @@
         </el-carousel-item>
       </el-carousel>
       <div class="background"></div>
-    </div>
+    </div> -->
     <!-- <van-field class="main-color" v-model="state.text" label="输入搜索歌曲" /> -->
 
     <van-sticky :offset-top="0" position="top">
@@ -93,7 +93,7 @@
 
 <script lang="ts">
 import { SERCH_KEY, SERCH_HOT, GET_SONG } from "../api/index.js";
-import { reactive, ref, watch, provide } from "vue";
+import { reactive, ref, provide } from "vue";
 // import playsmall from "@/pages/playsmall";
 export default {
   name: 'home',
@@ -130,12 +130,8 @@ export default {
     var playInfo = false;
     const audio = ref(null);
     SERCH_HOT().then((res) => {
-      console.log(res.data.result.hots[0].first);
       state.text = res.data.result.hots[0].first;
     });
-    // watch( audio.current, () => {
-    //   console.log(audio.current)
-    // })
     return { audio, state, playInfo };
   },
   methods: {
@@ -154,7 +150,6 @@ export default {
     touchstartRes() {},
     touchend(e) {
       this.touchstartRes();
-      // console.log(e)
       this.endPoint = [
         e.changedTouches[0].clientX,
         e.changedTouches[0].clientY,
@@ -166,33 +161,24 @@ export default {
         ? this.$refs.carousel.next()
         : false;
     },
-    currentTime() {
-      console.log(this.audio.currentTime);
-      watch(this.audio.current, () => {
-        console.log(this.audio.current);
-      });
-    },
     serch() {
       if (this.state.text === "") {
         this.$toast.fail("输入关键词");
       } else {
         SERCH_KEY(this.state.text).then((res) => {
           this.songs = res.data.result.songs;
-          console.log(this.songs[0]);
           this.cardShow = true;
         });
       }
     },
     setPlayInfo(song) {
       this.playInfo = song;
-      console.log(this.playInfo);
     },
     getSong(id, song) {
       this.currentMp3 = "";
       this.playShow = false;
       this.setPlayInfo(song);
       GET_SONG(id).then((res) => {
-        console.log(res.data.data[0].url);
         if (res.data.data[0].url === "") {
           this.$toast.fail("暂时没有资源");
         }
@@ -206,11 +192,9 @@ export default {
       i === 2 ? this.login() : false;
     },
     login() {
-      console.log("登陆操作");
       this.homeAdShow = false;
     },
     toSongs() {
-      console.log(this.playInfo.id);
       this.$router.push({
         name: "lyrics",
         query: {

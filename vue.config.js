@@ -8,6 +8,11 @@ module.exports = {
   // 注意目标目录在构建之前会被清除 (构建时传入 --no-clean 可关闭该行为)。
   // 默认情况下，生成的静态资源在它们的文件名中包含了 hash 以便更好的控制缓存。
   filenameHashing: true,
+  pages: {
+    index: {
+      entry: 'src/main.js'
+    }
+  },
   // 是否在开发环境下通过 eslint-loader 在每次保存时 lint 代码。这个值会在 @vue/cli-plugin-eslint 被安装之后生效。
   lintOnSave: process.env.NODE_ENV !== "production",
 

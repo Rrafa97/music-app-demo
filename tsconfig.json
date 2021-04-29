@@ -1,13 +1,22 @@
 {
-  "target": "es5",
-  "module": "commonjs",
-  "lib": [
-    "es6","dom"
-  ],
-  "allowJs": false,
-  "checkJs": true,
-  "jsx": "preserve",
-  "declaration": true,
-  "sourceMap": true,
-  
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "allowJs": false,
+    "noEmit": true,
+    "types": ["webpack-env"],
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+  },
+  "exclude": ["node_modules"]
 }

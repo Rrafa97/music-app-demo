@@ -8,14 +8,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import { PLAYLIST_CATLIST } from "../api/index.js";
+<script lang="js">
+import {PLAYLIST_CATLIST__} from './common_func.ts'
 export default {
   setup() {
-    const playListCategories: string[] = []
-    PLAYLIST_CATLIST().then((res) => {
-      console.log(res.data);
-    });
+    console.log(PLAYLIST_CATLIST__())
   },
 };
 </script>

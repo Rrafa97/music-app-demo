@@ -1,0 +1,13 @@
+{
+  "target": "es5",
+  "module": "commonjs",
+  "lib": [
+    "es6","dom"
+  ],
+  "allowJs": false,
+  "checkJs": true,
+  "jsx": "preserve",
+  "declaration": true,
+  "sourceMap": true,
+  
+}

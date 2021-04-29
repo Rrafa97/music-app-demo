@@ -55,6 +55,7 @@
           v-model="playTime"
           bar-height="4px"
           @change="onChange"
+          @update:model-value="onUpdate"
           active-color="#ee0a24"
         />
         <van-divider
@@ -131,6 +132,7 @@ export default {
         this.currentLyric = '纯音乐，无歌词'
       } else {
         this.lyric = formlrc(res.data.lrc.lyric)
+        console.log(res.data.lrc.lyric)
       }
       this.getTime()
     })
@@ -140,6 +142,10 @@ export default {
       return a.time - b.time;
     },
     onChange () {
+      this.getCurrentMediaPlayTime()
+    },
+    onUpdate() {
+      console.log(this.playTime)
       this.getCurrentMediaPlayTime()
     },
 

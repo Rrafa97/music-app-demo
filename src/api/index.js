@@ -1,9 +1,9 @@
-import instance from './api.config.js'
+import instance from './api.config.ts'
 
 export function SERCH_KEYWORDS (keywords) {
   return instance({
     method: 'get',
-    url: 'http://musicapi.leanapp.cn/search',
+    url: '/search',
     params: {
       keywords: keywords
     }
@@ -13,7 +13,7 @@ export function SERCH_KEYWORDS (keywords) {
 export function GET_SONG (songId) {
   return instance({
     method: 'get',
-    url: 'https://api.imjad.cn/cloudmusic/',
+    url: '/cloudmusic/',
     params: {
       type: 'song',
       id: songId
@@ -24,14 +24,14 @@ export function GET_SONG (songId) {
 export function SERCH_HOT () {
   return instance({
     method: 'get',
-    url: 'http://rrafa.icu:3000/search/hot/',
+    url: '/search/hot/',
   })
 }
 
 export function SERCH_KEY (keywords) {
   return instance({
     method: 'get',
-    url: 'http://rrafa.icu:3000/cloudsearch',
+    url: '/cloudsearch',
     params: {
       keywords: keywords
     }
@@ -41,7 +41,7 @@ export function SERCH_KEY (keywords) {
 export function GET_LYRIC( id ) {
   return instance ({
     method: 'get',
-    url: 'http://rrafa.icu:3000/lyric',
+    url: '/lyric',
     params: {
       id: id
     }
@@ -51,9 +51,23 @@ export function GET_LYRIC( id ) {
 export function SONGS_DETAIL(ids) {
   return instance ({
     method: 'get',
-    url: 'http://rrafa.icu:3000/song/detail',
+    url: '/song/detail',
     params: {
       ids: ids
     }
+  })
+}
+
+export function PLAYLIST_HOT() {
+  return instance( {
+    method: 'get',
+    url: '/top/playlist?limit=10&order=new'
+  })
+}
+
+export function PLAYLIST_CATLIST() {
+  return instance({
+    method: 'get',
+    url: '/playlist/catlist'
   })
 }

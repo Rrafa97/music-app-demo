@@ -92,7 +92,7 @@
 </template>
 
 <script lang="ts">
-import { SERCH_KEY, SERCH_HOT, GET_SONG } from "../api/index.js";
+import { SERCH_KEY, SERCH_HOT, GET_SONG } from "../api/index";
 import { reactive, ref, provide } from "vue";
 // import playsmall from "@/pages/playsmall";
 export default {

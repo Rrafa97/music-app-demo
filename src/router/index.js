@@ -33,6 +33,15 @@ const routes = [
       index:2,
       keepAlive: false
     }
+  },
+  {
+    path: '/playlist_hot',
+    name: 'playlist_hot',
+    component: () => import(/* webpackChunkName: "about" */ '../pages/playlist_hot.vue'),
+    meta: {
+      title: '热门歌单',
+      keepAlive: false
+    }
   }
 ]
 

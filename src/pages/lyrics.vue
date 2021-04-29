@@ -69,7 +69,7 @@
 </template>
 
 <script lang="js">
-import { GET_LYRIC, GET_SONG, SONGS_DETAIL } from "../api/index.js";
+import { GET_LYRIC, GET_SONG, SONGS_DETAIL } from "../api/index";
 import { formlrc, transfromTimeToMins } from "@/utils"
 import { useRoute } from "vue-router";
 import { onMounted, ref } from 'vue'

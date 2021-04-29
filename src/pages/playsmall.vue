@@ -20,7 +20,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
 import { GET_LYRIC, GET_SONG } from "../api/index.js";
 export default {
   props: { playInfo: Object },

@@ -10,7 +10,7 @@ module.exports = {
   filenameHashing: true,
   pages: {
     index: {
-      entry: 'src/main.js'
+      entry: 'src/main.ts'
     }
   },
   // 是否在开发环境下通过 eslint-loader 在每次保存时 lint 代码。这个值会在 @vue/cli-plugin-eslint 被安装之后生效。

@@ -1,6 +1,6 @@
-import instance from './api.config.ts'
+import instance from './api.config'
 
-export function SERCH_KEYWORDS (keywords) {
+export function SERCH_KEYWORDS (keywords:string) {
   return instance({
     method: 'get',
     url: '/search',
@@ -10,7 +10,7 @@ export function SERCH_KEYWORDS (keywords) {
   })
 }
 
-export function GET_SONG (songId) {
+export function GET_SONG (songId:string) {
   return instance({
     method: 'get',
     url: '/cloudmusic/',
@@ -28,7 +28,7 @@ export function SERCH_HOT () {
   })
 }
 
-export function SERCH_KEY (keywords) {
+export function SERCH_KEY (keywords:string) {
   return instance({
     method: 'get',
     url: '/cloudsearch',
@@ -38,7 +38,7 @@ export function SERCH_KEY (keywords) {
   })
 }
 
-export function GET_LYRIC( id ) {
+export function GET_LYRIC( id:number ) {
   return instance ({
     method: 'get',
     url: '/lyric',
@@ -48,7 +48,7 @@ export function GET_LYRIC( id ) {
   })
 }
 
-export function SONGS_DETAIL(ids) {
+export function SONGS_DETAIL(ids:string) {
   return instance ({
     method: 'get',
     url: '/song/detail',

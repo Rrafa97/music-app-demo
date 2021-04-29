@@ -8,7 +8,7 @@ import axios from "axios";
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
-let config = {
+const config = {
   // baseURL: process.env.baseURL || process.env.apiUrl || ""
   // timeout: 60 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control
@@ -39,9 +39,14 @@ _axios.interceptors.response.use(
   }
 );
 
-Plugin.install = function(Vue, options) {
+
+declare var window: Window & { webkit: any }
+
+(Plugin as any).install = function(Vue:any, options:any) {
+
+
   Vue.axios = _axios;
-  window.axios = _axios;
+  (window as any).axios = _axios;
   Object.defineProperties(Vue.prototype, {
     axios: {
       get() {

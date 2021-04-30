@@ -13,7 +13,7 @@ export function SERCH_KEYWORDS (keywords:string) {
 export function GET_SONG (songId:string) {
   return instance({
     method: 'get',
-    url: '/cloudmusic/',
+    url: '/song/url',
     params: {
       type: 'song',
       id: songId

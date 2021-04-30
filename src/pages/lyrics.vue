@@ -96,7 +96,7 @@ export default {
     const currentMp3 = useRoute().query.mp3
     const info = useRoute().query.playInfo
     var audioPlay = ref(null)
-    var recordArm = ref(1)
+    var recordArm = ref(null)
     var rotage = ref(null)
     function add() {
       recordArm.value ++
@@ -208,7 +208,8 @@ export default {
       // console.log(e.changedTouches[0].clientX - this.startPoint[0])
       if (parseInt(line / 5.34) < 10 && parseInt(line / 5.34) > -10) {
         let sr = 'scale(0.6) rotate(' + -parseInt(line / 5) + 'deg)'
-        document.getElementById('recordArm').style.transform = sr
+        this.recordArm.$el.style.transform = sr
+        // document.getElementById('recordArm').style.transform = sr
       }
     },
     touchend (e) {
@@ -220,17 +221,13 @@ export default {
       }
     },
     setStylusCla () {
-      let ele = document.getElementById('recordArm')
-      console.log(this.rotage.$el)
-      // document.getElementById('rotage').style='animation: roateZ 5s linear infinite'
-      // console.log(document.getElementById('rotage').style.animation)
       if (this.audioPlay.paused) {
-        document.getElementById('recordArm').style.transform = 'scale(0.6) '
-        document.getElementById('rotage').style.animationPlayState = 'running'
+        this.recordArm.$el.style.transform = 'scale(0.6) '
+        this.rotage.$el.style.animationPlayState = 'running'
         this.audioPlay.play()
       } else {
-        document.getElementById('recordArm').style.transform = 'scale(0.6) rotate(-10deg)'
-        document.getElementById('rotage').style.animationPlayState = 'paused'
+        this.recordArm.$el.style.transform = 'scale(0.6) rotate(-10deg)'
+        this.rotage.$el.style.animationPlayState = 'paused'
         this.audioPlay.pause()
       }
 

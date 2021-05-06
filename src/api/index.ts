@@ -71,3 +71,13 @@ export function PLAYLIST_CATLIST() {
     url: '/playlist/catlist'
   })
 }
+
+export function PLAYLIST_INFO(id:number) {
+  return instance({
+    method: 'get',
+    url: '/playlist/detail',
+    params: {
+      id:id
+    }
+  })
+}

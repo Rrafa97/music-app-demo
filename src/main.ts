@@ -5,7 +5,7 @@ import './plugins/element'
 import installElementPlus from './plugins/element'
 import Vant from 'vant';
 import 'default-passive-events'
-import 'vant/lib/index.css';
+import 'vant/lib/index.less';
 
 const app = createApp(App)
 installElementPlus(app)

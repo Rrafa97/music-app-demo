@@ -39,7 +39,9 @@
         alt=""
       /> -->
       <audio loop autoplay ref="audioPlay" :src="currentMp3" controls></audio>
-
+      <div :style="{ height: '8rem',position:'fixed',bottom: '6rem',left: '0em',transform: 'rotate(180deg)',background: 'rgba(0,0,0,.5)',padding:'1rem' }">
+        <van-slider :style="{transform: 'rotate(180deg)'}" v-model="vosalue" bar-height=".3rem"  active-color="#ee0a24" vertical @change="onChangevos" />
+      </div>
       <div class="lyric_area">
         <div>{{ song.name }}</div>
         <div>专辑：{{ song.al.name }}</div>
@@ -53,7 +55,7 @@
         </ul>
         <van-slider
           v-model="playTime"
-          bar-height="4px"
+          bar-height=".3rem"
           @change="onChange"
           @update:model-value="onUpdate"
           active-color="#ee0a24"
@@ -90,6 +92,7 @@ export default {
       nolyric: false,
       startPoint: [],
       endPoint: [],
+      vosalue: ''
     }
   },
   setup () {
@@ -106,23 +109,6 @@ export default {
     return { info, audioPlay, currentMp3, recordArm,add,rotage }
   },
   mounted () {
-    // function arrout (arr:Array<Array<number>>) {
-    //   let arrout: Array<Array<number>>
-    //   (arr as any).forEach((element, index) => {
-    //     let sum: number = index
-    //     element.forEach((ele, i) => {
-    //       if (i + index === index) {
-    //         arrout.push(ele)
-    //         if (index !== 0) {
-    //           for (let index_ = 0; index_ < Math.abs(index - i) - 1; index_++) {
-    //             // arrout.push(arr[index - index_][index_ + index])
-    //           }
-    //         }
-    //       }
-    //     })
-    //   })
-    //   return arrout
-    // }
     SONGS_DETAIL(useRoute().query.id).then(res => {
       this.song = res.data.songs[0]
       this.resShow = true
@@ -187,6 +173,7 @@ export default {
       let suoudTime = this.playTime / 100 * allTime
       this.audioPlay.currentTime = suoudTime
     },
+    onChangevos() {},
     mainLy () {
       var lineNo = 0
       var C_pos = 6
@@ -236,7 +223,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .bacg-abs {
   position: fixed;
   top: 0;

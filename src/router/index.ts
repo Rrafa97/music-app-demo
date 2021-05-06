@@ -42,7 +42,16 @@ const routes = [
       title: '热门歌单',
       keepAlive: false
     }
-  }
+  },
+  {
+    path: '/playlist',
+    name: 'playlist',
+    component: () => import(/* webpackChunkName: "about" */ '../pages/playlist.vue'),
+    meta: {
+      title: '歌单详情',
+      keepAlive: false
+    }
+  },
 ]
 
 const router = createRouter({

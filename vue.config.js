@@ -3,7 +3,7 @@ module.exports = {
   // 默认情况下，Vue CLI 会假设你的应用是被部署在一个域名的根路径上，例如 https://www.my-app.com/。
   // 如果应用被部署在一个子路径上，你就需要用这个选项指定这个子路径。例如，如果你的应用被部署在 https://www.my-app.com/my-app/，则设置 publicPath 为 /my-app/。
   publicPath: '/uiappdemo/',
-    // process.env.NODE_ENV === "production" ? "/production-sub-path/" : "/",
+  // process.env.NODE_ENV === "production" ? "/production-sub-path/" : "/",
   // 当运行 vue-cli-service build 时生成的生产环境构建文件的目录。
   // 注意目标目录在构建之前会被清除 (构建时传入 --no-clean 可关闭该行为)。
   // 默认情况下，生成的静态资源在它们的文件名中包含了 hash 以便更好的控制缓存。
@@ -46,5 +46,20 @@ module.exports = {
         }
       }
     }
-  }
+  },
+  css: {
+    loaderOptions: {
+      less: {
+        modifyVars: {
+          // 直接覆盖变量
+          'text-color': '#111',
+          'border-color': '#eee',
+          '@grid-item-content-background-color': 'rgb(98, 22, 36)',
+          // 或者可以通过 less 文件覆盖（文件路径为绝对路径）
+          hack: `true; @import "your-less-file-path.less";`,
+        },
+
+      },
+    },
+  },
 }

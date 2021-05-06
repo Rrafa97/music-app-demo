@@ -208,7 +208,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .block {
   height: auto;
   background: rgb(98, 22, 36);
@@ -225,11 +225,11 @@ export default {
 }
 .main-color {
   color: aliceblue;
-  background: rgba($color: #000000, $alpha: 0);
+  background: rgba( #000000,  0);
 }
 .mask-play {
   padding: 16px 0;
-  background: rgba($color: #000000, $alpha: 0.5);
+  background: rgba( #000000,  0.5);
   text-align: center;
   p {
     margin-bottom: 16px;

@@ -12,7 +12,7 @@
         title-active-color="rgb(226, 225, 228)"
       >
         <van-tab title="当前热门歌单">
-          <!-- <van-row justify="left" v-for="item in state.hotPlayList">
+          <van-row justify="left" v-for="item in state.hotPlayList">
             <van-col span="10">
               <van-image
                 :style="{ border: '10px groove rgb(206, 87, 119)' }"
@@ -23,7 +23,7 @@
               />
             </van-col>
             <van-col span="14">
-
+              <!-- {{ item.name }} -->
               <van-cell
                 title-style="font-size: 24px;white-space:nowrap"
                 arrow-direction
@@ -32,38 +32,25 @@
                 :style="{ background: 'rgb(98, 22, 36)', color: 'white' }"
                 :title="item.name"
               />
+              <!-- <van-cell
+                :label="'最后更新时间' + item.creator.nickname"
+                :style="{ background: 'rgb(98, 22, 36)', color: 'white' }"
+              /> -->
             </van-col>
-          </van-row> -->
+          </van-row>
 
           <van-grid
             :gutter="0"
             :column-num="3"
-            icon-size="102px"
+            icon-size="64px"
             :border="false"
           >
             <van-grid-item
               v-for="item in state.hotPlayList"
               :icon="item.coverImgUrl"
               :text="item.name"
-              color="white"
               @click="getPlaylistInfo(item.id)"
-              dot
             >
-              <van-tag
-                round 
-                color="rgba(0, 0, 0,.6)"
-                :style="{
-                  marginRight: '6px',
-                  position: 'absolute',
-                  right: '8px',
-                  top: '24px',
-                  zIndex: '303'
-                }"
-                type="primary"
-                ><van-icon name="play-circle-o" />{{ item.playCount }}</van-tag
-              >
-              <van-image radius="16" :src="item.coverImgUrl"></van-image>
-              <div :style="{ margin: '16px' }">{{ item.name }}</div>
             </van-grid-item>
           </van-grid>
         </van-tab>

@@ -50,14 +50,13 @@
               dot
             >
               <van-tag
-                round 
-                color="rgba(0, 0, 0,.6)"
+                mark
+                color="rgb(137, 78, 84)"
                 :style="{
                   marginRight: '6px',
                   position: 'absolute',
-                  right: '8px',
-                  top: '24px',
-                  zIndex: '303'
+                  right: '0px',
+                  top: '0px',
                 }"
                 type="primary"
                 ><van-icon name="play-circle-o" />{{ item.playCount }}</van-tag

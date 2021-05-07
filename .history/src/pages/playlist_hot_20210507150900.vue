@@ -51,7 +51,7 @@
             >
               <van-tag
                 round 
-                color="rgba(0, 0, 0,.6)"
+                color="rgba(0, 0, 0,.5)"
                 :style="{
                   marginRight: '6px',
                   position: 'absolute',

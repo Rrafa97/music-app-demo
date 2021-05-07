@@ -40,30 +40,18 @@
             :column-num="3"
             icon-size="102px"
             :border="false"
+            
           >
             <van-grid-item
               v-for="item in state.hotPlayList"
               :icon="item.coverImgUrl"
               :text="item.name"
-              color="white"
+              color='white'
               @click="getPlaylistInfo(item.id)"
               dot
             >
-              <van-tag
-                round 
-                color="rgba(0, 0, 0,.6)"
-                :style="{
-                  marginRight: '6px',
-                  position: 'absolute',
-                  right: '8px',
-                  top: '24px',
-                  zIndex: '303'
-                }"
-                type="primary"
-                ><van-icon name="play-circle-o" />{{ item.playCount }}</van-tag
-              >
-              <van-image radius="16" :src="item.coverImgUrl"></van-image>
-              <div :style="{ margin: '16px' }">{{ item.name }}</div>
+            <image :src="item.coverImgUrl"></image>
+            <div :style="{margin:'16px'}">{{item.name}}</div>
             </van-grid-item>
           </van-grid>
         </van-tab>

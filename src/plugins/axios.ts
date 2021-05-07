@@ -40,7 +40,7 @@ _axios.interceptors.response.use(
 );
 
 
-declare var window: Window & { webkit: any }
+declare let window: Window & { webkit: any }
 
 (Plugin as any).install = function(Vue:any, options:any) {
 

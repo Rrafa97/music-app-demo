@@ -6,17 +6,20 @@
 
 <script lang="ts">
 import { useRoute } from "vue-router";
-import {GET_SONG,SONGS_DETAIL} from '@/api/index';
+import {GET_SONG} from '@/api/index';
 export default {
   setup() {
     const pinfo  = JSON.parse((useRoute() as unknown|any).query.playlistinfo);
-    let songids:string = '0'
+    let songids:string = ''
     for (const i in pinfo.trackIds) {
-      songids = songids.concat(",",pinfo.trackIds[i].id)
+      console.log(pinfo.trackIds[i].id)
+      // if (Object.prototype.hasOwnProperty.call(object, i)) {
+      //   const element = object[i];
+        
+      // }
     }
-    console.log(songids)
-    // GET_SONG(songids).then(res => console.log(res.data.data))
-    SONGS_DETAIL(songids).then(res => console.log(res.data))
+    console.log(GET_SONG)
+    console.log(pinfo.trackIds);
     return { pinfo };
   },
 };

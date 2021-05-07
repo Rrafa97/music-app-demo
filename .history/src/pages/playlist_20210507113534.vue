@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { useRoute } from "vue-router";
-import {GET_SONG,SONGS_DETAIL} from '@/api/index';
+import {GET_SONG} from '@/api/index';
 export default {
   setup() {
     const pinfo  = JSON.parse((useRoute() as unknown|any).query.playlistinfo);
@@ -15,8 +15,7 @@ export default {
       songids = songids.concat(",",pinfo.trackIds[i].id)
     }
     console.log(songids)
-    // GET_SONG(songids).then(res => console.log(res.data.data))
-    SONGS_DETAIL(songids).then(res => console.log(res.data))
+    console.log(GET_SONG(songids))
     return { pinfo };
   },
 };

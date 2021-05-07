@@ -15,8 +15,8 @@ export default {
       songids = songids.concat(",",pinfo.trackIds[i].id)
     }
     console.log(songids)
-    // GET_SONG(songids).then(res => console.log(res.data.data))
-    SONGS_DETAIL(songids).then(res => console.log(res.data))
+    console.log(GET_SONG(songids).then(res => console.log(res)))
+    SONGS_DETAIL(songids).then(res => console.log(res))
     return { pinfo };
   },
 };

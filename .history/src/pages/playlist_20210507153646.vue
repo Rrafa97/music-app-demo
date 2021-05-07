@@ -7,7 +7,7 @@
       :thumb="pinfo.coverImgUrl"
     >
       <template #tags>
-        <p>创建时间:{{ ctimetemp }}</p>
+        <p>创建时间:{{ timper }}</p>
       </template>
     </van-card>
     <van-swipe-cell>
@@ -49,7 +49,7 @@ export default {
     // console.log(songids);
     // GET_SONG(songids).then(res => console.log(res.data.data))
     SONGS_DETAIL(songids).then((res) => console.log(res.data));
-    return { pinfo,ctimetemp };
+    return { pinfo,timper };
   },
 };
 </script>

@@ -1,0 +1,32 @@
+<template>
+  <div>
+    <van-swipe-cell>
+      <template #left>
+        <van-button square type="primary" text="选择" />
+      </template>
+      <van-cell :border="false" title="单元格" value="内容" />
+      <template #right>
+        <van-button square type="danger" text="置顶单曲循环" />
+      </template>
+    </van-swipe-cell>
+    <van-cell title="单元格" icon="play-circle-o"><p>111</p></van-cell>
+  </div>
+</template>
+
+<script lang="ts">
+import { useRoute } from "vue-router";
+import { GET_SONG, SONGS_DETAIL } from "@/api/index";
+export default {
+  setup() {
+    const pinfo = JSON.parse((useRoute() as unknown | any).query.playlistinfo);
+    let songids: string = "0";
+    for (const i in pinfo.trackIds) {
+      songids = songids.concat(",", pinfo.trackIds[i].id);
+    }
+    console.log(songids);
+    // GET_SONG(songids).then(res => console.log(res.data.data))
+    SONGS_DETAIL(songids).then((res) => console.log(res.data));
+    return { pinfo };
+  },
+};
+</script>

@@ -7,7 +7,7 @@
       :thumb="pinfo.coverImgUrl"
     >
       <template #tags>
-        <p>创建时间:{{ ctimetemp }}</p>
+        <p>创建时间:{{ pinfo.createTime }}</p>
       </template>
     </van-card>
     <van-swipe-cell>
@@ -28,9 +28,12 @@ import { GET_SONG, SONGS_DETAIL } from "@/api/index";
 export default {
   setup() {
     const pinfo = JSON.parse((useRoute() as unknown | any).query.playlistinfo);
-    
+    let ctimetemp = new Date(pinfo.createTime);
     function timper(temp: string) {
       let ctemp = new Date(temp);
+      console.log(ctemp.getFullYear());
+      console.log(ctemp.getMonth());
+      console.log(ctemp.getDate());
       let ctime: string =
         ctemp.getFullYear().toString() +
         "-" +
@@ -38,10 +41,9 @@ export default {
         1 +
         "-" +
         ctemp.getDate();
-      return ctime
+      console.log(ctime);
     }
-    let ctimetemp = timper(pinfo.createTime);
-    console.log(ctimetemp);
+    timper(pinfo.createTime);
     let songids: string = "0";
     for (const i in pinfo.trackIds) {
       songids = songids.concat(",", pinfo.trackIds[i].id);
@@ -49,7 +51,7 @@ export default {
     // console.log(songids);
     // GET_SONG(songids).then(res => console.log(res.data.data))
     SONGS_DETAIL(songids).then((res) => console.log(res.data));
-    return { pinfo,ctimetemp };
+    return { pinfo };
   },
 };
 </script>

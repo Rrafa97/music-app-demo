@@ -25,16 +25,16 @@
             <van-col span="14">
               <!-- {{ item.name }} -->
               <van-cell
-                title-style="font-size: 24px;white-space:nowrap"
-                arrow-direction
-                :value="item.creator.nickname + ''"
+                :label="item.creator.nickname"
+                icon="contact"
                 :style="{ background: 'rgb(98, 22, 36)', color: 'white' }"
                 :title="item.name"
               />
-              <!-- <van-cell
+              <van-cell
                 :label="'最后更新时间' + item.creator.nickname"
                 :style="{ background: 'rgb(98, 22, 36)', color: 'white' }"
-              /> -->
+                
+              />
             </van-col>
           </van-row>
 

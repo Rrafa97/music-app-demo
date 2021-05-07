@@ -11,7 +11,7 @@
         title-inactive-color="rgb(200, 173, 196)"
         title-active-color="rgb(226, 225, 228)"
       >
-        <van-tab title="当前热门歌单">
+        <van-tab title="当前热门">
           <van-row justify="left" v-for="item in state.hotPlayList">
             <van-col span="10">
               <van-image
@@ -22,19 +22,15 @@
                 :src="item.coverImgUrl"
               />
             </van-col>
-            <van-col span="14">
-              <!-- {{ item.name }} -->
+            <van-col span="10">
+              {{ item.name }}
               <van-cell
-                title-style="font-size: 24px;white-space:nowrap"
-                arrow-direction
-                :value="item.creator.nickname + ''"
+                center
+                icon="contact"
                 :style="{ background: 'rgb(98, 22, 36)', color: 'white' }"
                 :title="item.name"
+                 label="描述信息"
               />
-              <!-- <van-cell
-                :label="'最后更新时间' + item.creator.nickname"
-                :style="{ background: 'rgb(98, 22, 36)', color: 'white' }"
-              /> -->
             </van-col>
           </van-row>
 

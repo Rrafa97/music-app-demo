@@ -39,13 +39,13 @@
         收藏
         <!-- <van-button square type="danger" text="收藏" /> -->
       </template>
-      <van-cell clickable :style="{ background: 'rgba(0,0,0,0)', color: 'white' }">
+      <van-cell :style="{ background: 'rgba(0,0,0,0)', color: 'white' }">
         <template #title>
-          <div :style="{fontSize:'22px', whiteSpace: 'nowrap',overflow:'hidden'}">{{item.name}}</div>
+          <div :style="{fontSize:'22px', whiteSpace: 'nowrap'}">{{item.name}}</div>
           <div :style="{color: 'rgb(218, 164, 90)', whiteSpace: 'nowrap'}">专辑：{{item.al.name}}</div>
         </template>
         <template #default>
-          <van-icon size="32" name="play-circle-o" />
+          <van-icon size="24" name="play-circle-o" />
           <!-- <van-icon size="24" name="pause-circle-o" />
           <van-icon size="24" name="stop-circle-o" /> -->
         </template>

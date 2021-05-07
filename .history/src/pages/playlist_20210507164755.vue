@@ -34,26 +34,32 @@
 
     <van-divider :style="{ color: 'white' }">歌单列表</van-divider>
 
+    ----------------
+    <!-- <div v-for="item in state.songs">
+      {{item.name}}
+    </div> -->
+
     <van-swipe-cell v-for="item in state.songs">
       <template #left>
-        收藏
-        <!-- <van-button square type="danger" text="收藏" /> -->
+        <van-button square type="danger" text="收藏" />
       </template>
-      <van-cell clickable :style="{ background: 'rgba(0,0,0,0)', color: 'white' }">
+      <van-cell :style="{ background: 'rgba(0,0,0,0)', color: 'white' }">
         <template #title>
-          <div :style="{fontSize:'22px', whiteSpace: 'nowrap',overflow:'hidden'}">{{item.name}}</div>
-          <div :style="{color: 'rgb(218, 164, 90)', whiteSpace: 'nowrap'}">专辑：{{item.al.name}}</div>
+          <div>{{item.name}}</div>
+          <van-tag>1231</van-tag>
         </template>
         <template #default>
-          <van-icon size="32" name="play-circle-o" />
+          <van-icon size="24" name="play-circle-o" />
           <!-- <van-icon size="24" name="pause-circle-o" />
           <van-icon size="24" name="stop-circle-o" /> -->
         </template>
       </van-cell>
-
+      <van-cell
+        :style="{ background: 'rgba(0,0,0,0)', color: 'white' }"
+        title="112"
+      ></van-cell>
       <template #right>
-        <!-- <van-button square type="danger" text="置顶单曲循环" /> -->
-        收藏
+        <van-button square type="danger" text="置顶单曲循环" />
       </template>
     </van-swipe-cell>
   </div>

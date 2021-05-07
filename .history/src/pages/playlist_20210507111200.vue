@@ -8,7 +8,7 @@
 import { useRoute } from "vue-router";
 export default {
   setup() {
-    const pinfo  = JSON.parse((useRoute() as unknown|any).query.playlistinfo);
+    const pinfo = JSON.parse((useRoute() as unknown|any).query.playlistinfo);
     console.log(pinfo.coverImgUrl);
     return { pinfo };
   },

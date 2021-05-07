@@ -137,7 +137,7 @@ export default {
         } else {
           let mp3 = res.data.data[0].url;
           console.log(mp3);
-          (this as any).$router.push({
+          this.$router.push({
             name: "lyrics",
             query: {
               id: id,

@@ -65,7 +65,7 @@
           content-position="right"
           >{{ showPlayTime }}</van-divider
         >
-        <p>已知问题：纯音乐歌词暂时无法获取时长和歌词等详情，部分歌曲无法拖动滚动条实现实时播放</p>
+        <p>已知问题：纯音乐歌词暂时无法获取时长和歌词等详情</p>
       </div>
       
     </div>

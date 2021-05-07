@@ -28,7 +28,7 @@
         <p>创建时间:{{ state.ctimetemp }}</p>
       </template>
       <template #num>
-        <van-icon name="p-o">{{ pinfo__.tracks.length }}首</van-icon>
+        <van-icon name="p-o">{{ pinfo__.trackIds.length }}首</van-icon>
       </template>
     </van-card>
 
@@ -42,7 +42,7 @@
       <van-cell
         clickable
         :style="{ background: 'rgba(0,0,0,0)', color: 'white' }"
-        @click="getSongUrl(item, item.id)"
+        @click="getSongUrl(item.id)"
       >
         <template #title>
           <div
@@ -53,28 +53,28 @@
             }"
           >
             {{ item.name }}
-            <van-tag v-if="item.resourceState" type="danger">有资源</van-tag>
           </div>
           <!-- <div :style="{color: 'rgb(218, 164, 90)', whiteSpace: 'nowrap'}">专辑：{{item.al.name}}</div> -->
           <!-- <van-notice-bar color="white" :style="{height:'32px',fontSize:'22px', whiteSpace: 'nowrap',overflow:'hidden'}" background='rgba(0,0,0,0)' speed='1' scrollable :text="item.name" /> -->
-          <div :style="{ whiteSpace: 'nowrap' }">
-            <!-- <van-tag type="danger">标签</van-tag> -->
-            <van-notice-bar
-              :style="{ height: '24px' }"
-              background="rgba(0,0,0,0)"
-              speed="1"
-              scrollable
-              :text="
-                '专辑：' +
-                item.al.name +
-                '/艺术家：' +
-                item.ar[0].name +
-                '/发行时间：'
-              "
-            />
+          <div>
+          <van-tag type="danger">标签</van-tag>
+          <van-notice-bar
+            :style="{ height: '24px' }"
+            background="rgba(0,0,0,0)"
+            speed="1"
+            scrollable
+            :text="
+              '专辑：' +
+              item.al.name +
+              '/艺术家：' +
+              item.ar[0].name +
+              '/发行时间：'
+            "
+          />
           </div>
+
         </template>
-        <template #default :style="{ color: 'white' }">
+        <template #default>
           <van-icon size="32" name="play-circle-o" />
           <!-- <van-icon size="24" name="pause-circle-o" />
           <van-icon size="24" name="stop-circle-o" /> -->
@@ -116,8 +116,8 @@ export default {
     }
     // let ctimetemp = timper(pinfo.createTime);
     let songids: string = "0";
-    for (const i in state.pinfo.tracks) {
-      songids = songids.concat(",", state.pinfo.tracks[i].id);
+    for (const i in state.pinfo.trackIds) {
+      songids = songids.concat(",", state.pinfo.trackIds[i].id);
     }
     async function getSongs() {
       const songs__ = await SONGS_DETAIL(songids).then((res: any) => res);
@@ -128,27 +128,13 @@ export default {
     return { pinfo__, state };
   },
   methods: {
-    getSongUrl(item: any, id: string) {
-      console.log(id);
-      console.log(item);
-      GET_SONG(id).then((res) => {
-        if (res.data.data[0].url === null) {
-          (this as any).$toast.fail("其他版本可播");
-        } else {
-          let mp3 = res.data.data[0].url;
-          console.log(mp3);
-          (this as any).$router.push({
-            name: "lyrics",
-            query: {
-              id: id,
-              mp3: mp3,
-              info: '',
-            },
-          });
-        }
-      });
-    },
-  },
+    getSongUrl(id:string) {
+      console.log(id)
+      GET_SONG(id).then(res => {
+        console.log(res)
+      })
+    }
+  }
 };
 </script>
 

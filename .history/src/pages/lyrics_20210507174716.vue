@@ -65,9 +65,7 @@
           content-position="right"
           >{{ showPlayTime }}</van-divider
         >
-        <p>已知问题：纯音乐歌词暂时无法获取时长和歌词等详情，部分歌曲无法拖动滚动条实现实时播放</p>
       </div>
-      
     </div>
   </div>
 </template>
@@ -120,7 +118,7 @@ export default {
         this.currentLyric = '纯音乐，无歌词'
       } else {
         this.lyric = formlrc(res.data.lrc.lyric)
-        // console.log(res.data.lrc.lyric)
+        console.log(res.data.lrc.lyric)
       }
       this.getTime()
     })
@@ -133,7 +131,7 @@ export default {
       this.getCurrentMediaPlayTime()
     },
     onUpdate() {
-      // console.log(this.playTime)
+      console.log(this.playTime)
       this.getCurrentMediaPlayTime()
     },
 
@@ -186,7 +184,7 @@ export default {
     },
     touchstart (e) {
       let startPoint = [e.changedTouches[0].clientX, e.changedTouches[0].clientY]
-      // console.log(startPoint)
+      console.log(startPoint)
       this.startPoint = startPoint
       // this.stylus.style.left = '32px'
       // console.log(this.stylus.style)
@@ -204,9 +202,9 @@ export default {
     touchend (e) {
       this.endPoint = [e.changedTouches[0].clientX, e.changedTouches[0].clientY]
       if (this.startPoint[0] - this.endPoint[0] > 10) {
-        // console.log('播放')
+        console.log('播放')
       } else if (this.endPoint[0] - this.startPoint[0] > 10) {
-        // console.log('放开')
+        console.log('放开')
       }
     },
     setStylusCla () {

@@ -137,16 +137,16 @@ export default {
         } else {
           let mp3 = res.data.data[0].url;
           console.log(mp3);
-          (this as any).$router.push({
-            name: "lyrics",
-            query: {
-              id: id,
-              mp3: mp3,
-              info: '',
-            },
-          });
         }
       });
+      // this.$router.push({
+      //   name: "lyrics",
+      //   query: {
+      //     id: this.playInfo.id,
+      //     mp3: this.currentMp3,
+      //     info: this.playInfo,
+      //   },
+      // });
     },
   },
 };

@@ -42,7 +42,7 @@
       <van-cell
         clickable
         :style="{ background: 'rgba(0,0,0,0)', color: 'white' }"
-        @click="getSongUrl(item, item.id)"
+        @click="getSongUrl(item.id)"
       >
         <template #title>
           <div
@@ -128,25 +128,21 @@ export default {
     return { pinfo__, state };
   },
   methods: {
-    getSongUrl(item: any, id: string) {
+    getSongUrl(id: string) {
       console.log(id);
-      console.log(item);
       GET_SONG(id).then((res) => {
-        if (res.data.data[0].url === null) {
-          (this as any).$toast.fail("其他版本可播");
-        } else {
-          let mp3 = res.data.data[0].url;
-          console.log(mp3);
-          (this as any).$router.push({
-            name: "lyrics",
-            query: {
-              id: id,
-              mp3: mp3,
-              info: '',
-            },
-          });
-        }
+        
+        let mp3 = res.data.url
+        console.log(mp3);
       });
+      // this.$router.push({
+      //   name: "lyrics",
+      //   query: {
+      //     id: this.playInfo.id,
+      //     mp3: this.currentMp3,
+      //     info: this.playInfo,
+      //   },
+      // });
     },
   },
 };

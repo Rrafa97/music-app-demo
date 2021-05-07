@@ -87,7 +87,7 @@ export function HIGHT_QUALITY_PL(limit: any) {
     method: 'get',
     url: '/top/playlist/highquality',
     params: {
-      limit: limit ? limit : 30
+      // limit: limit ? limit : 30
     }
   })
 }

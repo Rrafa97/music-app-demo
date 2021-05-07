@@ -1,0 +1,93 @@
+<template>
+  <div>
+    <div>
+      <van-tabs
+        animated
+        color="white"
+        sticky
+        background="rgb(98, 22, 36)"
+        v-model:active="state.active"
+        swipeable
+        title-inactive-color="rgb(200, 173, 196)"
+        title-active-color="rgb(226, 225, 228)"
+      >
+        <van-tab title="当前热门歌单">
+
+          <van-grid
+            :gutter="0"
+            :column-num="3"
+            icon-size="102px"
+            :border="false"
+          >
+            <van-grid-item
+              v-for="item in state.hotPlayList"
+              :icon="item.coverImgUrl"
+              :text="item.name"
+              color="white"
+              @click="getPlaylistInfo(item.id)"
+              dot
+            >
+              <van-tag
+                round 
+                color="rgba(0, 0, 0,.6)"
+                :style="{
+                
+                  position: 'absolute',
+                  right: '8px',
+                  top: '24px',
+                  zIndex: '303'
+                }"
+                type="primary"
+                ><van-icon name="play-circle-o" />{{ item.playCount }}</van-tag
+              >
+              <van-image radius="16" :src="item.coverImgUrl"></van-image>
+              <div :style="{ margin: '16px' }">{{ item.name }}</div>
+            </van-grid-item>
+          </van-grid>
+        </van-tab>
+        <van-tab v-for="item in state.playListInfo.sub" :title="item.name">
+          {{ item.resourceCount }}
+        </van-tab>
+      </van-tabs>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { PLAYLIST_CATLIST, PLAYLIST_HOT, PLAYLIST_INFO } from "@/api/index";
+import { onMounted, onBeforeMount, ref, computed, watch, reactive } from "vue";
+export default {
+  setup() {
+    const state = reactive({
+      playListInfo: {},
+      active: ref(0),
+      hotPlayList: {},
+    });
+    onBeforeMount(async () => {
+      const playListCats = await PLAYLIST_CATLIST().then((res: object) => res);
+      const hotPlayList = await PLAYLIST_HOT().then((res: object) => res);
+      state.hotPlayList = (hotPlayList as any).data.playlists;
+      state.playListInfo = (playListCats as any).data;
+    });
+
+    watch(state, () => {
+      console.log(state.hotPlayList);
+    });
+    return { state };
+  },
+  methods: {
+    getPlaylistInfo(id: number) {
+      let this__ = this;
+      PLAYLIST_INFO(id).then((res) => {
+        console.log(res.data);
+        (this as any).$router.push({
+          name: "playlist",
+          query: {
+            playlistinfo: JSON.stringify(res.data.playlist),
+          },
+        });
+      });
+    },
+  },
+};
+</script>

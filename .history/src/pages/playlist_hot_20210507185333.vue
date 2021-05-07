@@ -135,12 +135,12 @@ export default {
     getPlaylistInfo(id: number) {
       let this__ = this;
       PLAYLIST_INFO(id).then((res) => {
-        (this as any).$router.push({
-          name: "playlist",
-          query: {
-            playlistinfo: JSON.stringify(res.data.playlist),
-          },
-        });
+        // (this as any).$router.push({
+        //   name: "playlist",
+        //   query: {
+        //     playlistinfo: JSON.stringify(res.data.playlist),
+        //   },
+        // });
       });
     },
     touchmove(e: any) {},

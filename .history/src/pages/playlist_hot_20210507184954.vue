@@ -81,12 +81,12 @@
                 ><van-icon name="play-circle-o" />{{ item.playCount }}</van-tag
               >
               <van-image
-                width="8.4rem"
-                height="8.4rem"
+                width="6.4rem"
+                height="6.4rem"
                 radius="6"
                 :src="item.coverImgUrl"
               ></van-image>
-              <div :style="{margin:'12px 0',   overflow: 'hidden',  maxWidth: '8rem', fontSize: '12px',whiteSpace: 'nowrap' }">
+              <div :style="{ fontSize: '12px',whiteSpace: 'nowrap' }">
                 {{ item.name }}
               </div>
             </van-grid-item>
@@ -135,12 +135,12 @@ export default {
     getPlaylistInfo(id: number) {
       let this__ = this;
       PLAYLIST_INFO(id).then((res) => {
-        (this as any).$router.push({
-          name: "playlist",
-          query: {
-            playlistinfo: JSON.stringify(res.data.playlist),
-          },
-        });
+        // (this as any).$router.push({
+        //   name: "playlist",
+        //   query: {
+        //     playlistinfo: JSON.stringify(res.data.playlist),
+        //   },
+        // });
       });
     },
     touchmove(e: any) {},

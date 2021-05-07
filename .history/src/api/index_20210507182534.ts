@@ -82,11 +82,12 @@ export function PLAYLIST_INFO(id: number) {
   })
 }
 
-export function HIGHT_QUALITY_PL(limit: any) {
+export function HIGHT_QUALITY_PL(cat: any, limit: any) {
   return instance({
     method: 'get',
     url: '/top/playlist/highquality',
     params: {
+      cat: cat ? cat : "全部",
       limit: limit ? limit : 30
     }
   })

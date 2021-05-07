@@ -1,6 +1,6 @@
 import instance from './api.config'
 
-export function SERCH_KEYWORDS(keywords: string) {
+export function SERCH_KEYWORDS (keywords:string) {
   return instance({
     method: 'get',
     url: '/search',
@@ -10,7 +10,7 @@ export function SERCH_KEYWORDS(keywords: string) {
   })
 }
 
-export function GET_SONG(songId: string) {
+export function GET_SONG (songId:string) {
   return instance({
     method: 'get',
     url: '/song/url',
@@ -21,14 +21,14 @@ export function GET_SONG(songId: string) {
   })
 }
 
-export function SERCH_HOT() {
+export function SERCH_HOT () {
   return instance({
     method: 'get',
     url: '/search/hot/',
   })
 }
 
-export function SERCH_KEY(keywords: string) {
+export function SERCH_KEY (keywords:string) {
   return instance({
     method: 'get',
     url: '/cloudsearch',
@@ -38,8 +38,8 @@ export function SERCH_KEY(keywords: string) {
   })
 }
 
-export function GET_LYRIC(id: number) {
-  return instance({
+export function GET_LYRIC( id:number ) {
+  return instance ({
     method: 'get',
     url: '/lyric',
     params: {
@@ -48,8 +48,8 @@ export function GET_LYRIC(id: number) {
   })
 }
 
-export function SONGS_DETAIL(ids: string) {
-  return instance({
+export function SONGS_DETAIL(ids:string) {
+  return instance ({
     method: 'get',
     url: '/song/detail',
     params: {
@@ -59,7 +59,7 @@ export function SONGS_DETAIL(ids: string) {
 }
 
 export function PLAYLIST_HOT() {
-  return instance({
+  return instance( {
     method: 'get',
     url: '/top/playlist?limit=10&order=new'
   })
@@ -72,22 +72,23 @@ export function PLAYLIST_CATLIST() {
   })
 }
 
-export function PLAYLIST_INFO(id: number) {
+export function PLAYLIST_INFO(id:number) {
   return instance({
     method: 'get',
     url: '/playlist/detail',
     params: {
-      id: id
+      id:id
     }
   })
 }
 
-export function HIGHT_QUALITY_PL(limit: any) {
+export function HIGHT_QUALITY_PL(cat:any,limit:any) {
   return instance({
     method: 'get',
     url: '/top/playlist/highquality',
     params: {
-      limit: limit ? limit : 30
+      cat: cat?cat:"全部",
+      limit: limit?limit:30
     }
   })
 }

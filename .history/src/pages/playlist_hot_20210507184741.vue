@@ -55,12 +55,13 @@
         <van-tab title="全部歌单">
           <van-grid
             :gutter="0"
-            :column-num="2"
+            :column-num="1"
             icon-size="102px"
             :border="false"
           >
             <van-grid-item
               v-for="item in state.allList"
+              direction="horizontal"
               :icon="item.coverImgUrl"
               :text="item.name"
               color="white"
@@ -72,7 +73,7 @@
                 color="rgba(0, 0, 0,.6)"
                 :style="{
                   position: 'absolute',
-                  right: '3.8rem',
+                  right: '.8rem',
                   top: '.3rem',
                   zIndex: '303',
                   textAlign: 'right',
@@ -81,12 +82,12 @@
                 ><van-icon name="play-circle-o" />{{ item.playCount }}</van-tag
               >
               <van-image
-                width="8.4rem"
-                height="8.4rem"
+                width="6.4rem"
+                height="6.4rem"
                 radius="6"
                 :src="item.coverImgUrl"
               ></van-image>
-              <div :style="{margin:'12px 0',   overflow: 'hidden',  maxWidth: '8rem', fontSize: '12px',whiteSpace: 'nowrap' }">
+              <div :style="{ margin: '16px', whiteSpace: 'nowrap' }">
                 {{ item.name }}
               </div>
             </van-grid-item>
@@ -135,12 +136,12 @@ export default {
     getPlaylistInfo(id: number) {
       let this__ = this;
       PLAYLIST_INFO(id).then((res) => {
-        (this as any).$router.push({
-          name: "playlist",
-          query: {
-            playlistinfo: JSON.stringify(res.data.playlist),
-          },
-        });
+        // (this as any).$router.push({
+        //   name: "playlist",
+        //   query: {
+        //     playlistinfo: JSON.stringify(res.data.playlist),
+        //   },
+        // });
       });
     },
     touchmove(e: any) {},

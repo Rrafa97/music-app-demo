@@ -1,7 +1,7 @@
 <template>
   <div class="main-color">
 
-    <!-- <van-sticky :offset-top="0" position="bottom"> -->
+    <van-sticky :offset-top="0" position="bottom">
       <van-search
         v-model="value"
         shape="round"
@@ -28,7 +28,7 @@
           >
         </template>
       </van-field> -->
-    <!-- </van-sticky> -->
+    </van-sticky>
 
     <!-- <van-button type="danger" @click="serch">搜索</van-button> -->
     <div v-for="(index, item) in songs" key="item">

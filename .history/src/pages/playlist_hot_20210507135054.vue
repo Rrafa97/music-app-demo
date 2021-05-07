@@ -1,28 +1,13 @@
 <template>
   <div>
     <div>
-      <van-tabs
-        animated
-        color="white"
-        sticky
-        background="rgb(98, 22, 36)"
-        v-model:active="state.active"
-        swipeable
-        title-inactive-color='rgb(200, 173, 196)'
-        title-active-color='rgb(226, 225, 228)'
-      >
+      <van-tabs v-model:active="state.active" swipeable>
         <van-tab title="当前热门">
           <van-row justify="left" v-for="item in state.hotPlayList">
             <van-col span="10">
-              <van-image
-                :style="{ border: '10px groove rgb(206, 87, 119)' }"
-                width="128"
-                round
-                height="128"
-                :src="item.coverImgUrl"
-              />
+              <van-image :style="{border:'10px groove rgb(206, 87, 119)'}" width="128" round height="128" :src="item.coverImgUrl" />
             </van-col>
-            <van-col span="10"> {{ item.name }}</van-col>
+            <van-col span="10">{{item.name}}</van-col>
           </van-row>
 
           <van-grid
@@ -124,6 +109,7 @@ export default {
   font-size: 32px;
   z-index: 200;
   transition: 0.3s;
+
 }
 .van-grid-item__icon + .van-grid-item__text:active {
   // transform: scale(1.1);

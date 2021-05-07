@@ -1,20 +1,31 @@
 <template>
   <div class="main-color">
+    <!-- <div
+      class="block"
+      @touchstart="touchstart"
+      @touchend="touchend"
+      v-if="homeAdShow"
+    >
+      <el-carousel height="100vh" ref="carousel" :loop="false">
+        <el-carousel-item v-for="(item, index) in imgurl" :key="item">
+          <el-image
+            style="width: 100%"
+            :src="item"
+            @click="adClick(index)"
+          ></el-image>
+        </el-carousel-item>
+      </el-carousel>
+      <div class="background"></div>
+    </div> -->
+    <!-- <van-field class="main-color" v-model="state.text" label="输入搜索歌曲" /> -->
 
-    <!-- <van-sticky :offset-top="0" position="bottom"> -->
+    <van-sticky :offset-top="0" position="top">
       <van-search
-        v-model="value"
-        shape="round"
-        show-action
-        background="rgb(98, 22, 36)"
-        placeholder="请输入搜索关键词"
-      >
-        <template #action>
-          <van-button size="small" round type="danger" @click="serch"
-            >搜索</van-button
-          >
-        </template></van-search
-      >
+  v-model="value"
+  shape="round"
+  background="rgb(98, 22, 36)"
+  placeholder="请输入搜索关键词"
+/>
       <!-- <van-field
         v-model="state.text"
         center
@@ -28,7 +39,7 @@
           >
         </template>
       </van-field> -->
-    <!-- </van-sticky> -->
+    </van-sticky>
 
     <!-- <van-button type="danger" @click="serch">搜索</van-button> -->
     <div v-for="(index, item) in songs" key="item">
@@ -228,11 +239,11 @@ export default {
 }
 .main-color {
   color: aliceblue;
-  background: rgba(#000000, 0);
+  background: rgba( #000000,  0);
 }
 .mask-play {
   padding: 16px 0;
-  background: rgba(#000000, 0.5);
+  background: rgba( #000000,  0.5);
   text-align: center;
   p {
     margin-bottom: 16px;

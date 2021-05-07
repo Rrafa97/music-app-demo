@@ -4,12 +4,9 @@
       <van-tabs
         animated
         color="white"
-        sticky
-        background="rgb(98, 22, 36)"
+        background="rgba(206, 87, 119,0)"
         v-model:active="state.active"
         swipeable
-        title-inactive-color='rgb(200, 173, 196)'
-        title-active-color='rgb(226, 225, 228)'
       >
         <van-tab title="当前热门">
           <van-row justify="left" v-for="item in state.hotPlayList">

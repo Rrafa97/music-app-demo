@@ -8,16 +8,15 @@
         background="rgb(98, 22, 36)"
         v-model:active="state.active"
         swipeable
-        title-inactive-color='rgb(200, 173, 196)'
-        title-active-color='rgb(226, 225, 228)'
+        title-inactive-color='white'
       >
         <van-tab title="当前热门">
           <van-row justify="left" v-for="item in state.hotPlayList">
             <van-col span="10">
               <van-image
-                :style="{ border: '10px groove rgb(206, 87, 119)' }"
+                
                 width="128"
-                round
+              
                 height="128"
                 :src="item.coverImgUrl"
               />

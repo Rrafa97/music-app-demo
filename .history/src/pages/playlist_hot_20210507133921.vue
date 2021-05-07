@@ -3,11 +3,9 @@
     <div>
       <van-tabs v-model:active="state.active" swipeable>
         <van-tab title="当前热门">
-          <van-row justify="left" v-for="item in state.hotPlayList">
-            <van-col span="10">
-              <van-image width="128" height="128" :src="item.coverImgUrl" />
-            </van-col>
-            <van-col span="10">span: 6</van-col>
+          <van-row justify="center">
+            <van-col span="12">span: 6</van-col>
+            <van-col span="12">span: 6</van-col>
           </van-row>
 
           <van-grid

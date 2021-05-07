@@ -3,28 +3,13 @@
     <div>
       <van-tabs v-model:active="state.active" swipeable>
         <van-tab title="当前热门">
-          <van-row justify="left" v-for="item in state.hotPlayList">
-            <van-col span="10">
-              <van-image width="128" height="128" :src="item.coverImgUrl" />
-            </van-col>
-            <van-col span="10">span: 6</van-col>
-          </van-row>
-
-          <van-grid
-            :gutter="0"
-            :column-num="2"
-            :style="{ padding: '0px' }"
-            icon-size="50vw"
-            :border="false"
-          >
+          <van-grid :column-num="2" icon-size="40vw" :border="false">
             <van-grid-item
-              class="van-grid-item__content_"
               v-for="item in state.hotPlayList"
               :icon="item.coverImgUrl"
               :text="item.name"
               @click="getPlaylistInfo(item.id)"
-            >
-            </van-grid-item>
+            />
           </van-grid>
         </van-tab>
         <van-tab v-for="item in state.playListInfo.sub" :title="item.name">
@@ -36,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { PLAYLIST_CATLIST, PLAYLIST_HOT, PLAYLIST_INFO } from "@/api/index";
+import { PLAYLIST_CATLIST, PLAYLIST_HOT,PLAYLIST_INFO } from "@/api/index";
 import { onMounted, onBeforeMount, ref, computed, watch, reactive } from "vue";
 export default {
   setup() {
@@ -58,24 +43,24 @@ export default {
     return { state };
   },
   methods: {
-    getPlaylistInfo(id: number) {
-      let this__ = this;
-      PLAYLIST_INFO(id).then((res) => {
+    getPlaylistInfo(id:number) {
+      let this__ = this
+      PLAYLIST_INFO(id).then(res => {
         console.log(res.data);
         (this as any).$router.push({
-          name: "playlist",
+          name: 'playlist',
           query: {
-            playlistinfo: JSON.stringify(res.data.playlist),
-          },
-        });
-      });
-    },
-  },
+            playlistinfo: JSON.stringify(res.data.playlist)
+          }
+        })
+      })
+    }
+  }
 };
 </script>
 
 <style lang="less">
-.van-grid-item__content_ {
+.van-grid-item__content {
   margin: 0;
   padding: 0;
   background: rgba(98, 22, 36, 0);

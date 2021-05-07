@@ -34,17 +34,17 @@
 
     <van-divider :style="{ color: 'white' }">歌单列表</van-divider>
 
-    <van-swipe-cell border='false' v-for="item in state.songs">
+    <van-swipe-cell v-for="item in state.songs">
       <template #left>
         收藏
         <!-- <van-button square type="danger" text="收藏" /> -->
       </template>
       <van-cell clickable :style="{ background: 'rgba(0,0,0,0)', color: 'white' }">
         <template #title>
-          <div :style="{fontSize:'22px', whiteSpace: 'nowrap',overflow:'hidden'}">{{item.name}}</div>
+          <!-- <div :style="{fontSize:'22px', whiteSpace: 'nowrap',overflow:'hidden'}">{{item.name}}</div> -->
           <!-- <div :style="{color: 'rgb(218, 164, 90)', whiteSpace: 'nowrap'}">专辑：{{item.al.name}}</div> -->
-          <!-- <van-notice-bar color="white" :style="{height:'32px',fontSize:'22px', whiteSpace: 'nowrap',overflow:'hidden'}" background='rgba(0,0,0,0)' speed='1' scrollable :text="item.name" /> -->
-          <van-notice-bar :style="{height:'24px'}" background='rgba(0,0,0,0)' speed='1' scrollable :text="'专辑：' + item.al.name + '/艺术家：' + item.ar[0].name + '/发行时间：'"/>
+          <van-notice-bar color="white" :style="{height:'32px',fontSize:'22px', whiteSpace: 'nowrap',overflow:'hidden'}" background='rgba(0,0,0,0)' speed='10' scrollable :text="item.name" />
+          <van-notice-bar :style="{height:'24px'}" background='rgba(0,0,0,0)' speed='10' scrollable :text="'专辑：' + item.al.name" />
         </template>
         <template #default>
           <van-icon size="32" name="play-circle-o" />

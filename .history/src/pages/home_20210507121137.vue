@@ -119,8 +119,8 @@ export default {
     };
   },
   components: {
-    'playlist-hot':playlisthot
-},
+    // playsmall,
+  },
   setup() {
     const state = reactive({
       tel: "",

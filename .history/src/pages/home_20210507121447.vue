@@ -216,7 +216,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .block {
   height: auto;
   background: rgb(98, 22, 36);

@@ -88,6 +88,7 @@
         </audio>
       </div>
     </van-sticky>
+    111
     <playlist-hot></playlist-hot>
   </div>
 </template>
@@ -95,10 +96,11 @@
 <script lang="js">
 import { SERCH_KEY, SERCH_HOT, GET_SONG } from "../api/index";
 import { reactive, ref, provide } from "vue";
-import playlisthot from '@/pages/playlist_hot.vue';
+// import playlisthot from '@/pages/playlist_hot.vue'
 // import playsmall from "@/pages/playsmall";
 export default {
   name: 'home',
+  // components: {"playlist-hot":playlist_hot},
   data() {
     return {
       imgurl: [
@@ -119,8 +121,8 @@ export default {
     };
   },
   components: {
-    'playlist-hot':playlisthot
-},
+    // playsmall,
+  },
   setup() {
     const state = reactive({
       tel: "",
@@ -131,12 +133,6 @@ export default {
     });
     var playInfo = false;
     const audio = ref(null);
-  //   const app = Vue.createApp({
-  //     components: {
-  //   'playlist-hot': playlisthot
-  // }
-    // })
-    // components()
     SERCH_HOT().then((res) => {
       state.text = res.data.result.hots[0].first;
     });

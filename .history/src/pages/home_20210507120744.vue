@@ -96,6 +96,7 @@
 import { SERCH_KEY, SERCH_HOT, GET_SONG } from "../api/index";
 import { reactive, ref, provide } from "vue";
 import playlisthot from '@/pages/playlist_hot.vue';
+import Vue from 'vue'
 // import playsmall from "@/pages/playsmall";
 export default {
   name: 'home',
@@ -119,8 +120,8 @@ export default {
     };
   },
   components: {
-    'playlist-hot':playlisthot
-},
+    // playsmall,
+  },
   setup() {
     const state = reactive({
       tel: "",
@@ -131,12 +132,11 @@ export default {
     });
     var playInfo = false;
     const audio = ref(null);
-  //   const app = Vue.createApp({
-  //     components: {
-  //   'playlist-hot': playlisthot
-  // }
-    // })
-    // components()
+    const app = Vue.createApp({
+      components: {
+    'playlist-hot': playlisthot
+  }
+    })
     SERCH_HOT().then((res) => {
       state.text = res.data.result.hots[0].first;
     });

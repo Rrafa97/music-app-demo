@@ -119,8 +119,8 @@ export default {
     };
   },
   components: {
-    'playlist-hot':playlisthot
-},
+    // playsmall,
+  },
   setup() {
     const state = reactive({
       tel: "",
@@ -136,7 +136,7 @@ export default {
   //   'playlist-hot': playlisthot
   // }
     // })
-    // components()
+    components()
     SERCH_HOT().then((res) => {
       state.text = res.data.result.hots[0].first;
     });

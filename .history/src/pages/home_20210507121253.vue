@@ -120,7 +120,7 @@ export default {
   },
   components: {
     'playlist-hot':playlisthot
-},
+}
   setup() {
     const state = reactive({
       tel: "",

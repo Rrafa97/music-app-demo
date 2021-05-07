@@ -118,9 +118,9 @@ export default {
       // playInfo: false,
     };
   },
-  components: {
+  components: [
     'playlist-hot':playlisthot
-},
+  ]
   setup() {
     const state = reactive({
       tel: "",

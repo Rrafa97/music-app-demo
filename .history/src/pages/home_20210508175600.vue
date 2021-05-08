@@ -181,7 +181,7 @@ export default {
     },
     changeCat() {
       SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.serchactive].val).then( res => {
-        this.state.serchcat[this.serchactive].data = res.data.result
+        this.state.serchcat[this.serchactive].data = res.data
         let data__ = this.state.serchcat[this.serchactive].data
         console.log(data__)
         })

@@ -99,7 +99,7 @@ export default {
       digit: "",
       number: "",
       password: "",
-      serchcat: [{ name:'专辑',val: 10 },{ name:'歌手',val: 100,data: {} },{ name:'歌单',val: 1000 },{ name:'用户',val: 1002 },{ name:'MV',val: 1004 },{ name:'歌词',val: 1006 },{ name:'电台',val: 1009 },{ name:'视频',val: 1014 },{ name:'综合',val: 1018 }]
+      serchcat: [{ name:'专辑',val: 10 },{ name:'歌手',val: 100 },{ name:'歌单',val: 1000 },{ name:'用户',val: 1002 },{ name:'MV',val: 1004 },{ name:'歌词',val: 1006 },{ name:'电台',val: 1009 },{ name:'视频',val: 1014 },{ name:'综合',val: 1018 }]
     });
     var playInfo = false;
     const audio = ref(null);
@@ -180,11 +180,7 @@ export default {
       });
     },
     changeCat() {
-      SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.serchactive].val).then( res => {
-        this.state.serchcat[this.serchactive].data = res.data.result
-        let data__ = this.state.serchcat[this.serchactive].data
-        console.log(data__)
-        })
+      SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.serchactive].val).then( res => console.log(res.data))
     }
   },
 };

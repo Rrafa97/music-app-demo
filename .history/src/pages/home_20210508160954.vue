@@ -17,6 +17,7 @@
     <div v-if="cardShow">
       <van-tabs v-model:active="serchactive" swipeable>
         <van-tab :title="'单曲 '">
+          <div :style="{ fontSize: '24px', margin: '16px' }">单曲</div>
           <div v-for="(index, item) in songs" key="item">
             <van-card
               :desc="'艺术家：' + index.ar[0].name"
@@ -35,17 +36,15 @@
             </van-card>
           </div>
         </van-tab>
-        <van-tab :title="'歌单 '">
-          <van-empty description="待开发" />
-        </van-tab>
-        <van-tab :title="'歌手 '"> <van-empty description="待开发" /> </van-tab>
-        <van-tab :title="'专辑 '"> <van-empty description="待开发" /> </van-tab>
-        <van-tab :title="'用户 '"> <van-empty description="待开发" /> </van-tab>
-        <van-tab :title="'MV '"> <van-empty description="待开发" /> </van-tab>
-        <van-tab :title="'歌词 '"> <van-empty description="待开发" /> </van-tab>
-        <van-tab :title="'电台 '"> <van-empty description="待开发" /> </van-tab>
-        <van-tab :title="'视频 '"> <van-empty description="待开发" /> </van-tab>
-        <van-tab :title="'综合 '"> <van-empty description="待开发" /> </van-tab>
+        <van-tab :title="'歌单 '"> 待开发 </van-tab>
+        <van-tab :title="'歌手 '"> 待开发 </van-tab>
+        <van-tab :title="'专辑 '"> 待开发 </van-tab>
+        <van-tab :title="'用户 '"> 待开发 </van-tab>
+        <van-tab :title="'MV '"> 待开发 </van-tab>
+        <van-tab :title="'歌词 '"> 待开发 </van-tab>
+        <van-tab :title="'电台 '"> 待开发 </van-tab>
+        <van-tab :title="'视频 '"> 待开发 </van-tab>
+        <van-tab :title="'综合 '"> 待开发 </van-tab>
       </van-tabs>
     </div>
     <van-sticky v-if="popShow" :offset-bottom="0" position="bottom">

@@ -15,38 +15,29 @@
       </template></van-search
     >
     <div v-if="cardShow">
-      <van-tabs v-model:active="serchactive" swipeable>
+      <van-tabs v-model:active="active" swipeable>
         <van-tab :title="'单曲 '">
-          <div v-for="(index, item) in songs" key="item">
-            <van-card
-              :desc="'艺术家：' + index.ar[0].name"
-              :title="index.name"
-              :thumb="index.al.picUrl"
-              :centered="false"
-              @click="getSong(index.id, index)"
-              class="main-color"
-              style="background: rgba(#000000, 0)"
-            >
-              <template #tags>
-                <van-tag class="main-color" plain type="danger"
-                  >专辑：{{ index.al.name }}</van-tag
-                >
-              </template>
-            </van-card>
-          </div>
+          内容 {{ index }}
         </van-tab>
-        <van-tab :title="'歌单 '">
-          <van-empty description="待开发" />
-        </van-tab>
-        <van-tab :title="'歌手 '"> <van-empty description="待开发" /> </van-tab>
-        <van-tab :title="'专辑 '"> <van-empty description="待开发" /> </van-tab>
-        <van-tab :title="'用户 '"> <van-empty description="待开发" /> </van-tab>
-        <van-tab :title="'MV '"> <van-empty description="待开发" /> </van-tab>
-        <van-tab :title="'歌词 '"> <van-empty description="待开发" /> </van-tab>
-        <van-tab :title="'电台 '"> <van-empty description="待开发" /> </van-tab>
-        <van-tab :title="'视频 '"> <van-empty description="待开发" /> </van-tab>
-        <van-tab :title="'综合 '"> <van-empty description="待开发" /> </van-tab>
       </van-tabs>
+      <div :style="{ fontSize: '24px', margin: '16px' }">单曲</div>
+      <div v-for="(index, item) in songs" key="item">
+        <van-card
+          :desc="'艺术家：' + index.ar[0].name"
+          :title="index.name"
+          :thumb="index.al.picUrl"
+          :centered="false"
+          @click="getSong(index.id, index)"
+          class="main-color"
+          style="background: rgba(#000000, 0)"
+        >
+          <template #tags>
+            <van-tag class="main-color" plain type="danger"
+              >专辑：{{ index.al.name }}</van-tag
+            >
+          </template>
+        </van-card>
+      </div>
     </div>
     <van-sticky v-if="popShow" :offset-bottom="0" position="bottom">
       <div class="mask-play">
@@ -109,7 +100,6 @@ export default {
     });
     var playInfo = false;
     const audio = ref(null);
-    var serchactive = 0
   //   const app = Vue.createApp({
   //     components: {
   //   'playlist-hot': playlisthot
@@ -119,7 +109,7 @@ export default {
     SERCH_HOT().then((res) => {
       state.text = res.data.result.hots[0].first;
     });
-    return { audio, state, playInfo,serchactive };
+    return { audio, state, playInfo };
   },
   methods: {
     touch() {},

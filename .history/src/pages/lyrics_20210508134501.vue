@@ -374,8 +374,6 @@ audio {
   color: red;
 }
 .lyric-ar {
-  text-align: center;
-  vertical-align: middle;
   height: 64px;
   font-size: 24px;
   line-height: 32px;

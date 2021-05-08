@@ -37,7 +37,7 @@ const routes = [
   {
     path: '/playsmall',
     name: 'playsmall',
-    component: () => import(/* webpackChunkName: "about" */ '../pages/playsmall.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../pages/playsmall.vue'),
   },
   {
     path: '/playlist_hot',

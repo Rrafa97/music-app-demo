@@ -35,11 +35,6 @@ const routes = [
     }
   },
   {
-    path: '/playsmall',
-    name: 'playsmall',
-    component: () => import(/* webpackChunkName: "about" */ '../pages/playsmall.vue')
-  },
-  {
     path: '/playlist_hot',
     name: 'playlist_hot',
     component: () => import(/* webpackChunkName: "about" */ '../pages/playlist_hot.vue'),

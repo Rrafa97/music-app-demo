@@ -14,10 +14,11 @@
         >
       </template></van-search
     >
-    <div v-if="cardShow">
-      <div :style="{fontSize:'24px',margin:'16px'}">单曲</div>
+    <div>
+      <div v-if="cardShow" :style="{fontSize:'24px',margin:'16px'}">单曲</div>
       <div v-for="(index, item) in songs" key="item">
         <van-card
+          v-if="cardShow"
           :desc="'艺术家：' + index.ar[0].name"
           :title="index.name"
           :thumb="index.al.picUrl"

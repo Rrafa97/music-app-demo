@@ -35,14 +35,17 @@
             </van-card>
           </div>
         </van-tab>
-        <van-tab :title="'歌单'">
-          <van-empty :style="{marginTop:'10vh',marginBottom:'30vh'}">
+        <van-tab :title="'歌单 '">
+          <van-empty>
             <template #description>
-              <van-loading size="36px" color="white" vertical>正在加载...</van-loading>
+              <van-loading color="#1989fa" />
             </template>
             </van-empty> 
+          <van-row justify="space-between">
+            <van-col span="12"><van-loading color="#1989fa" /></van-col>
+          </van-row>
         </van-tab>
-        <van-tab :title="'歌手 '"> <van-empty description="待开发" /> </van-tab>
+        <van-tab :title="'歌手 '"> <van-loading color="#1989fa" /> </van-tab>
         <van-tab :title="'专辑 '"> <van-empty description="待开发" /> </van-tab>
         <van-tab :title="'用户 '"> <van-empty description="待开发" /> </van-tab>
         <van-tab :title="'MV '"> <van-empty description="待开发" /> </van-tab>

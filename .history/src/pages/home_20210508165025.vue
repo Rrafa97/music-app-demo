@@ -36,7 +36,7 @@
           </div>
         </van-tab>
         <van-tab :title="'歌单'">
-          <van-empty :style="{marginTop:'10vh',marginBottom:'30vh'}">
+          <van-empty :style="{marginTop:'30vh'}">
             <template #description>
               <van-loading size="36px" color="white" vertical>正在加载...</van-loading>
             </template>

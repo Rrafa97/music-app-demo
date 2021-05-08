@@ -36,7 +36,7 @@
         </van-tab>
         <van-tab v-for="item in state.serchcat" :title="item.name">
           <album-list-item></album-list-item>
-          <component :is="componentIs"></component>
+          <component :is="componentId"></component>
           <emptyle
         /></van-tab>
       </van-tabs>
@@ -104,24 +104,14 @@ export default {
       number: "",
       password: "",
       serchactive: 0,
-      serchcat: [{ name:'专辑',val: 10 },{ name:'歌手',val: 100,data: null,compt: album_list_item},{ name:'歌单',val: 1000 },{ name:'用户',val: 1002 },{ name:'MV',val: 1004 },{ name:'歌词',val: 1006 },{ name:'电台',val: 1009 },{ name:'视频',val: 1014 },{ name:'综合',val: 1018 }]
+      serchcat: [{ name:'专辑',val: 10 },{ name:'歌手',val: 100,data: null },{ name:'歌单',val: 1000 },{ name:'用户',val: 1002 },{ name:'MV',val: 1004 },{ name:'歌词',val: 1006 },{ name:'电台',val: 1009 },{ name:'视频',val: 1014 },{ name:'综合',val: 1018 }]
     });
-
-
-
     var playInfo = false;
     const audio = ref(null);
     SERCH_HOT().then((res) => {
       state.text = res.data.result.hots[0].first;
     });
     return { audio, state, playInfo };
-  },
-  computed: {
-    componentIs() {
-      if (this.state.serchactive ) {
-        return this.album_list_item
-      }
-    }
   },
   methods: {
     touch() {},

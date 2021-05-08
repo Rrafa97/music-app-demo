@@ -122,7 +122,7 @@ export default {
         return this.album_list_item
       }
     }
-  },
+  }
   methods: {
     touch() {},
     touchstart(e) {

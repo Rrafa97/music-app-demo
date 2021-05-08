@@ -14,7 +14,7 @@
       </template></van-search
     >
     <div v-if="cardShow">
-      <van-tabs v-model:active="state.serchactive" swipeable @change="changeCat">
+      <van-tabs v-model:active="serchactive" swipeable @change="changeCat">
         <van-tab :title="'单曲 '">
           <div v-for="(index, item) in songs" key="item">
             <van-card
@@ -35,8 +35,6 @@
           </div>
         </van-tab>
         <van-tab v-for="item in state.serchcat" :title="item.name">
-          <album-list-item></album-list-item>
-          <component :is="componentIs"></component>
           <emptyle
         /></van-tab>
       </van-tabs>
@@ -68,7 +66,6 @@ import { SERCH_KEY, SERCH_HOT, GET_SONG,SERCH_KEYWORDS } from "../api/index";
 import { reactive, ref, provide } from "vue";
 import playlisthot from '@/pages/playlist_hot.vue';
 import emptyle from '@/components/emptyle.vue';
-import album_list_item from '@/components/album_list_item.vue';
 // import playsmall from "@/pages/playsmall";
 export default {
   name: 'home',
@@ -93,8 +90,7 @@ export default {
   },
   components: {
     'playlist-hot':playlisthot,
-    'emptyle':emptyle,
-    'album-list-item':album_list_item
+    'emptyle':emptyle
 },
   setup() {
     const state = reactive({
@@ -103,25 +99,15 @@ export default {
       digit: "",
       number: "",
       password: "",
-      serchactive: 0,
-      serchcat: [{ name:'专辑',val: 10 },{ name:'歌手',val: 100,data: null,compt: album_list_item},{ name:'歌单',val: 1000 },{ name:'用户',val: 1002 },{ name:'MV',val: 1004 },{ name:'歌词',val: 1006 },{ name:'电台',val: 1009 },{ name:'视频',val: 1014 },{ name:'综合',val: 1018 }]
+      serchcat: [{ name:'专辑',val: 10 },{ name:'歌手',val: 100,data: null },{ name:'歌单',val: 1000 },{ name:'用户',val: 1002 },{ name:'MV',val: 1004 },{ name:'歌词',val: 1006 },{ name:'电台',val: 1009 },{ name:'视频',val: 1014 },{ name:'综合',val: 1018 }]
     });
-
-
-
     var playInfo = false;
     const audio = ref(null);
+    var serchactive = 0
     SERCH_HOT().then((res) => {
       state.text = res.data.result.hots[0].first;
     });
-    return { audio, state, playInfo };
-  },
-  computed: {
-    componentIs() {
-      if (this.state.serchactive ) {
-        return this.album_list_item
-      }
-    }
+    return { audio, state, playInfo,serchactive };
   },
   methods: {
     touch() {},
@@ -154,7 +140,7 @@ export default {
       if (this.state.text === "") {
         this.$toast.fail("输入关键词");
       } else {
-        this.state.serchactive = 0
+        this.serchactive = 0
         SERCH_KEY(this.state.text).then((res) => {
           this.songs = res.data.result.songs;
           this.cardShow = true;
@@ -195,10 +181,10 @@ export default {
       });
     },
     changeCat() {
-      console.log(this.state.serchactive)
-      SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.state.serchactive].val).then( res => {
-        this.state.serchcat[this.state.serchactive].data = res.data.result
-        let data__ = this.state.serchcat[this.state.serchactive].data
+      console.log(this.serchactive)
+      SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.serchactive].val).then( res => {
+        this.state.serchcat[this.serchactive].data = res.data.result
+        let data__ = this.state.serchcat[this.serchactive].data
         console.log(data__)
         })
     }

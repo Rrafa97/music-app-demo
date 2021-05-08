@@ -1,41 +1,41 @@
 <template>
   <div class="main-color">
+
     <!-- <van-sticky :offset-top="0" position="bottom"> -->
-    <van-search
-      v-model="state.text"
-      shape="round"
-      show-action
-      background="rgb(98, 22, 36)"
-      placeholder="请输入搜索关键词"
-    >
-      <template #action>
-        <van-button size="small" round type="danger" @click="serch"
-          >搜索</van-button
-        >
-      </template></van-search
-    >
+      <van-search
+        v-model="state.text"
+        shape="round"
+        show-action
+        background="rgb(98, 22, 36)"
+        placeholder="请输入搜索关键词"
+      >
+        <template #action>
+          <van-button size="small" round type="danger" @click="serch"
+            >搜索</van-button
+          >
+        </template></van-search
+      >
     <div>
-      <div v-if="cardShow" :style="{fontSize:'24px',margin:'16px'}">单曲</div>
-      <!-- <van-divider v-if="cardShow">单曲</van-divider> -->
-      <div v-for="(index, item) in songs" key="item">
-        <van-card
-          v-if="cardShow"
-          :desc="'艺术家：' + index.ar[0].name"
-          :title="index.name"
-          :thumb="index.al.picUrl"
-          :centered="false"
-          @click="getSong(index.id, index)"
-          class="main-color"
-          style="background: rgba(#000000, 0)"
-        >
-          <template #tags>
-            <van-tag class="main-color" plain type="danger"
-              >专辑：{{ index.al.name }}</van-tag
-            >
-          </template>
-        </van-card>
-      </div>
+      <van-divider>单曲</van-divider>
+    <div v-for="(index, item) in songs" key="item">
+      <van-card
+        v-if="cardShow"
+        :desc="'艺术家：' + index.ar[0].name"
+        :title="index.name"
+        :thumb="index.al.picUrl"
+        :centered="false"
+        @click="getSong(index.id, index)"
+        class="main-color"
+        style="background: rgba(#000000, 0);"
+      >
+        <template #tags>
+          <van-tag class="main-color" plain type="danger"
+            >专辑：{{ index.al.name }}</van-tag
+          >
+        </template>
+      </van-card>
     </div>
+       </div>
     <van-sticky v-if="popShow" :offset-bottom="0" position="bottom">
       <div class="mask-play">
         <p @click="toSongs">

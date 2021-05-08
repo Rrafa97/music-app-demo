@@ -42,36 +42,36 @@
       <!-- <div :style="{ height: '8rem',position:'fixed',bottom: '6rem',left: '0em',transform: 'rotate(180deg)',background: 'rgba(0,0,0,.5)',padding:'1rem' }">
         <van-slider :style="{transform: 'rotate(180deg)'}" v-model="vosalue" bar-height=".3rem"  active-color="#ee0a24" vertical @change="onChangevos" />
       </div> -->
-
       <div class="lyric_area">
         <div>{{ song.name }}</div>
         <div>专辑：{{ song.al.name }}</div>
-        <div>
+        <van-notice-bar
+          :style="{ height: '16px', fontSize: '12px' }"
+          background="rgba(0,0,0,0)"
+          speed="10"
+          scrollable
+          :text="'专辑：' + song.al.name"
+        />
+        <!-- <div>
           歌手：<span v-for="(item, index) in song.ar">{{ item.name }}·</span>
-        </div>
-        <van-sticky :style="{width:'70vw'}" position="bottom" :offset-bottom="10">
-          <ul  class="lyric-ar" ref="lyric">
-            {{
-              currentLyric
-            }}
-          </ul>
-          <van-slider
-            v-model="playTime"
-            bar-height=".26rem"
-            @change="onChange"
-            @update:model-value="onUpdate"
-            active-color="#ee0a24"
-          />
-          <van-divider
-            :style="{
-              color: '#fff',
-              textAlign:'center',
-              borderColor: 'rgba(0,0,0,0)',
-              padding: '0 16px',
-            }"
-            >{{ showPlayTime }}</van-divider
-          >
-        </van-sticky>
+        </div> -->
+        <ul class="lyric-ar" ref="lyric">
+          {{
+            currentLyric
+          }}
+        </ul>
+        <van-slider
+          v-model="playTime"
+          bar-height=".26rem"
+          @change="onChange"
+          @update:model-value="onUpdate"
+          active-color="#ee0a24"
+        />
+        <van-divider
+          :style="{ color: '#fff', borderColor: '#1989fa', padding: '0 16px' }"
+          content-position="right"
+          >{{ showPlayTime }}</van-divider
+        >
       </div>
     </div>
   </div>
@@ -370,7 +370,7 @@ audio {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 70vw;
+  width: 70%;
 }
 #lyric {
   line-height: 20px;
@@ -386,6 +386,6 @@ audio {
   font-size: 1.2rem;
   line-height: 1.3rem;
   // white-space: nowrap;
-  margin: 0.4rem 0;
+  margin: 0.2rem 0;
 }
 </style>

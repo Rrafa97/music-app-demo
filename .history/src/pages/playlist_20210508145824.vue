@@ -8,9 +8,9 @@
       :style="{ paddingTop: '32px' }"
       class="main-color"
     >
-      <template #title>
-        <p :style="{ fontSize: '18px',lineHigh:'36px' }">{{ pinfo__.name }}</p>
-      </template>
+    <template #title>
+      {{'歌单：' + pinfo__.name}}
+    </template>
       <template #bottom> 播放量：{{ pinfo__.playCount }} </template>
       <template #desc>
         <van-tag
@@ -53,7 +53,7 @@
               fontSize: '18px',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
-              width: '80vw',
+              width:'80vw'
             }"
           >
             {{ item.name }}
@@ -64,7 +64,7 @@
           <div :style="{ whiteSpace: 'nowrap' }">
             <!-- <van-tag type="danger">标签</van-tag> -->
             <van-notice-bar
-              :style="{ height: '16px', fontSize: '12px' }"
+              :style="{ height: '16px',fontSize: '12px' }"
               background="rgba(0,0,0,0)"
               speed="10"
               scrollable
@@ -146,7 +146,7 @@ export default {
             query: {
               id: id,
               mp3: mp3,
-              info: "",
+              info: '',
             },
           });
         }

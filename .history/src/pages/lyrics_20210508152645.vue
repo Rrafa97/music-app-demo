@@ -49,8 +49,8 @@
         <div>
           歌手：<span v-for="(item, index) in song.ar">{{ item.name }}·</span>
         </div>
-        <van-sticky :style="{width:'70vw'}" position="bottom" :offset-bottom="10">
-          <ul  class="lyric-ar" ref="lyric">
+        <van-sticky class="lyric-ar" :offset-top="50">
+          <ul ref="lyric">
             {{
               currentLyric
             }}
@@ -65,10 +65,10 @@
           <van-divider
             :style="{
               color: '#fff',
-              textAlign:'center',
-              borderColor: 'rgba(0,0,0,0)',
+              borderColor: '#000',
               padding: '0 16px',
             }"
+            content-position="right"
             >{{ showPlayTime }}</van-divider
           >
         </van-sticky>
@@ -370,7 +370,7 @@ audio {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 70vw;
+  width: 70%;
 }
 #lyric {
   line-height: 20px;
@@ -386,6 +386,6 @@ audio {
   font-size: 1.2rem;
   line-height: 1.3rem;
   // white-space: nowrap;
-  margin: 0.4rem 0;
+  margin: 0.2rem 0;
 }
 </style>

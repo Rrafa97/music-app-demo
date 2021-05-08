@@ -15,8 +15,7 @@
       </template></van-search
     >
     <div>
-      <div v-if="cardShow" :style="{fontSize:'24px',margin:'16px'}">单曲</div>
-      <!-- <van-divider v-if="cardShow">单曲</van-divider> -->
+      <van-divider>单曲</van-divider>
       <div v-for="(index, item) in songs" key="item">
         <van-card
           v-if="cardShow"
@@ -26,10 +25,12 @@
           :centered="false"
           @click="getSong(index.id, index)"
           class="main-color"
-          style="background: rgba(#000000, 0)"
         >
+        <template #thumb>
+          <van-image round width="60" height="60" :src="index.al.picUrl" />
+        </template>
           <template #tags>
-            <van-tag class="main-color" plain type="danger"
+            <van-tag id="main-color" plain type="danger"
               >专辑：{{ index.al.name }}</van-tag
             >
           </template>
@@ -197,7 +198,7 @@ export default {
 .van-card__title {
   font-size: 18px;
 }
-.main-color {
+#main-color {
   color: aliceblue;
   background: rgba(#000000, 0);
 }

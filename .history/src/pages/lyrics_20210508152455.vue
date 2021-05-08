@@ -43,14 +43,14 @@
         <van-slider :style="{transform: 'rotate(180deg)'}" v-model="vosalue" bar-height=".3rem"  active-color="#ee0a24" vertical @change="onChangevos" />
       </div> -->
 
-      <div class="lyric_area">
-        <div>{{ song.name }}</div>
-        <div>专辑：{{ song.al.name }}</div>
-        <div>
-          歌手：<span v-for="(item, index) in song.ar">{{ item.name }}·</span>
-        </div>
-        <van-sticky :style="{width:'70vw'}" position="bottom" :offset-bottom="10">
-          <ul  class="lyric-ar" ref="lyric">
+      <van-sticky :offset-top="50">
+        <div class="lyric_area">
+          <div>{{ song.name }}</div>
+          <div>专辑：{{ song.al.name }}</div>
+          <div>
+            歌手：<span v-for="(item, index) in song.ar">{{ item.name }}·</span>
+          </div>
+          <ul class="lyric-ar" ref="lyric">
             {{
               currentLyric
             }}
@@ -65,14 +65,14 @@
           <van-divider
             :style="{
               color: '#fff',
-              textAlign:'center',
-              borderColor: 'rgba(0,0,0,0)',
+              borderColor: '#1989fa',
               padding: '0 16px',
             }"
+            content-position="right"
             >{{ showPlayTime }}</van-divider
           >
-        </van-sticky>
-      </div>
+        </div>
+      </van-sticky>
     </div>
   </div>
 </template>
@@ -370,7 +370,7 @@ audio {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 70vw;
+  width: 70%;
 }
 #lyric {
   line-height: 20px;
@@ -386,6 +386,6 @@ audio {
   font-size: 1.2rem;
   line-height: 1.3rem;
   // white-space: nowrap;
-  margin: 0.4rem 0;
+  margin: 0.2rem 0;
 }
 </style>

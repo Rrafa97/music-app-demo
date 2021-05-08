@@ -49,7 +49,7 @@
         <div>
           歌手：<span v-for="(item, index) in song.ar">{{ item.name }}·</span>
         </div>
-        <van-sticky :style="{width:'70vw'}" position="bottom" :offset-bottom="10">
+        <van-sticky :style="{width:'70vw'}" class="lyric-ar" :offset-bottom="0">
           <ul  class="lyric-ar" ref="lyric">
             {{
               currentLyric

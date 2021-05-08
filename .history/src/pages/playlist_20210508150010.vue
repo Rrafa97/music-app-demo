@@ -9,7 +9,7 @@
       class="main-color"
     >
       <template #title>
-        <p :style="{ fontSize: '18px',lineHigh:'36px' }">{{ pinfo__.name }}</p>
+        <p :style="{ fontSize: '18px',lineHigh:"36px" }">{{ pinfo__.name }}</p>
       </template>
       <template #bottom> 播放量：{{ pinfo__.playCount }} </template>
       <template #desc>

@@ -34,9 +34,17 @@
             </van-card>
           </div>
         </van-tab>
-        <van-tab v-for="item in state.serchcat" :title="item.name">
-          <emptyle
-        /></van-tab>
+        <van-tab :title="'歌单'">
+          <emptyle />
+        </van-tab>
+        <van-tab :title="'歌手 '"> <emptyle /></van-tab>
+        <van-tab :title="'专辑 '"> <emptyle /> </van-tab>
+        <van-tab :title="'用户 '"> <emptyle /></van-tab>
+        <van-tab :title="'MV '"> <emptyle /> </van-tab>
+        <van-tab :title="'歌词 '"> <emptyle /></van-tab>
+        <van-tab :title="'电台 '"> <emptyle /> </van-tab>
+        <van-tab :title="'视频 '"> <emptyle /></van-tab>
+        <van-tab :title="'综合 '"> <emptyle /> </van-tab>
       </van-tabs>
     </div>
     <van-sticky v-if="popShow" :offset-bottom="0" position="bottom">
@@ -99,7 +107,7 @@ export default {
       digit: "",
       number: "",
       password: "",
-      serchcat: [{ name:'专辑',val: 10 },{ name:'歌手',val: 100 },{ name:'歌单',val: 1000 },{ name:'用户',val: 1002 },{ name:'MV',val: 1004 },{ name:'歌词',val: 1006 },{ name:'电台',val: 1009 },{ name:'视频',val: 1014 },{ name:'综合',val: 1018 }]
+      serchcat: [{ name:'专辑',val: 10 },{ name:'专辑',val: 10 },{ name:'专辑',val: 10 },{ name:'专辑',val: 10 },{ name:'专辑',val: 10 },{ name:'专辑',val: 10 },{ name:'专辑',val: 10 },{ name:'专辑',val: 10 },]
     });
     var playInfo = false;
     const audio = ref(null);
@@ -180,7 +188,7 @@ export default {
       });
     },
     changeCat() {
-      SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.serchactive].val).then( res => console.log(res))
+      console.log(1111)
     }
   },
 };

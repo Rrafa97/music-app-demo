@@ -180,7 +180,7 @@ export default {
       });
     },
     changeCat() {
-      SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.serchactive].val).then( res => console.log(res))
+      console.log(1111)
     }
   },
 };

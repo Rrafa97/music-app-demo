@@ -35,21 +35,31 @@
           </div>
         </van-tab>
         <van-tab v-for="item in state.serchcat" :title="item.name">
-          <emptyle
-        /></van-tab>
+          <emptyle /></van-tab>
+        <van-tab :title="'歌单'">
+          <emptyle />
+        </van-tab>
+        <van-tab :title="'歌手 '"> <emptyle /></van-tab>
+        <van-tab :title="'专辑 '"> <emptyle /> </van-tab>
+        <van-tab :title="'用户 '"> <emptyle /></van-tab>
+        <van-tab :title="'MV '"> <emptyle /> </van-tab>
+        <van-tab :title="'歌词 '"> <emptyle /></van-tab>
+        <van-tab :title="'电台 '"> <emptyle /> </van-tab>
+        <van-tab :title="'视频 '"> <emptyle /></van-tab>
+        <van-tab :title="'综合 '"> <emptyle /> </van-tab>
       </van-tabs>
     </div>
     <van-sticky v-if="popShow" :offset-bottom="0" position="bottom">
       <div class="mask-play">
         <p @click="toSongs">
           {{
-            "‘" +
-            playInfo.name +
-            "’" +
-            "-" +
-            playInfo.ar[0].name +
-            "——专辑:" +
-            playInfo.al.name
+            '‘' +
+              playInfo.name +
+              '’' +
+              '-' +
+              playInfo.ar[0].name +
+              '——专辑:' +
+              playInfo.al.name
           }}
         </p>
         <audio v-if="playShow" ref="audio" controls>
@@ -180,7 +190,7 @@ export default {
       });
     },
     changeCat() {
-      SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.serchactive].val).then( res => console.log(res))
+      console.log(1111)
     }
   },
 };

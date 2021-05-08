@@ -15,7 +15,11 @@
       </template></van-search
     >
     <div v-if="cardShow">
-      <van-tabs v-model:active="serchactive" swipeable @change="changeCat">
+      <van-tabs
+        v-model:active="serchactive"
+        swipeable
+        @change="changeCat"
+      >
         <van-tab :title="'单曲 '">
           <div v-for="(index, item) in songs" key="item">
             <van-card

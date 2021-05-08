@@ -15,7 +15,12 @@
       </template></van-search
     >
     <div v-if="cardShow">
-      <van-tabs v-model:active="serchactive" swipeable @change="changeCat">
+      <van-tabs
+        v-model:active="serchactive"
+        swipeable
+        :change="changeCat"
+        :before-change="beforeChange"
+      >
         <van-tab :title="'单曲 '">
           <div v-for="(index, item) in songs" key="item">
             <van-card
@@ -36,11 +41,9 @@
           </div>
         </van-tab>
         <van-tab :title="'歌单 '">
-          <van-row justify="space-between">
-            <van-col span="12"><van-loading color="#1989fa" /></van-col>
-          </van-row>
+          <van-empty description="待开发" />
         </van-tab>
-        <van-tab :title="'歌手 '"> <van-loading color="#1989fa" /> </van-tab>
+        <van-tab :title="'歌手 '"> <van-empty description="待开发" /> </van-tab>
         <van-tab :title="'专辑 '"> <van-empty description="待开发" /> </van-tab>
         <van-tab :title="'用户 '"> <van-empty description="待开发" /> </van-tab>
         <van-tab :title="'MV '"> <van-empty description="待开发" /> </van-tab>
@@ -112,10 +115,16 @@ export default {
     var playInfo = false;
     const audio = ref(null);
     var serchactive = 0
+  //   const app = Vue.createApp({
+  //     components: {
+  //   'playlist-hot': playlisthot
+  // }
+    // })
+    // components()
     SERCH_HOT().then((res) => {
       state.text = res.data.result.hots[0].first;
     });
-    return { audio, state, playInfo,serchactive,beforeChange };
+    return { audio, state, playInfo,serchactive };
   },
   methods: {
     touch() {},
@@ -188,7 +197,7 @@ export default {
       });
     },
     changeCat() {
-      console.log(1111)
+      console.log(this.serchactive)
     }
   },
 };

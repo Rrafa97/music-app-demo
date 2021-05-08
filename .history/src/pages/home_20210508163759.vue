@@ -15,7 +15,12 @@
       </template></van-search
     >
     <div v-if="cardShow">
-      <van-tabs v-model:active="serchactive" swipeable @change="changeCat">
+      <van-tabs
+        v-model:active="serchactive"
+        swipeable
+        @change="changeCat"
+        :before-change="beforeChange"
+      >
         <van-tab :title="'单曲 '">
           <div v-for="(index, item) in songs" key="item">
             <van-card
@@ -36,9 +41,9 @@
           </div>
         </van-tab>
         <van-tab :title="'歌单 '">
-          <van-row justify="space-between">
-            <van-col span="12"><van-loading color="#1989fa" /></van-col>
-          </van-row>
+          <transition name="van-fade">
+            <van-loading color="#1989fa" />
+          </transition>
         </van-tab>
         <van-tab :title="'歌手 '"> <van-loading color="#1989fa" /> </van-tab>
         <van-tab :title="'专辑 '"> <van-empty description="待开发" /> </van-tab>
@@ -112,6 +117,16 @@ export default {
     var playInfo = false;
     const audio = ref(null);
     var serchactive = 0
+    const beforeChange = index => {
+      if(index ===1) {
+        console.log(123123)
+        return false
+      }
+      return new Promise((resolve) => {
+        console.log(1223123)
+        resolve(index!==3)
+      })
+    }
     SERCH_HOT().then((res) => {
       state.text = res.data.result.hots[0].first;
     });

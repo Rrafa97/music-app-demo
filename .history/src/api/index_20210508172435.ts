@@ -1,31 +1,11 @@
 import instance from './api.config'
 
-/**
- * 
- * @param keywords 搜索关键词
- * @param limit 搜索数量，默认30
- * @param type 类型，注解如下：
- * 默认为 1 即单曲 , 取值意义 : 
- * 1: 单曲, 
- * 10: 专辑, 
- * 100: 歌手, 
- * 1000: 歌单, 
- * 1002: 用户, 
- * 1004: MV, 
- * 1006: 歌词, 
- * 1009: 电台, 
- * 1014: 视频, 
- * 1018:综合
- * @returns 无
- */
-export function SERCH_KEYWORDS(keywords: string,limit:number,type:number) {
+export function SERCH_KEYWORDS(keywords: string) {
   return instance({
     method: 'get',
     url: '/cloudsearch',
     params: {
-      keywords: keywords,
-      limit: limit,
-      type:type
+      keywords: keywords
     }
   })
 }

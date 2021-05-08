@@ -37,14 +37,14 @@
         <van-tab :title="'歌单'">
           <emptyle />
         </van-tab>
-        <van-tab :title="'歌手 '"> <emptyle /></van-tab>
-        <van-tab :title="'专辑 '"> <emptyle /> </van-tab>
-        <van-tab :title="'用户 '"> <emptyle /></van-tab>
-        <van-tab :title="'MV '"> <emptyle /> </van-tab>
-        <van-tab :title="'歌词 '"> <emptyle /></van-tab>
-        <van-tab :title="'电台 '"> <emptyle /> </van-tab>
-        <van-tab :title="'视频 '"> <emptyle /></van-tab>
-        <van-tab :title="'综合 '"> <emptyle /> </van-tab>
+        <van-tab :title="'歌手 '">  <emptyle /></van-tab>
+        <van-tab :title="'专辑 '">  <emptyle /> </van-tab>
+        <van-tab :title="'用户 '">  <emptyle /></van-tab>
+        <van-tab :title="'MV '">  <emptyle /> </van-tab>
+        <van-tab :title="'歌词 '">  <emptyle /></van-tab>
+        <van-tab :title="'电台 '">  <emptyle /> </van-tab>
+        <van-tab :title="'视频 '">  <emptyle /></van-tab>
+        <van-tab :title="'综合 '">  <emptyle /> </van-tab>
       </van-tabs>
     </div>
     <van-sticky v-if="popShow" :offset-bottom="0" position="bottom">

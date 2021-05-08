@@ -37,8 +37,8 @@
         <van-tab v-for="item in state.serchcat" :title="item.name">
           <album-list-item></album-list-item>
           <component :is="componentIs"></component>
-          <emptyle/>
-          </van-tab>
+          <emptyle
+        /></van-tab>
       </van-tabs>
     </div>
     <van-sticky v-if="popShow" :offset-bottom="0" position="bottom">
@@ -97,8 +97,6 @@ export default {
     'album-list-item':album_list_item
 },
   setup() {
-    // const album_list_item = { import album_list_item from '@/components/album_list_item.vue'; }
-    const AlbumListItem = () => Promise.resolve(import(/* webpackChunkName: "user" */ "@/components/album_list_item.vue"));
     const state = reactive({
       tel: "",
       text: "",
@@ -106,10 +104,7 @@ export default {
       number: "",
       password: "",
       serchactive: 0,
-      serchcat: [{ name:'专辑',val: 10 },
-      { name:'歌手',val: 100,data: null,
-      compt: () => {return Promise.resolve(import(/* webpackChunkName: "user" */ "@/components/album_list_item.vue"))}
-      },{ name:'歌单',val: 1000 },{ name:'用户',val: 1002 },{ name:'MV',val: 1004 },{ name:'歌词',val: 1006 },{ name:'电台',val: 1009 },{ name:'视频',val: 1014 },{ name:'综合',val: 1018 }]
+      serchcat: [{ name:'专辑',val: 10 },{ name:'歌手',val: 100,data: null,compt: album_list_item},{ name:'歌单',val: 1000 },{ name:'用户',val: 1002 },{ name:'MV',val: 1004 },{ name:'歌词',val: 1006 },{ name:'电台',val: 1009 },{ name:'视频',val: 1014 },{ name:'综合',val: 1018 }]
     });
 
 

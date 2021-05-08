@@ -35,9 +35,9 @@
           </div>
         </van-tab>
         <van-tab v-for="item in state.serchcat" :title="item.name">
-          <album-list-item></album-list-item>
+          <!-- <album-list-item></album-list-item>
           <component :is="componentIs"></component>
-          <emptyle/>
+          <emptyle/> -->
           </van-tab>
       </van-tabs>
     </div>

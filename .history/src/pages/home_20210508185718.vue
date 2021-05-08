@@ -37,8 +37,8 @@
         <van-tab v-for="item in state.serchcat" :title="item.name">
           <album-list-item></album-list-item>
           <component :is="componentIs"></component>
-          <emptyle/>
-          </van-tab>
+          <emptyle
+        /></van-tab>
       </van-tabs>
     </div>
     <van-sticky v-if="popShow" :offset-bottom="0" position="bottom">

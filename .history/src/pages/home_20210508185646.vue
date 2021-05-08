@@ -37,8 +37,8 @@
         <van-tab v-for="item in state.serchcat" :title="item.name">
           <album-list-item></album-list-item>
           <component :is="componentIs"></component>
-          <emptyle/>
-          </van-tab>
+          <emptyle
+        /></van-tab>
       </van-tabs>
     </div>
     <van-sticky v-if="popShow" :offset-bottom="0" position="bottom">
@@ -108,7 +108,7 @@ export default {
       serchactive: 0,
       serchcat: [{ name:'专辑',val: 10 },
       { name:'歌手',val: 100,data: null,
-      compt: () => {return Promise.resolve(import(/* webpackChunkName: "user" */ "@/components/album_list_item.vue"))}
+      compt: () => Promise.resolve(import(/* webpackChunkName: "user" */ "@/components/album_list_item.vue"))
       },{ name:'歌单',val: 1000 },{ name:'用户',val: 1002 },{ name:'MV',val: 1004 },{ name:'歌词',val: 1006 },{ name:'电台',val: 1009 },{ name:'视频',val: 1014 },{ name:'综合',val: 1018 }]
     });
 

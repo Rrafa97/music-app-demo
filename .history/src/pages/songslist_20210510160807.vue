@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="(index, item) in compData">
+    <div v-for="(index, item) in songs" key="item">
             <van-card
               :desc="'艺术家：' + index.ar[0].name"
               :title="index.name"
@@ -22,9 +22,9 @@
 
 <script lang="ts">
 export default {
-  props: ['compData'],
+  props: ['songs'],
   setup(props:any) {
-    // console.log(props.songs)
+
   }
 }
 </script>

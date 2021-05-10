@@ -175,7 +175,6 @@ export default {
         SERCH_KEY(this.state.text).then((res) => {
           this.state.songs = res.data.result.songs;
           this.state.compData = this.state.songs
-          this.state.serchcat[0].data = this.state.compData
           this.cardShow = true;
         });
       }
@@ -215,16 +214,13 @@ export default {
     },
     changeCat() {
       console.log(this.state.serchactive)
-      if (this.state.serchcat[this.state.serchactive ].data !== null) {
-              SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.state.serchactive ].val).then( res => {
+      SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.state.serchactive ].val).then( res => {
         console.log(this.state.serchactive)
         this.state.serchcat[this.state.serchactive].data = res.data.result
         let data__ = this.state.serchcat[this.state.serchactive].data
         this.state.compData = data__
-        console.log(this.state.serchcat[0].data)
+        console.log(this.state.serchcat[this.state.serchactive].name,data__)
         })
-      }
-
     }
   },
 };

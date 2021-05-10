@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- 232
+    {{compData}} -->
     <div v-for="(index, item) in compData">
             <van-card
               :desc="'艺术家：' + index.ar[0].name"

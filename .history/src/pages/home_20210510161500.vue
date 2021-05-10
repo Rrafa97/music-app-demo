@@ -20,7 +20,7 @@
         @change="changeCat"
       >
         <!-- <van-tab :title="'单曲 '"> -->
-        <!-- <div v-for="(index, item) in songs" key="item">
+          <!-- <div v-for="(index, item) in songs" key="item">
             <van-card
               :desc="'艺术家：' + index.ar[0].name"
               :title="index.name"
@@ -39,7 +39,8 @@
           </div> -->
         <!-- </van-tab> -->
         <van-tab v-for="item in state.serchcat" :title="item.name">
-          <component :is="componentIs" :compData="state.compData"></component>
+          <!-- <album-list-item></album-list-item> -->
+          <component :is="componentIs" :compData='state.compData'></component>
           <emptyle />
         </van-tab>
       </van-tabs>
@@ -111,7 +112,6 @@ export default {
       password: "",
       serchactive: 0,
       compData: {},
-      songs:[],
       serchcat: [
         {name: '单曲',val:1,data:null,component: markRaw(songslist)},
         { name:'专辑',val: 10,data:null,component:markRaw(album_list_item) },
@@ -131,13 +131,8 @@ export default {
   computed: {
     componentIs() {
       let index = this.state.serchactive
-      
       let dat = this.state.serchcat[index]
-      console.log(this.cardShow)
-      if (this.cardShow) {
         return dat.component
-      }
-        
     }
   },
   methods: {
@@ -173,9 +168,8 @@ export default {
       } else {
         this.state.serchactive = 0
         SERCH_KEY(this.state.text).then((res) => {
-          this.state.songs = res.data.result.songs;
-          this.state.compData = this.state.songs
-          this.state.serchcat[0].data = this.state.compData
+          this.songs = res.data.result.songs;
+          this.state.compData = this.songs
           this.cardShow = true;
         });
       }
@@ -215,16 +209,13 @@ export default {
     },
     changeCat() {
       console.log(this.state.serchactive)
-      if (this.state.serchcat[this.state.serchactive ].data !== null) {
-              SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.state.serchactive ].val).then( res => {
+      SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.state.serchactive ].val).then( res => {
         console.log(this.state.serchactive)
         this.state.serchcat[this.state.serchactive].data = res.data.result
         let data__ = this.state.serchcat[this.state.serchactive].data
         this.state.compData = data__
-        console.log(this.state.serchcat[0].data)
+        console.log(this.state.serchcat[this.state.serchactive].name,data__)
         })
-      }
-
     }
   },
 };

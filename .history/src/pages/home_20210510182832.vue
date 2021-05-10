@@ -149,10 +149,9 @@ export default {
       
       let dat = this.state.serchcat[index]
       console.log(this.state.serchcat[index].data)
-      this.state.compData = this.state.serchcat[index].data
       if (this.cardShow) {
         if (this.state.serchcat[index].data !== null) {
-          this.state.compData = this.state.serchcat[index].data
+          this.compData = this.state.serchcat[index].data
           return dat.component
         } else {
           return emptyle

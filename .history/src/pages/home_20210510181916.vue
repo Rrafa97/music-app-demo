@@ -40,7 +40,8 @@
           </div> -->
         <!-- </van-tab> -->
         <van-tab v-for="item in state.serchcat" :title="item.name">
-          <emptyle v-if="item.data === null" />
+          
+          <emptyle v-if="this.state.serchcat[index].data === null" />
           <component v-else :is="componentIs" :compData="state.compData"></component>
         </van-tab>
       </van-tabs>
@@ -148,16 +149,12 @@ export default {
       let index = this.state.serchactive
       
       let dat = this.state.serchcat[index]
-      console.log(this.state.serchcat[index].data)
-      this.state.compData = this.state.serchcat[index].data
+      console.log(this.state.serchcat[index])
       if (this.cardShow) {
         if (this.state.serchcat[index].data !== null) {
-          this.state.compData = this.state.serchcat[index].data
           return dat.component
-        } else {
-          return emptyle
-        }
-        
+        } else 
+        return emptyle
       }
         
     }
@@ -222,8 +219,8 @@ export default {
       });
     },
     changeCat() {
-      console.log(this.state.serchcat[this.state.serchactive])
-      if (this.state.serchcat[this.state.serchactive ].data === null) {
+      console.log(this.state.serchactive)
+      if (this.state.serchcat[this.state.serchactive ].data !== null) {
               SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.state.serchactive ].val).then( res => {
         
         this.state.serchcat[this.state.serchactive].data = res.data.result

@@ -40,8 +40,8 @@
           </div> -->
         <!-- </van-tab> -->
         <van-tab v-for="item in state.serchcat" :title="item.name">
-          <emptyle v-if="item.data === null" />
-          <component v-else :is="componentIs" :compData="state.compData"></component>
+          <emptyle />
+          <!-- <component v-else :is="componentIs" :compData="state.compData"></component> -->
         </van-tab>
       </van-tabs>
     </div>
@@ -149,15 +149,11 @@ export default {
       
       let dat = this.state.serchcat[index]
       console.log(this.state.serchcat[index].data)
-      this.state.compData = this.state.serchcat[index].data
       if (this.cardShow) {
         if (this.state.serchcat[index].data !== null) {
-          this.state.compData = this.state.serchcat[index].data
           return dat.component
-        } else {
-          return emptyle
-        }
-        
+        } else 
+        return emptyle
       }
         
     }

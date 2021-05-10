@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'http://rrafa.icu:3000/',
-  withCredentials:true
+  baseURL: 'http://rrafa.icu:3000/'
+  // baseURL: 'http://192.168.5.108:8080/'
 })
 
 axios.interceptors.request.use(config => {

@@ -27,7 +27,7 @@ import { GET_SONG } from "../api/index";
 import { useRoute } from "vue-router";
 export default {
   props: ["compData"],
-  setup(props:any) {
+  setup(props) {
     const data = reactive({
       currentMp3: "",
       playShow: false,

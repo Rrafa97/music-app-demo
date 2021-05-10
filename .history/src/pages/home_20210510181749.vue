@@ -40,7 +40,8 @@
           </div> -->
         <!-- </van-tab> -->
         <van-tab v-for="item in state.serchcat" :title="item.name">
-          <emptyle v-if="item.data === null" />
+          
+          <emptyle v-if="this.state.serchcat[index].data === null" />
           <component v-else :is="componentIs" :compData="state.compData"></component>
         </van-tab>
       </van-tabs>
@@ -117,13 +118,7 @@ export default {
         {name: '单曲',val:1,data:null,component: markRaw(songslist)},
         { name:'专辑',val: 10,data:null,component:markRaw(album_list_item) },
       { name:'歌手',val: 100,data: null,component:markRaw(album_list_item) 
-      },{ name:'歌单',val: 1000,data:null,component: markRaw(songslist) },
-      { name:'用户',val: 1002,data:null,component: markRaw(songslist) },
-      { name:'MV',val: 1004 ,data:null,component: markRaw(songslist)},
-      { name:'歌词',val: 1006,data:null,component: markRaw(songslist) },
-      { name:'电台',val: 1009,data:null,component: markRaw(songslist) },
-      { name:'视频',val: 1014 ,data:null,component: markRaw(songslist)},
-      { name:'综合',val: 1018 ,data:null,component: markRaw(songslist)}]
+      },{ name:'歌单',val: 1000 },{ name:'用户',val: 1002 },{ name:'MV',val: 1004 },{ name:'歌词',val: 1006 },{ name:'电台',val: 1009 },{ name:'视频',val: 1014 },{ name:'综合',val: 1018 }]
     });
 
      const beforeChange = (index) => {
@@ -148,16 +143,12 @@ export default {
       let index = this.state.serchactive
       
       let dat = this.state.serchcat[index]
-      console.log(this.state.serchcat[index].data)
-      this.state.compData = this.state.serchcat[index].data
+      console.log(this.state.serchcat[index])
       if (this.cardShow) {
         if (this.state.serchcat[index].data !== null) {
-          this.state.compData = this.state.serchcat[index].data
           return dat.component
-        } else {
-          return emptyle
-        }
-        
+        } else 
+        return emptyle
       }
         
     }
@@ -222,8 +213,8 @@ export default {
       });
     },
     changeCat() {
-      console.log(this.state.serchcat[this.state.serchactive])
-      if (this.state.serchcat[this.state.serchactive ].data === null) {
+      console.log(this.state.serchactive)
+      if (this.state.serchcat[this.state.serchactive ].data !== null) {
               SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.state.serchactive ].val).then( res => {
         
         this.state.serchcat[this.state.serchactive].data = res.data.result

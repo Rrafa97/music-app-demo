@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="state.carShow">
     <div v-for="(index, item) in compData">
       <van-card
         :desc="'艺术家：' + index.ar[0].name"
@@ -27,7 +27,7 @@ import { GET_SONG } from "../api/index";
 import { useRoute } from "vue-router";
 export default {
   props: ["compData"],
-  setup(props:any) {
+  setup() {
     const data = reactive({
       currentMp3: "",
       playShow: false,
@@ -35,7 +35,6 @@ export default {
       carShow: false
     });
     // const router = useRoute()
-    console.log(props.compData)
     const getSong = function (id: any, item: any) {
       data.currentMp3 = "";
       data.playShow = false;

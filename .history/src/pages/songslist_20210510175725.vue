@@ -21,21 +21,18 @@
 </template>
 
 <script lang="ts">
-import { onMounted, reactive } from "vue";
-import router from "@/router/"
+import { reactive } from "vue";
 import { GET_SONG } from "../api/index";
 import { useRoute } from "vue-router";
 export default {
   props: ["compData"],
-  setup(props:any) {
+  setup() {
     const data = reactive({
       currentMp3: "",
       playShow: false,
       playInfo: {},
-      carShow: false
     });
-    // const router = useRoute()
-    console.log(props.compData)
+
     const getSong = function (id: any, item: any) {
       data.currentMp3 = "";
       data.playShow = false;
@@ -44,11 +41,10 @@ export default {
         res.data.data[0].url === ""
           ? false
           : (data.currentMp3 = res.data.data[0].url);
-          toPlay()
       });
     };
     const toPlay = function () {
-      (router as any).push({
+      (useRoute() as any).push({
         name: "lyrics",
         query: {
           id: (data.playInfo as any).id,
@@ -57,9 +53,6 @@ export default {
         },
       });
     };
-    onMounted(() => {
-      data.carShow = true
-    })
     return { getSong };
   },
 };

@@ -18,7 +18,6 @@
         v-model:active="state.serchactive"
         swipeable
         @change="changeCat"
-        :before-change="beforeChange"
       >
         <!-- <van-tab :title="'单曲 '"> -->
         <!-- <div v-for="(index, item) in songs" key="item">
@@ -40,8 +39,8 @@
           </div> -->
         <!-- </van-tab> -->
         <van-tab v-for="item in state.serchcat" :title="item.name">
-          <emptyle v-if="item.data === null" />
-          <component v-else :is="componentIs" :compData="state.compData"></component>
+          <component :is="componentIs" :compData="state.compData"></component>
+          <emptyle />
         </van-tab>
       </van-tabs>
     </div>
@@ -117,24 +116,10 @@ export default {
         {name: '单曲',val:1,data:null,component: markRaw(songslist)},
         { name:'专辑',val: 10,data:null,component:markRaw(album_list_item) },
       { name:'歌手',val: 100,data: null,component:markRaw(album_list_item) 
-      },{ name:'歌单',val: 1000,data:null,component: markRaw(songslist) },
-      { name:'用户',val: 1002,data:null,component: markRaw(songslist) },
-      { name:'MV',val: 1004 ,data:null,component: markRaw(songslist)},
-      { name:'歌词',val: 1006,data:null,component: markRaw(songslist) },
-      { name:'电台',val: 1009,data:null,component: markRaw(songslist) },
-      { name:'视频',val: 1014 ,data:null,component: markRaw(songslist)},
-      { name:'综合',val: 1018 ,data:null,component: markRaw(songslist)}]
+      },{ name:'歌单',val: 1000 },{ name:'用户',val: 1002 },{ name:'MV',val: 1004 },{ name:'歌词',val: 1006 },{ name:'电台',val: 1009 },{ name:'视频',val: 1014 },{ name:'综合',val: 1018 }]
     });
 
-     const beforeChange = (index) => {
-      if (index === 1) {
-        return false;
-      }
 
-      return new Promise((resolve) => {
-        resolve(index !== 3);
-      });
-    };
 
     var playInfo = false;
     const audio = ref(null);
@@ -148,16 +133,9 @@ export default {
       let index = this.state.serchactive
       
       let dat = this.state.serchcat[index]
-      console.log(this.state.serchcat[index].data)
-      this.state.compData = this.state.serchcat[index].data
+      console.log(this.cardShow)
       if (this.cardShow) {
-        if (this.state.serchcat[index].data !== null) {
-          this.state.compData = this.state.serchcat[index].data
-          return dat.component
-        } else {
-          return emptyle
-        }
-        
+        return dat.component
       }
         
     }
@@ -205,6 +183,20 @@ export default {
     setPlayInfo(song) {
       this.playInfo = song;
     },
+    // getSong(id, song) {
+    //   this.currentMp3 = "";
+    //   this.playShow = false;
+    //   this.setPlayInfo(song);
+    //   GET_SONG(id).then((res) => {
+    //     if (res.data.data[0].url === "") {
+    //       this.$toast.fail("暂时没有资源");
+    //     }
+    //     this.currentMp3 = res.data.data[0].url;
+    //     // this.popShow = true;
+    //     // this.playShow = true;
+    //     this.toSongs()
+    //   });
+    // },
     adClick(i) {
       i === 2 ? this.login() : false;
     },
@@ -222,8 +214,8 @@ export default {
       });
     },
     changeCat() {
-      console.log(this.state.serchcat[this.state.serchactive])
-      if (this.state.serchcat[this.state.serchactive ].data === null) {
+      console.log(this.state.serchactive)
+      if (this.state.serchcat[this.state.serchactive ].data !== null) {
               SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.state.serchactive ].val).then( res => {
         
         this.state.serchcat[this.state.serchactive].data = res.data.result

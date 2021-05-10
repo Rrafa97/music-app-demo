@@ -1,14 +1,13 @@
 <template>
   <div>
-    444
-    {{compData}}
+    {{data}}
   </div>
 </template>
 
 <script lang="ts">
 export default {
-  props: ['compData'],
-  setup(props:any) {
+  props: ['data'],
+  setup(props) {
     // console.log(data)
   }
 }

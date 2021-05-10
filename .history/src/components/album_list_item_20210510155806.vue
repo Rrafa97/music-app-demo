@@ -8,7 +8,7 @@
 <script lang="ts">
 export default {
   props: ['compData'],
-  setup(props:any) {
+  setup(props) {
     // console.log(data)
   }
 }

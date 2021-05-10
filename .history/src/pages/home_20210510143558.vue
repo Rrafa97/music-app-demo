@@ -39,8 +39,8 @@
           </div>
         </van-tab>
         <van-tab v-for="item in state.serchcat" :title="item.name">
-          <!-- <album-list-item></album-list-item> -->
-          <component :is="componentIs" :compData='state.compData'></component>
+          <album-list-item></album-list-item>
+          <component :is="componentIs"></component>
           <emptyle />
         </van-tab>
       </van-tabs>
@@ -69,7 +69,7 @@
 
 <script lang="js">
 import { SERCH_KEY, SERCH_HOT, GET_SONG,SERCH_KEYWORDS } from "../api/index";
-import { reactive, ref, provide,markRaw } from "vue";
+import { reactive, ref, provide } from "vue";
 import playlisthot from '@/pages/playlist_hot.vue';
 import emptyle from '@/components/emptyle.vue';
 import album_list_item from '@/components/album_list_item.vue';
@@ -110,10 +110,10 @@ export default {
       number: "",
       password: "",
       serchactive: 0,
-      compData: {},
       serchcat: [
-        { name:'专辑',val: 10,data:null,component:markRaw(album_list_item) },
-      { name:'歌手',val: 100,data: null,component:markRaw(album_list_item) 
+        { name:'歌单',val: 1 }
+        { name:'专辑',val: 10 },
+      { name:'歌手',val: 100,data: null
       },{ name:'歌单',val: 1000 },{ name:'用户',val: 1002 },{ name:'MV',val: 1004 },{ name:'歌词',val: 1006 },{ name:'电台',val: 1009 },{ name:'视频',val: 1014 },{ name:'综合',val: 1018 }]
     });
 
@@ -130,7 +130,7 @@ export default {
     componentIs() {
       let index = this.state.serchactive
       let dat = this.state.serchcat[index]
-        return dat.component
+        return dat.compt
     }
   },
   methods: {
@@ -206,11 +206,9 @@ export default {
     },
     changeCat() {
       console.log(this.state.serchactive)
-      SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.state.serchactive -1].val).then( res => {
-        console.log(this.state.serchactive)
+      SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.state.serchactive].val).then( res => {
         this.state.serchcat[this.state.serchactive].data = res.data.result
         let data__ = this.state.serchcat[this.state.serchactive].data
-        this.state.compData = data__
         console.log(this.state.serchcat[this.state.serchactive].name,data__)
         })
     }

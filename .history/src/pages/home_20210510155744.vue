@@ -110,7 +110,7 @@ export default {
       number: "",
       password: "",
       serchactive: 0,
-      compData: {},
+      compData: '323',
       serchcat: [
         { name:'专辑',val: 10,data:null,component:markRaw(album_list_item) },
       { name:'歌手',val: 100,data: null,component:markRaw(album_list_item) 
@@ -210,7 +210,6 @@ export default {
         console.log(this.state.serchactive)
         this.state.serchcat[this.state.serchactive].data = res.data.result
         let data__ = this.state.serchcat[this.state.serchactive].data
-        this.state.compData = data__
         console.log(this.state.serchcat[this.state.serchactive].name,data__)
         })
     }

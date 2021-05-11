@@ -3,21 +3,7 @@
     <!-- qweqwe
     {{ compData }} -->
     <div v-for="item in compData.albums">
-      <van-row>
-        <van-col span="8">
-          <van-image :src="item.blurPicUrl"></van-image>
-        </van-col>
-        <van-col span="8">
-          <div>
-            <span :style="{ maring: '8px 0', fontSize: '18px' }">{{
-              item.name
-            }}</span>
-          </div>
-          <span>{{ item.artist.name }}</span>
-        </van-col>
-        <!-- <van-col span="8">span: 8</van-col> -->
-      </van-row>
-      <!-- <van-card
+      <van-card
         :desc="'发行商：' + item.company"
         :title="item.name"
         :thumb="item.blurPicUrl"
@@ -26,12 +12,13 @@
         <div><span :style="{maring: '8px 0',fontSize: '18px'}">{{item.name}}</span> <span>{{item.artist.name}}</span> </div>
       </template>
       <template #desc>
+        <!-- <div>{{item.artist.name}}作品集：{{item.artist.albumSize}}</div> -->
         <div :style="{color: 'rgb(236, 44, 100)'}">{{item.company}}</div>
       </template>
-      <template #thumb :style="{width:'48px', height:'48px'}">
-        <van-image :src='item.blurPicUrl'></van-image>
+      <template #thumb>
+        <van-image width="10" height="10" :src='item.blurPicUrl'></van-image>
       </template>
-      </van-card> -->
+      </van-card>
     </div>
   </div>
 </template>

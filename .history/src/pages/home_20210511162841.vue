@@ -129,12 +129,7 @@ export default {
   computed: {
     componentIsNex() {
       this.state.compDataNex = this.state.serchcat[this.state.serchactive + 1].data
-      if (this.state.serchcat[this.state.serchactive + 1].data !== null) {
-        return this.state.serchcat[this.state.serchactive + 1].component
-      } else {
-        return false
-      }
-      
+      return this.state.serchcat[this.state.serchactive + 1].component
     },
     componentIsPre() {
       if (this.state.serchactive === 0) {

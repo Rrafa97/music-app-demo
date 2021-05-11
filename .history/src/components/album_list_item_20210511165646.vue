@@ -4,19 +4,15 @@
     {{ compData }} -->
     <div v-for="item in compData.albums">
       <van-row>
-        <van-col span="8">
-          <van-image :src="item.blurPicUrl"></van-image>
-        </van-col>
-        <van-col span="8">
-          <div>
-            <span :style="{ maring: '8px 0', fontSize: '18px' }">{{
-              item.name
-            }}</span>
-          </div>
-          <span>{{ item.artist.name }}</span>
-        </van-col>
-        <!-- <van-col span="8">span: 8</van-col> -->
-      </van-row>
+  <van-col span="8">
+<van-image :src='item.blurPicUrl'></van-image>
+  </van-col>
+  <van-col span="8">
+    <div><span :style="{maring: '8px 0',fontSize: '18px'}">{{item.name}}</span>  </div>
+    <span>{{item.artist.name}}</span>
+  </van-col>
+  <!-- <van-col span="8">span: 8</van-col> -->
+</van-row>
       <!-- <van-card
         :desc="'发行商：' + item.company"
         :title="item.name"

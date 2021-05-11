@@ -1,11 +1,11 @@
 <template>
   <div>
-    <!-- <p1></p1> -->
-    <!-- <van-tabs v-model:active="data.tabactive" swipeable @change="logact">
+    <p1></p1>
+    <van-tabs v-model:active="data.tabactive" swipeable @change="logact">
       <van-tab v-for="index in 4" :title="'选项 ' + index">
         内容 {{ index }}
       </van-tab>
-    </van-tabs> -->
+    </van-tabs>
 
     <van-tabs v-model:active="data.tabactive" swipeable>
       <van-tab v-for="index in componentArr" :title="'选项 '">

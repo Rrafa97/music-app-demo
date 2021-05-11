@@ -52,8 +52,9 @@ const routes = [
   {
     path: '/songsheet',
     name: 'songsheet',
-    component: () => import(/* webpackChunkName: "about" */ '../pages/songsheet.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../components/songsheet.vue')
   },
+  
   {
     path: '/songslist',
     name: 'songslist',

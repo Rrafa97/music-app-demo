@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <p1></p1> -->
+    <p1></p1>
     <!-- <van-tabs v-model:active="data.tabactive" swipeable @change="logact">
       <van-tab v-for="index in 4" :title="'选项 ' + index">
         内容 {{ index }}

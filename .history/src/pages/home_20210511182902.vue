@@ -22,7 +22,7 @@
       >
         <van-tab v-for="(item, index) in state.serchcat" :title="item.name">
           <emptyle v-if="item.data === null" />
-          <!-- <component
+          <component
             v-if="index === state.serchactive + 1"
             :is="componentIsNex"
             :compData="state.compDataNex"
@@ -31,7 +31,7 @@
             v-if="index - 1 === state.serchactive"
             :is="componentIsPre"
             :compData="state.compDataPre"
-          ></component> -->
+          ></component>
           <component
             v-if="index === state.serchactive"
             :is="componentIs"
@@ -113,7 +113,6 @@ export default {
       compDataNex: {},
       compDataPre: {},
       tabpre: false,
-      textchange: false,
       serchcat: [
         {name: '单曲',val:1,data:null,component: markRaw(songslist)},
         { name:'专辑',val: 10,data:null,component:markRaw(album_list_item) },
@@ -134,7 +133,6 @@ export default {
     };
 
     watch(() => state.text, () => { //直接监听
-    state.textchange = true
     console.log(state.text)});
 
 
@@ -146,23 +144,23 @@ export default {
     return { audio, state, playInfo,beforeChange };
   },
   computed: {
-    // componentIsNex() {
-    //   this.state.compDataNex = this.state.serchcat[this.state.serchactive + 1].data
-    //   if (this.state.serchcat[this.state.serchactive + 1].data !== null) {
-    //     return this.state.serchcat[this.state.serchactive + 1].component
-    //   } else {
-    //     return false
-    //   }
+    componentIsNex() {
+      this.state.compDataNex = this.state.serchcat[this.state.serchactive + 1].data
+      if (this.state.serchcat[this.state.serchactive + 1].data !== null) {
+        return this.state.serchcat[this.state.serchactive + 1].component
+      } else {
+        return false
+      }
       
-    // },
-    // componentIsPre() {
-    //   if (this.state.serchactive === 0) {
-    //     return false
-    //   } else {
-    //     this.state.compDataPre = this.state.serchcat[this.state.serchactive - 1].data
-    //     return this.state.serchcat[this.state.serchactive - 1].component
-    //   }
-    // },
+    },
+    componentIsPre() {
+      if (this.state.serchactive === 0) {
+        return false
+      } else {
+        this.state.compDataPre = this.state.serchcat[this.state.serchactive - 1].data
+        return this.state.serchcat[this.state.serchactive - 1].component
+      }
+    },
     componentIs() {
       let index = this.state.serchactive
       
@@ -171,7 +169,6 @@ export default {
       if (this.cardShow) {
         if (this.state.serchcat[index].data !== null) {
           this.state.compData = this.state.serchcat[index].data
-          console.log(this.state.compData)
           return dat.component
         } else {
           return emptyle
@@ -208,7 +205,6 @@ export default {
         : false;
     },
     serch() {
-      console.log(this.state.textchange)
       if (this.state.text === "") {
         this.$toast.fail("输入关键词");
       } else {
@@ -220,7 +216,6 @@ export default {
           this.cardShow = true;
         });
       }
-      this.state.textchange = false
     },
     setPlayInfo(song) {
       this.playInfo = song;

@@ -1,8 +1,11 @@
 <template>
   <div>
-    <div v-for="(index, item) in compData">
+    112
+    123
+    412
+    <!-- <div v-for="(index, item) in compData">
       <van-card
-     
+        :desc="'艺术家：' + index.ar[0].name"
         :title="index.name"
         :thumb="index.al.picUrl"
         :centered="false"
@@ -15,7 +18,7 @@
           >
         </template>
       </van-card>
-    </div>
+    </div> -->
   </div>
 </template>
 

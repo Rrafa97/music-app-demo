@@ -171,7 +171,6 @@ export default {
       if (this.cardShow) {
         if (this.state.serchcat[index].data !== null) {
           this.state.compData = this.state.serchcat[index].data
-          console.log(this.state.compData)
           return dat.component
         } else {
           return emptyle

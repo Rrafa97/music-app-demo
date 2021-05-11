@@ -21,9 +21,12 @@
         :before-change="beforeChange"
       >
         <van-tab v-for="(item,index) in state.serchcat" :title="item.name">
-          <emptyle v-if="item.data === null" />
-          <component v-if="index === (state.serchactive +1)" :is="componentIsNex"  :compData="state.compDataNex" ></component>
-          <component v-if="index -1 === state.serchactive " :is="componentIsPre"  :compData="state.compDataPre" ></component>
+          {{index}}
+          {{state.serchactive}}
+           <emptyle v-if="item.data === null" />
+           <!-- <div  v-if="index === (state.serchactive +1)">下一页</div> -->
+          <component v-if="index === (state.serchactive +1)" :is="componentIsNex"  :compData="state.compDataPre" ></component>
+          <!-- <component v-if="index -1 === state.serchactive " :is="componentIsPre"  :compData="state.compDataPre" ></component> -->
           <component v-if="index === state.serchactive" :is="componentIs" :compData="state.compData" ></component>
         </van-tab>
       </van-tabs>
@@ -97,8 +100,6 @@ export default {
       compData: {},
       songs:[],
       tabnex: false,
-      compDataNex: {},
-      compDataPre: {},
       tabpre: false,
       serchcat: [
         {name: '单曲',val:1,data:null,component: markRaw(songslist)},
@@ -130,15 +131,12 @@ export default {
   },
   computed: {
     componentIsNex() {
-      this.state.compDataNex = this.state.serchcat[this.state.serchactive + 1].data
-      console.log(this.state.compDataNex)
       return this.state.serchcat[this.state.serchactive + 1].component
     },
     componentIsPre() {
       if (this.state.serchactive === 0) {
         return false
       } else {
-        this.state.compDataPre = this.state.serchcat[this.state.serchactive - 1].data
         return this.state.serchcat[this.state.serchactive - 1].component
       }
     },

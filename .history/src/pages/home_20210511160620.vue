@@ -21,7 +21,10 @@
         :before-change="beforeChange"
       >
         <van-tab v-for="(item,index) in state.serchcat" :title="item.name">
-          <emptyle v-if="item.data === null" />
+          {{index}}
+          {{state.serchactive}}
+           <emptyle v-if="item.data === null" />
+           <!-- <div  v-if="index === (state.serchactive +1)">下一页</div> -->
           <component v-if="index === (state.serchactive +1)" :is="componentIsNex"  :compData="state.compDataNex" ></component>
           <component v-if="index -1 === state.serchactive " :is="componentIsPre"  :compData="state.compDataPre" ></component>
           <component v-if="index === state.serchactive" :is="componentIs" :compData="state.compData" ></component>

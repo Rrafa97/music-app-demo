@@ -7,7 +7,7 @@
         :thumb="index.al.picUrl"
         :centered="false"
         @click="getSong(index.id, index)"
-        style="background: rgba(#000000, 0)"  
+        style="background: rgba(#000000, 0)" 
       >
         <template #tags>
           <van-tag class="main-color" plain type="danger"

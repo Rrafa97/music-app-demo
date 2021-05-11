@@ -9,9 +9,9 @@
             :style="{ height: '64px',width: '64px' }"
             :src="item.blurPicUrl"
           ></van-image>
-          <van-image  :style="{ height: '64px',width: '64px',position:'absolute',left: '48px',zIndex: '-1' }" :src="require('../assets/images/albac.png')"></van-image>
+          <van-image  :style="{ height: '64px',width: '64px',position:'absolute' }" :src="require('../assets/images/albac.png')"></van-image>
         </van-col>
-        <van-col span="16" class="col-flex">
+        <van-col span="16">
           <div>
             <span :style="{ maring: '8px 0', fontSize: '16px' }">{{
               item.name
@@ -50,9 +50,7 @@ export default {
 </script>
 
 <style>
-.col-flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+* {
+  /* position: absolute; */
 }
 </style>

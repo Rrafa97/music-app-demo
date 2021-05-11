@@ -2,22 +2,18 @@
   <div>
     <!-- qweqwe
     {{ compData }} -->
-    <div v-for="item in compData.albums" :style="{margin:'16px'}">
-      <van-row :style="{ color: 'rgb(54, 41, 47)' }">
+    <div v-for="item in compData.albums">
+      <van-row>
         <van-col span="8">
-          <van-image
-            :style="{ height: '64px',width: '64px' }"
-            :src="item.blurPicUrl"
-          ></van-image>
-          <van-image  :style="{ height: '64px',width: '64px',position:'absolute',left: '48px',zIndex: '-1' }" :src="require('../assets/images/albac.png')"></van-image>
+          <van-image :src="item.blurPicUrl"></van-image>
         </van-col>
-        <van-col span="16" class="col-flex">
+        <van-col span="16">
           <div>
-            <span :style="{ maring: '8px 0', fontSize: '16px' }">{{
+            <span :style="{ maring: '8px 0', fontSize: '18px' }">{{
               item.name
             }}</span>
           </div>
-          <span :style="{ color: 'rgb(18, 110, 130)', fontSize: '12px' }">{{ item.artist.name }}</span>
+          <span>{{ item.artist.name }}</span>
         </van-col>
         <!-- <van-col span="8">span: 8</van-col> -->
       </van-row>
@@ -48,11 +44,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.col-flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-</style>

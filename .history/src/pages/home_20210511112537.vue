@@ -22,11 +22,7 @@
       >
         <van-tab v-for="item in state.serchcat" :title="item.name">
           <emptyle v-if="item.data === null" />
-          <component
-            v-else
-            :is="componentIs"
-            :compData="state.compData"
-          ></component>
+          <component v-else :is="componentIs" :compData="state.compData"></component>
         </van-tab>
       </van-tabs>
     </div>
@@ -111,11 +107,13 @@ export default {
       { name:'综合',val: 1018 ,data:null,component: markRaw(songslist)}]
     });
 
-     const beforeChange = (item) => {
-      console.log(121);
-      console.log(item);
+     const beforeChange = (index) => {
+      if (index === 1) {
+        return false;
+      }
+
       return new Promise((resolve) => {
-        resolve(console.log(121));
+        resolve(index !== 3);
       });
     };
 
@@ -124,7 +122,7 @@ export default {
     SERCH_HOT().then((res) => {
       state.text = res.data.result.hots[0].first;
     });
-    return { audio, state, playInfo,beforeChange };
+    return { audio, state, playInfo };
   },
   computed: {
     componentIs() {

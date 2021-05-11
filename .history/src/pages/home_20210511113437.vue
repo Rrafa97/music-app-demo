@@ -21,9 +21,9 @@
         :before-change="beforeChange"
       >
         <van-tab v-for="item in state.serchcat" :title="item.name">
-          <emptyle v-if="item.data === null" />
+          <!-- <emptyle v-if="item.data === null" /> -->
           <component
-            v-else
+    
             :is="componentIs"
             :compData="state.compData"
           ></component>

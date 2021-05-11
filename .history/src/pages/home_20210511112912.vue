@@ -115,7 +115,7 @@ export default {
       console.log(121);
       console.log(item);
       return new Promise((resolve) => {
-        resolve(console.log(121));
+        resolve(item !== 3);
       });
     };
 

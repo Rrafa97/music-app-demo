@@ -97,7 +97,7 @@ export default {
       compData: {},
       songs:[],
       tabnex: false,
-      tabpre: false,
+      tabpre: false
       serchcat: [
         {name: '单曲',val:1,data:null,component: markRaw(songslist)},
         { name:'专辑',val: 10,data:null,component:markRaw(album_list_item) },
@@ -131,7 +131,7 @@ export default {
       if (this.state.serchactive === 0) {
         return false
       }
-    },
+    }
     componentIs() {
       let index = this.state.serchactive
       

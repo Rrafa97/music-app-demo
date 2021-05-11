@@ -131,7 +131,7 @@ export default {
       if (this.state.serchactive === 0) {
         return false
       }
-    },
+    }
     componentIs() {
       let index = this.state.serchactive
       

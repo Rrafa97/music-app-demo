@@ -21,10 +21,10 @@
         :before-change="beforeChange"
       >
         <van-tab v-for="item in state.serchcat" :title="item.name">
-          <component v-if="state.tabnex" :is="componentIsNex"  :compData="state.compDataPre" ></component>
-          <component v-if="state.tabpre" :is="componentIsPre"  :compData="state.compDataNex" ></component>
           <emptyle v-if="item.data === null" />
-          <component v-else :is="componentIs" :compData="state.compData" ></component>
+          <component v-else :is="componentIs"  :compData="state.compData" ></component>
+          <component v-else :is="componentIs"  :compData="state.compData" ></component>
+          <component  v-else:is="componentIs" :compData="state.compData" ></component>
         </van-tab>
       </van-tabs>
     </div>
@@ -96,8 +96,6 @@ export default {
       serchactive: 0,
       compData: {},
       songs:[],
-      tabnex: false,
-      tabpre: false,
       serchcat: [
         {name: '单曲',val:1,data:null,component: markRaw(songslist)},
         { name:'专辑',val: 10,data:null,component:markRaw(album_list_item) },
@@ -127,11 +125,6 @@ export default {
     return { audio, state, playInfo,beforeChange };
   },
   computed: {
-    componentIsPre() {
-      if (this.state.serchactive === 0) {
-        return false
-      }
-    },
     componentIs() {
       let index = this.state.serchactive
       
@@ -143,7 +136,8 @@ export default {
           return dat.component
         } else {
           return emptyle
-        }       
+        }
+        
       }
         
     }

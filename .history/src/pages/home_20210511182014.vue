@@ -64,7 +64,7 @@
 
 <script lang="js">
 import { SERCH_KEY, SERCH_HOT, GET_SONG,SERCH_KEYWORDS } from "../api/index";
-import { reactive, ref,watch, provide,markRaw } from "vue";
+import { reactive, ref, provide,markRaw } from "vue";
 import playlisthot from '@/pages/playlist_hot.vue';
 import emptyle from '@/components/emptyle.vue';
 import album_list_item from '@/components/album_list_item.vue';
@@ -132,8 +132,8 @@ export default {
       });
     };
 
-    watch(state.text, (newValue, oldValue) => { //直接监听
-    console.log(this.state.text)});
+    watch(this.state.text, (newValue, oldValue) => { //直接监听
+    console.log(this.state.text});
 
 
     var playInfo = false;

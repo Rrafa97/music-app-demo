@@ -132,7 +132,7 @@ export default {
       });
     };
 
-    watch(state.text, (newValue, oldValue) => { //直接监听
+    watch(this.state.text, (newValue, oldValue) => { //直接监听
     console.log(this.state.text)});
 
 

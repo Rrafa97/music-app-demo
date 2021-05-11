@@ -20,23 +20,11 @@
         @change="changeCat"
         :before-change="beforeChange"
       >
-        <van-tab v-for="(item, index) in state.serchcat" :title="item.name">
+        <van-tab v-for="(item,index) in state.serchcat" :title="item.name">
           <emptyle v-if="item.data === null" />
-          <component
-            v-if="index === state.serchactive + 1"
-            :is="componentIsNex"
-            :compData="state.compDataNex"
-          ></component>
-          <component
-            v-if="index - 1 === state.serchactive"
-            :is="componentIsPre"
-            :compData="state.compDataPre"
-          ></component>
-          <component
-            v-if="index === state.serchactive"
-            :is="componentIs"
-            :compData="state.compData"
-          ></component>
+          <component v-if="index === (state.serchactive +1)" :is="componentIsNex"  :compData="state.compDataNex" ></component>
+          <component v-if="index -1 === state.serchactive " :is="componentIsPre"  :compData="state.compDataPre" ></component>
+          <component v-if="index === state.serchactive" :is="componentIs" :compData="state.compData" ></component>
         </van-tab>
       </van-tabs>
     </div>
@@ -64,12 +52,12 @@
 
 <script lang="js">
 import { SERCH_KEY, SERCH_HOT, GET_SONG,SERCH_KEYWORDS } from "../api/index";
-import { reactive, ref,watch, provide,markRaw } from "vue";
+import { reactive, ref, provide,markRaw } from "vue";
 import playlisthot from '@/pages/playlist_hot.vue';
 import emptyle from '@/components/emptyle.vue';
 import album_list_item from '@/components/album_list_item.vue';
 import songslist from '@/pages/songslist.vue';
-import singerlist from '@/components/singerlist.vue';
+import singerlist from '@/pages/singerlist.vue';
 // import playsmall from "@/pages/playsmall";
 export default {
   name: 'home',
@@ -131,10 +119,6 @@ export default {
         resolve(true);
       });
     };
-
-    watch(state.text, (newValue, oldValue) => { //直接监听
-    console.log(this.state.text)});
-
 
     var playInfo = false;
     const audio = ref(null);
@@ -237,9 +221,7 @@ export default {
       });
     },
     changeCat() {
-      
-      console.log(this.state.serchcat[this.state.serchactive ].val)
-      if (this.state.serchcat[this.state.serchactive ].data === null || this.state.text !== null) {
+      if (this.state.serchcat[this.state.serchactive ].data === null) {
               SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.state.serchactive ].val).then( res => {
         
         this.state.serchcat[this.state.serchactive].data = res.data.result

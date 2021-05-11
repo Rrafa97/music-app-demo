@@ -18,24 +18,24 @@
 <script lang="ts">
 import { computed, reactive } from "vue";
 export default {
-  // setup() {
-  //   const componentArr: Array<any> = [
-  //     { name: "1", component: `<p>1</p>` },
-  //     { name: "2", component: `<p>2</p>` },
-  //     { name: "3", component: `<p>3</p>` },
-  //   ];
-  //   const data = reactive({
-  //     tabactive: 0,
-  //   });
-  //   const componentid = computed(() => {
-  //     // return componentArr[data.tabactive].component;
-  //   });
-  //   return { data, componentid, componentArr };
-  // },
-  // methods: {
-  //   logact() {
-  //     console.log(this.data.tabactive);
-  //   },
-  // },
+  setup() {
+    const componentArr: Array<any> = [
+      { name: "1", component: `<p>1</p>` },
+      { name: "2", component: `<p>2</p>` },
+      { name: "3", component: `<p>3</p>` },
+    ];
+    const data = reactive({
+      tabactive: 0,
+    });
+    const componentid = computed(() => {
+      return componentArr[data.tabactive].component;
+    });
+    return { data, componentid, componentArr };
+  },
+  methods: {
+    logact() {
+      console.log(this.data.tabactive);
+    },
+  },
 };
 </script>

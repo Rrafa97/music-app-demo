@@ -1,6 +1,6 @@
 <template>
   <div>
-    11{{compData}}
+    11
   </div>
 </template>
 

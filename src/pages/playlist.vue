@@ -1,30 +1,17 @@
 <template>
   <div>
     <!-- <div v-for="">{{}}</div> -->
-    <van-card
-      :desc="'创建者：' + pinfo__.creator.nickname"
-      :title="'歌单：' + pinfo__.name"
-      :thumb="pinfo__.coverImgUrl"
-      :style="{ paddingTop: '32px' }"
-      class="main-color"
-    >
+    <van-card :desc="'创建者：' + pinfo__.creator.nickname" :title="'歌单：' + pinfo__.name" :thumb="pinfo__.coverImgUrl" :style="{ paddingTop: '32px' }" class="main-color" >
       <template #title>
         <p :style="{ fontSize: '18px',lineHigh:'36px' }">{{ pinfo__.name }}</p>
       </template>
       <template #bottom> 播放量：{{ pinfo__.playCount }} </template>
       <template #desc>
-        <van-tag
-          :style="{ margin: '6px 0' }"
-          round
-          plain
-        >
-          {{ "创建者：" + pinfo__.creator.nickname }}</van-tag
-        >
+        <van-tag :style="{ margin: '6px 0' }" round plain>{{ "创建者：" + pinfo__.creator.nickname }}</van-tag>
       </template>
       <template #tag>
-        <van-tag color="rgba(0,0,0,.5)"
-          ><van-icon name="play-circle-o" />{{ pinfo__.playCount }}</van-tag
-        >
+        <van-tag color="rgba(0,0,0,.5)">
+          <van-icon name="play-circle-o" />{{ pinfo__.playCount }}</van-tag>
       </template>
       <template #tags>
         <p>创建时间:{{ state.ctimetemp }}</p>
@@ -33,28 +20,14 @@
         <van-icon name="p-o">{{ pinfo__.trackIds.length }}首</van-icon>
       </template>
     </van-card>
-
     <van-divider :style="{ color: 'white' }">歌单列表</van-divider>
-
     <van-swipe-cell border="false" v-for="item in state.songs">
-      <template #left>
-        收藏
+      <template #left>收藏
         <!-- <van-button square type="danger" text="收藏" /> -->
       </template>
-      <van-cell
-        clickable
-        :style="{ background: 'rgba(0,0,0,0)', color: 'rgb(18, 110, 130)' }"
-        @click="getSongUrl(item, item.id)"
-      >
+      <van-cell clickable :style="{ background: 'rgba(0,0,0,0)', color: 'rgb(18, 110, 130)' }"  @click="getSongUrl(item, item.id)">
         <template #title>
-          <div
-            :style="{
-              fontSize: '18px',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              width: '80vw',
-            }"
-          >
+          <div  :style="{ fontSize: '18px', whiteSpace: 'nowrap',  overflow: 'hidden', width: '80vw',}">
             {{ item.name }}
             <van-tag v-if="item.resourceState" type="danger">有资源</van-tag>
           </div>
@@ -62,19 +35,7 @@
           <!-- <van-notice-bar color="white" :style="{height:'32px',fontSize:'22px', whiteSpace: 'nowrap',overflow:'hidden'}" background='rgba(0,0,0,0)' speed='1' scrollable :text="item.name" /> -->
           <div :style="{ whiteSpace: 'nowrap' }">
             <!-- <van-tag type="danger">标签</van-tag> -->
-            <van-notice-bar
-              :style="{ height: '16px', fontSize: '12px' }"
-              background="rgba(0,0,0,0)"
-              speed="10"
-              scrollable
-              :text="
-                '专辑：' +
-                item.al.name +
-                '/艺术家：' +
-                item.ar[0].name +
-                '/发行时间：'
-              "
-            />
+            <van-notice-bar :style="{ height: '16px', fontSize: '12px' }" background="rgba(0,0,0,0)" speed="10" scrollable :text="  '专辑：' +  item.al.name + '/艺术家：' + item.ar[0].name +'/发行时间：'" />
           </div>
         </template>
         <template #default :style="{ color: 'white' }">

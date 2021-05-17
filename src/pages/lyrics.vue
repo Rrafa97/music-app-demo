@@ -1,38 +1,12 @@
 <template>
   <div class="bacg-abs" v-if="resShow">
     <div class="player-main">
-      <van-image
-        id="player-back"
-        class="record"
-        src="http://cdn.jsdelivr.net/gh/zjkwdy/website-cdn/assets/images/other/playing_lp.png"
-      />
-      <div id="player-cover">
-        <van-image
-          round
-          id="rotage"
-          ref="rotage"
-          class="record"
-          fit="contain"
-          :src="song.al.picUrl"
-        />
+      <van-image id="player-back" class="record" src="http://cdn.jsdelivr.net/gh/zjkwdy/website-cdn/assets/images/other/playing_lp.png" />
+      <div id="player-cover">  
+        <van-image round id="rotage" ref="rotage" class="record" fit="contain" :src="song.al.picUrl"/>
       </div>
-
-      <van-image
-        class="record"
-        id="player-veins"
-        src="http://cdn.jsdelivr.net/gh/zjkwdy/website-cdn/assets/images/other/playing_veins_lp.png"
-        alt=""
-      />
-      <van-image
-        class="stylus_l record-arm"
-        @touchmove="touchmove"
-        @touchstart="touchstart"
-        @touchend="touchend"
-        ref="recordArm"
-        id="recordArm"
-        src="http://cdn.jsdelivr.net/gh/zjkwdy/website-cdn/assets/images/other/playing_stylus_lp.png"
-        alt=""
-      />
+      <van-image class="record"  id="player-veins" src="http://cdn.jsdelivr.net/gh/zjkwdy/website-cdn/assets/images/other/playing_veins_lp.png" alt="" />
+      <van-image class="stylus_l record-arm" @touchmove="touchmove"  @touchstart="touchstart" @touchend="touchend" ref="recordArm" id="recordArm" src="http://cdn.jsdelivr.net/gh/zjkwdy/website-cdn/assets/images/other/playing_stylus_lp.png" alt="" />
       <!-- <van-image
       class="stylus_1"
         src="http://cdn.jsdelivr.net/gh/zjkwdy/website-cdn/assets/images/other/playing_stylus_lp_bg.png"
@@ -50,27 +24,9 @@
           歌手：<span v-for="(item, index) in song.ar">{{ item.name }}·</span>
         </div>
         <van-sticky :style="{width:'70vw'}" position="bottom" :offset-bottom="10">
-          <ul  class="lyric-ar" ref="lyric">
-            {{
-              currentLyric
-            }}
-          </ul>
-          <van-slider
-            v-model="playTime"
-            bar-height=".26rem"
-            @change="onChange"
-            @update:model-value="onUpdate"
-            active-color="#ee0a24"
-          />
-          <van-divider
-            :style="{
-              color: '#fff',
-              textAlign:'center',
-              borderColor: 'rgba(0,0,0,0)',
-              padding: '0 16px',
-            }"
-            >{{ showPlayTime }}</van-divider
-          >
+          <ul  class="lyric-ar" ref="lyric"> {{ currentLyric }} </ul>
+          <van-slider v-model="playTime" bar-height=".26rem" @change="onChange" @update:model-value="onUpdate" active-color="#ee0a24" />
+          <van-divider :style="{color: '#fff', textAlign:'center', borderColor: 'rgba(0,0,0,0)',padding: '0 16px',}" >{{ showPlayTime }}</van-divider>
         </van-sticky>
       </div>
     </div>
@@ -108,11 +64,8 @@ export default {
     var audioPlay = ref(null)
     var recordArm = ref(null)
     var rotage = ref(null)
-    function add() {
-      recordArm.value ++
-    }
-    onMounted(() => {
-    })
+    function add() { recordArm.value ++}
+    onMounted(() => {})
     return { info, audioPlay, currentMp3, recordArm,add,rotage }
   },
   mounted () {
@@ -131,22 +84,12 @@ export default {
     })
   },
   methods: {
-    sortRule (a, b) {
-      return a.time - b.time;
-    },
-    onChange () {
-      this.getCurrentMediaPlayTime()
-    },
-    onUpdate() {
-      // console.log(this.playTime)
-      this.getCurrentMediaPlayTime()
-    },
-
+    sortRule (a, b) {return a.time - b.time; },
+    onChange () { this.getCurrentMediaPlayTime() },
+    onUpdate() { this.getCurrentMediaPlayTime() },
     getTime () {
       let that = this
-      this.audioPlay.canPlay = setTimeout(() => {
-        canPlay()
-      }, 500);
+      this.audioPlay.canPlay = setTimeout(() => {canPlay() }, 500);
       function canPlay () {
         that.audioPlay.ontimeupdate = function () {
           let curTime = that.audioPlay.currentTime
@@ -155,7 +98,6 @@ export default {
             let curn = parseFloat(that.audioPlay.currentTime.toFixed(1))
             if (curn >= index__[index].time - 0.1 && curn <= index__[index + 1].time) {
               if (element.lrc === '' || element.lrc === undefined || element.lrc === null) {
-                // that.currentLyric = ''
                 this.nolyric = true
               } else {
                 that.currentLyric = element.lrc

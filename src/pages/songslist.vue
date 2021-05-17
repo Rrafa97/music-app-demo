@@ -1,18 +1,9 @@
 <template>
   <div>
     <div v-for="(index, item) in compData">
-      <van-card
-     
-        :title="index.name"
-        :thumb="index.al.picUrl"
-        :centered="false"
-        @click="getSong(index.id, index)"
-        style="background: rgba(#000000, 0)"  
-      >
+      <van-card :title="index.name"  :thumb="index.al.picUrl" :centered="false" @click="getSong(index.id, index)" style="background: rgba(#000000, 0)"   >
         <template #tags>
-          <van-tag class="main-color" plain type="danger"
-            >专辑：{{ index.al.name }}</van-tag
-          >
+          <van-tag class="main-color" plain type="danger" >专辑：{{ index.al.name }}</van-tag>
         </template>
       </van-card>
     </div>
@@ -39,25 +30,14 @@ export default {
       data.playShow = false;
       data.playInfo = item;
       GET_SONG(id).then((res) => {
-        res.data.data[0].url === ""
-          ? false
-          : (data.currentMp3 = res.data.data[0].url);
-          toPlay()
+        res.data.data[0].url === "" ? false: (data.currentMp3 = res.data.data[0].url);
+        toPlay()
       });
     };
     const toPlay = function () {
-      (router as any).push({
-        name: "lyrics",
-        query: {
-          id: (data.playInfo as any).id,
-          mp3: data.currentMp3,
-          info: data.playInfo,
-        },
-      });
+      (router as any).push({ name: "lyrics", query: { id: (data.playInfo as any).id, mp3: data.currentMp3, info: data.playInfo,  }, });
     };
-    onMounted(() => {
-      data.carShow = true
-    })
+    onMounted(() => {data.carShow = true})
     return { getSong };
   },
 };

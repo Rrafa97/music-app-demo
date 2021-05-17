@@ -18,9 +18,7 @@
 export default {
   props: ['compData'],
   setup(props: any) {
-    let state = {
-      fireicon: '',
-    }
+    let state = { fireicon: '' }
     console.log(props.compData)
 
     return { state }

@@ -2,9 +2,7 @@
   <div class="van-empty-box">
     <van-empty>
       <template #description>
-        <van-loading size="36px" vertical
-          >正在加载...</van-loading
-        >
+        <van-loading size="36px" vertical>正在加载...</van-loading>
       </template>
     </van-empty>
   </div>

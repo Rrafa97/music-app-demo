@@ -54,7 +54,7 @@ module.exports = {
           // 直接覆盖变量
           'text-color': '#111',
           'border-color': '#eee',
-          '@grid-item-content-background-color': 'rgb(98, 22, 36)',
+          // '@grid-item-content-background-color': 'rgb(98, 22, 36)',
           // 或者可以通过 less 文件覆盖（文件路径为绝对路径）
           // hack: `true; @import "your-less-file-path.less";`,
         },

@@ -4,7 +4,6 @@
       v-model="state.text"
       shape="round"
       show-action
-      background="rgb(98, 22, 36)"
       placeholder="请输入搜索关键词"
     >
       <template #action>
@@ -258,14 +257,14 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scope>
 .block {
   height: auto;
-  background: rgb(98, 22, 36);
+  // background: rgb(98, 22, 36);
 }
 .el-carousel__item h3 {
   color: #151618;
-  background: rgb(98, 22, 36);
+  // background: rgb(98, 22, 36);
   font-size: 14px;
   line-height: 150px;
   margin: 0;

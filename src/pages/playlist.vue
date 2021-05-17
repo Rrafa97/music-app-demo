@@ -44,7 +44,7 @@
       </template>
       <van-cell
         clickable
-        :style="{ background: 'rgba(0,0,0,0)', color: 'white' }"
+        :style="{ background: 'rgba(0,0,0,0)', color: 'rgb(18, 110, 130)' }"
         @click="getSongUrl(item, item.id)"
       >
         <template #title>

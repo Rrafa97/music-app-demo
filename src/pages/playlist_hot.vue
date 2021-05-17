@@ -1,89 +1,24 @@
 <template>
   <div>
     <div @touchstart="touchstart" @touchend="touchend" @touchmove="touchmove">
-      <van-tabs
-        animated
-        v-model:active="state.active"
-        swipeable
-        title-inactive-color="rgb(200, 173, 196)"
-        title-active-color="rgb(222, 28, 49)"
-      >
+      <van-tabs animated v-model:active="state.active" swipeable title-inactive-color="rgb(200, 173, 196)" title-active-color="rgb(222, 28, 49)">
         <van-tab title="当前热门歌单">
-          <van-grid
-            :gutter="0"
-            :column-num="3"
-            icon-size="102px"
-            :border="false"
-          >
-            <van-grid-item
-              v-for="item in state.hotPlayList"
-              :icon="item.coverImgUrl"
-              :text="item.name"
-              @click="getPlaylistInfo(item.id)"
-              dot
-            >
-              <van-tag
-                round
-                color="rgba(0, 0, 0,.6)"
-                :style="{
-                  position: 'absolute',
-                  right: '.8rem',
-                  top: '.3rem',
-                  zIndex: '303',
-                  textAlign: 'right',
-                }"
-                type="primary"
-                ><van-icon name="play-circle-o" />{{ item.playCount }}</van-tag
-              >
-              <van-image
-                width="6.4rem"
-                height="6.4rem"
-                radius="6"
-                :src="item.coverImgUrl"
-              ></van-image>
-              <div :style="{ margin: '16px', whiteSpace: 'nowrap' }">
-                {{ item.name }}
-              </div>
+          <van-grid :gutter="0" :column-num="3" icon-size="102px" :border="false">
+            <van-grid-item v-for="item in state.hotPlayList" :icon="item.coverImgUrl" :text="item.name" @click="getPlaylistInfo(item.id)" dot >
+              <van-tag round color="rgba(0, 0, 0,.6)" :style="{ position: 'absolute',right: '.8rem', top: '.3rem',zIndex: '303', textAlign: 'right', }" type="primary">
+                <van-icon name="play-circle-o" />{{ item.playCount }}</van-tag>
+              <van-image width="6.4rem" height="6.4rem" radius="6" :src="item.coverImgUrl" ></van-image>
+              <div :style="{ margin: '16px', whiteSpace: 'nowrap' }"> {{ item.name }} </div>
             </van-grid-item>
           </van-grid>
         </van-tab>
-
         <van-tab title="全部歌单">
-          <van-grid
-            :gutter="0"
-            :column-num="2"
-            icon-size="102px"
-            :border="false"
-          >
-            <van-grid-item
-              v-for="item in state.allList"
-              :icon="item.coverImgUrl"
-              :text="item.name"
-              @click="getPlaylistInfo(item.id)"
-              dot
-            >
-              <van-tag
-                round
-                color="rgba(0, 0, 0,.6)"
-                :style="{
-                  position: 'absolute',
-                  right: '3.8rem',
-                  top: '.3rem',
-                  zIndex: '303',
-                  textAlign: 'right',
-                }"
-                type="primary"
-                ><van-icon name="play-circle-o" />{{ item.playCount }}</van-tag
-              >
-              <van-image
-                width="8.4rem"
-                height="8.4rem"
-                radius="6"
-                :src="item.coverImgUrl"
-              ></van-image>
-              <div :style="{margin:'12px 0',   overflow: 'hidden',  maxWidth: '8rem', fontSize: '12px',whiteSpace: 'nowrap' }">
-                {{ item.name }}
-              </div>
+          <van-grid :gutter="0" :column-num="2" icon-size="102px" :border="false" >
+            <van-grid-item  v-for="item in state.allList" :icon="item.coverImgUrl"  :text="item.name" @click="getPlaylistInfo(item.id)" dot >
+              <van-tag round color="rgba(0, 0, 0,.6)" :style="{ position: 'absolute', right: '3.8rem', top: '.3rem',  zIndex: '303', textAlign: 'right', }" type="primary">
+                <van-icon name="play-circle-o" />{{ item.playCount }}</van-tag>
+              <van-image width="8.4rem" height="8.4rem" radius="6" :src="item.coverImgUrl"></van-image>
+              <div :style="{margin:'12px 0',   overflow: 'hidden',  maxWidth: '8rem', fontSize: '12px',whiteSpace: 'nowrap' }"> {{ item.name }} </div>
             </van-grid-item>
           </van-grid>
         </van-tab>
@@ -130,12 +65,7 @@ export default {
     getPlaylistInfo(id: number) {
       let this__ = this;
       PLAYLIST_INFO(id).then((res) => {
-        (this as any).$router.push({
-          name: "playlist",
-          query: {
-            playlistinfo: JSON.stringify(res.data.playlist),
-          },
-        });
+        (this as any).$router.push({ name: "playlist",query: { playlistinfo: JSON.stringify(res.data.playlist), }, });
       });
     },
     touchmove(e: any) {},

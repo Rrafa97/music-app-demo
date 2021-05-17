@@ -196,10 +196,22 @@ var twoSum = function(nums:Array<number>, target:number) {
 };
 
 var isValidSudoku = function(board:Array<Array<string>>) {
-
+  let linearr: [[]]
+  let collarr: [[]]
+  let gridarr: [[]]
+  for(const row of board) {
+    let rowset = new Set()
+    for(const col of row) {
+      if(col === '.')
+      continue
+      if(rowset.has(col)) {
+        return true
+      }
+    }
+  }
 };
 let board = 
-[["5","3",".",".","7",".",".",".","."]
+[["5","3","3",".","7",".",".",".","."]
 ,["6",".",".","1","9","5",".",".","."]
 ,[".","9","8",".",".",".",".","6","."]
 ,["8",".",".",".","6",".",".",".","3"]
@@ -209,3 +221,8 @@ let board =
 ,[".",".",".","4","1","9",".",".","5"]
 ,[".",".",".",".","8",".",".","7","9"]]
 console.log(board[1])
+
+var rotate__ = function(matrix:any) {
+// 暴力解法
+};
+let matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]

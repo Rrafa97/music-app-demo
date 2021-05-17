@@ -16,6 +16,7 @@
       <van-tabs
         v-model:active="state.serchactive"
         swipeable
+         sticky
         @change="changeCat"
         :before-change="beforeChange"
       >
@@ -68,6 +69,8 @@ import playlisthot from '@/pages/playlist_hot.vue';
 import emptyle from '@/components/emptyle.vue';
 import album_list_item from '@/components/album_list_item.vue';
 import songslist from '@/pages/songslist.vue';
+import songsheet from '@/pages/songsheet.vue';
+
 import singerlist from '@/components/singerlist.vue';
 // import playsmall from "@/pages/playsmall";
 export default {
@@ -117,13 +120,13 @@ export default {
         {name: '单曲',val:1,data:null,component: markRaw(songslist)},
         { name:'专辑',val: 10,data:null,component:markRaw(album_list_item) },
       { name:'歌手',val: 100,data: null,component:markRaw(singerlist) 
-      },{ name:'歌单',val: 1000,data:null,component: markRaw(songslist) },
-      { name:'用户',val: 1002,data:null,component: markRaw(songslist) },
-      { name:'MV',val: 1004 ,data:null,component: markRaw(songslist)},
-      { name:'歌词',val: 1006,data:null,component: markRaw(songslist) },
-      { name:'电台',val: 1009,data:null,component: markRaw(songslist) },
-      { name:'视频',val: 1014 ,data:null,component: markRaw(songslist)},
-      { name:'综合',val: 1018 ,data:null,component: markRaw(songslist)}]
+      },{ name:'歌单',val: 1000,data:null,component: markRaw(songsheet) },
+      { name:'用户',val: 1002,data:null,component: null },
+      { name:'MV',val: 1004 ,data:null,component: null},
+      { name:'歌词',val: 1006,data:null,component: null },
+      { name:'电台',val: 1009,data:null,component: null},
+      { name:'视频',val: 1014 ,data:null,component: null},
+      { name:'综合',val: 1018 ,data:null,component: null}]
     });
 
      const beforeChange = (item) => {
@@ -168,9 +171,9 @@ export default {
       let dat = this.state.serchcat[index]
       this.state.compData = this.state.serchcat[index].data
       if (this.cardShow) {
-        if (this.state.serchcat[index].data !== null) {
+        if (this.state.serchcat[index].data !== null && this.state.serchcat[index].component !== null) {
           this.state.compData = this.state.serchcat[index].data
-          console.log(this.state.compData)
+          console.log(2345234234)
           return dat.component
         } else {
           return emptyle
@@ -243,13 +246,15 @@ export default {
     changeCat() {
       
       console.log(this.state.serchcat[this.state.serchactive ].val)
-      if (this.state.serchcat[this.state.serchactive ].data === null || this.state.text !== null) {
+      if (this.state.serchcat[this.state.serchactive ].data === null && this.state.serchcat[this.state.serchactive ].comment !== null  || this.state.text !== null) {
               SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.state.serchactive ].val).then( res => {
         
         this.state.serchcat[this.state.serchactive].data = res.data.result
         let data__ = this.state.serchcat[this.state.serchactive].data
         this.state.compData = data__
         })
+      } else {
+
       }
 
     }

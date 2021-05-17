@@ -54,5 +54,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* background: rgb(54, 41, 47); */
 }
 </style>

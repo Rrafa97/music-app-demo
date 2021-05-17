@@ -38,4 +38,7 @@ export default {
   /* background: rgb(98, 22, 36); */
   /* margin-top: 60px; */
 }
+.van-grid-item__content {
+  background: white;
+}
 </style>

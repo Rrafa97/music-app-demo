@@ -17,7 +17,6 @@
           :style="{ margin: '6px 0' }"
           round
           plain
-          color="rgb(98, 22, 36)"
         >
           {{ "创建者：" + pinfo__.creator.nickname }}</van-tag
         >

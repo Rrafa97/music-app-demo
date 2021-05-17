@@ -3,7 +3,6 @@
     <div @touchstart="touchstart" @touchend="touchend" @touchmove="touchmove">
       <van-tabs
         animated
-        color="white"
         v-model:active="state.active"
         swipeable
         title-inactive-color="rgb(200, 173, 196)"
@@ -20,7 +19,6 @@
               v-for="item in state.hotPlayList"
               :icon="item.coverImgUrl"
               :text="item.name"
-              color="white"
               @click="getPlaylistInfo(item.id)"
               dot
             >
@@ -61,7 +59,6 @@
               v-for="item in state.allList"
               :icon="item.coverImgUrl"
               :text="item.name"
-              color="white"
               @click="getPlaylistInfo(item.id)"
               dot
             >
@@ -151,9 +148,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less" scoped>
-/deep/ .van-grid-item__content {
-  padding: 0;
-}
-</style>

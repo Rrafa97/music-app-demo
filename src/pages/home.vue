@@ -273,7 +273,7 @@ export default {
   font-size: 18px;
 }
 .main-color {
-  color: aliceblue;
+  // color: aliceblue;
   background: rgba(#000000, 0);
 }
 .mask-play {

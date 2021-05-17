@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div :style="{backgournd: '#fff'}">
     <!-- qweqwe
     {{ compData }} -->
     <div v-for="item in compData.albums" :style="{margin:'16px'}">
-      <van-row :style="{ color: 'rgb(54, 41, 47)' }">
+      <van-row>
         <van-col span="8">
           <van-image
             :style="{ height: '64px',width: '64px' }"
@@ -17,7 +17,7 @@
               item.name
             }}</span>
           </div>
-          <span :style="{ color: 'rgb(18, 110, 130)', fontSize: '12px' }">{{ item.artist.name }}</span>
+          <span :style="{ color: 'rgb(147, 213, 220)', fontSize: '12px' }">{{ item.artist.name }}</span>
         </van-col>
         <!-- <van-col span="8">span: 8</van-col> -->
       </van-row>

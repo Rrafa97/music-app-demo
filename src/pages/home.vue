@@ -1,58 +1,21 @@
 <template>
   <div class="main-color">
-    <van-search
-      v-model="state.text"
-      shape="round"
-      show-action
-      placeholder="请输入搜索关键词"
-    >
+    <van-search v-model="state.text" shape="round"  show-action  placeholder="请输入搜索关键词" >
       <template #action>
-        <van-button size="small" round type="danger" @click="serch"
-          >搜索</van-button
-        >
-      </template></van-search
-    >
+        <van-button size="small" round type="danger" @click="serch">搜索</van-button>
+      </template>
+    </van-search>
     <div v-if="cardShow">
-      <van-tabs
-        v-model:active="state.serchactive"
-        swipeable
-         sticky
-        @change="changeCat"
-        :before-change="beforeChange"
-      >
+      <van-tabs v-model:active="state.serchactive" swipeable sticky  @change="changeCat"  :before-change="beforeChange" >
         <van-tab v-for="(item, index) in state.serchcat" :title="item.name">
           <emptyle v-if="item.data === null" />
-          <!-- <component
-            v-if="index === state.serchactive + 1"
-            :is="componentIsNex"
-            :compData="state.compDataNex"
-          ></component>
-          <component
-            v-if="index - 1 === state.serchactive"
-            :is="componentIsPre"
-            :compData="state.compDataPre"
-          ></component> -->
-          <component
-            v-if="index === state.serchactive"
-            :is="componentIs"
-            :compData="state.compData"
-          ></component>
+          <component v-if="index === state.serchactive" :is="componentIs" :compData="state.compData" ></component>
         </van-tab>
       </van-tabs>
     </div>
     <van-sticky v-if="popShow" :offset-bottom="0" position="bottom">
       <div class="mask-play">
-        <p @click="toSongs">
-          {{
-            "‘" +
-            playInfo.name +
-            "’" +
-            "-" +
-            playInfo.ar[0].name +
-            "——专辑:" +
-            playInfo.al.name
-          }}
-        </p>
+        <p @click="toSongs"> {{ '‘' +  playInfo.name + '’' + '-' + playInfo.ar[0].name + '——专辑:' +  playInfo.al.name }}</p>
         <audio v-if="playShow" ref="audio" controls>
           <source :src="currentMp3" type="audio/mpeg" />
         </audio>
@@ -119,7 +82,7 @@ export default {
       serchcat: [
         {name: '单曲',val:1,data:null,component: markRaw(songslist)},
         { name:'专辑',val: 10,data:null,component:markRaw(album_list_item) },
-      { name:'歌手',val: 100,data: null,component:markRaw(singerlist) 
+      { name:'歌手',val: 100,data: null,component:markRaw(singerlist)
       },{ name:'歌单',val: 1000,data:null,component: markRaw(songsheet) },
       { name:'用户',val: 1002,data:null,component: null },
       { name:'MV',val: 1004 ,data:null,component: null},
@@ -130,9 +93,7 @@ export default {
     });
 
      const beforeChange = (item) => {
-      return new Promise((resolve) => {
-        resolve(true);
-      });
+      return new Promise((resolve) => { resolve(true);});
     };
 
     watch(() => state.text, () => { //直接监听
@@ -155,7 +116,7 @@ export default {
     //   } else {
     //     return false
     //   }
-      
+
     // },
     // componentIsPre() {
     //   if (this.state.serchactive === 0) {
@@ -167,7 +128,7 @@ export default {
     // },
     componentIs() {
       let index = this.state.serchactive
-      
+
       let dat = this.state.serchcat[index]
       this.state.compData = this.state.serchcat[index].data
       if (this.cardShow) {
@@ -177,9 +138,9 @@ export default {
           return dat.component
         } else {
           return emptyle
-        }       
+        }
       }
-        
+
     }
   },
   methods: {
@@ -189,25 +150,15 @@ export default {
       // e.preventDefault()
       this.startX = e.changedTouches[0].clientX;
       this.startY = e.changedTouches[0].clientY;
-      this.startPoint = [
-        e.changedTouches[0].clientX,
-        e.changedTouches[0].clientY,
-      ];
+      this.startPoint = [e.changedTouches[0].clientX, e.changedTouches[0].clientY ];
       return e;
     },
     touchstartRes() {},
     touchend(e) {
       this.touchstartRes();
-      this.endPoint = [
-        e.changedTouches[0].clientX,
-        e.changedTouches[0].clientY,
-      ];
-      this.endPoint[0] - this.startPoint[0] > 20
-        ? this.$refs.carousel.prev()
-        : false;
-      this.endPoint[0] - this.startPoint[0] < -20
-        ? this.$refs.carousel.next()
-        : false;
+      this.endPoint = [e.changedTouches[0].clientX,e.changedTouches[0].clientY, ];
+      this.endPoint[0] - this.startPoint[0] > 20? this.$refs.carousel.prev(): false;
+      this.endPoint[0] - this.startPoint[0] < -20 ? this.$refs.carousel.next() : false;
     },
     serch() {
       console.log(this.state.textchange)
@@ -227,38 +178,19 @@ export default {
     setPlayInfo(song) {
       this.playInfo = song;
     },
-    adClick(i) {
-      i === 2 ? this.login() : false;
-    },
-    login() {
-      this.homeAdShow = false;
-    },
-    toSongs() {
-      this.$router.push({
-        name: "lyrics",
-        query: {
-          id: this.playInfo.id,
-          mp3: this.currentMp3,
-          info: this.playInfo,
-        },
-      });
-    },
+    adClick(i) {i === 2 ? this.login() : false;},
+    login() {this.homeAdShow = false; },
+    toSongs() {this.$router.push({name: "lyrics", query: {id: this.playInfo.id,mp3: this.currentMp3, info: this.playInfo,},}); },
     changeCat() {
-      
-      console.log(this.state.serchcat[this.state.serchactive ].val)
       if (this.state.serchcat[this.state.serchactive ].data === null && this.state.serchcat[this.state.serchactive ].comment !== null  || this.state.text !== null) {
               SERCH_KEYWORDS(this.state.text,50,this.state.serchcat[this.state.serchactive ].val).then( res => {
-        
-        this.state.serchcat[this.state.serchactive].data = res.data.result
-        let data__ = this.state.serchcat[this.state.serchactive].data
-        this.state.compData = data__
-        })
-      } else {
-
-      }
-
-    }
-  },
+                 this.state.serchcat[this.state.serchactive].data = res.data.result
+                let data__ = this.state.serchcat[this.state.serchactive].data
+                this.state.compData = data__
+                })
+                } else {}
+                }
+                },
 };
 </script>
 

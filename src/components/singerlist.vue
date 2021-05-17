@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-grid  style="background:white" :column-num="2">
+    <van-grid  :column-num="2">
       <van-grid-item v-for="item in compData.artists">
         <!-- <template #icon> -->
           <van-image :style="{ height: '64px',width: '64px' }" :src=item.img1v1Url></van-image>

@@ -11,6 +11,7 @@
             <span :style="{ maring: '8px 0', fontSize: '16px' }">{{  item.name  }}</span>
           </div>
           <span :style="{ color: 'rgb(18, 110, 130)', fontSize: '12px' }">{{ item.artist.name }}</span>
+          <div :style="{color: 'black'}">{{item.company}}</div>
         </van-col>
       </van-row>
     </div>
@@ -29,8 +30,8 @@ export default {
 <style>
 .col-flex {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center;
+  justify-content: center; */
   /* background: rgb(54, 41, 47); */
 }
 </style>

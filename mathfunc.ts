@@ -210,19 +210,19 @@ var isValidSudoku = function(board:Array<Array<string>>) {
     }
   }
 };
-let board = 
-[["5","3","3",".","7",".",".",".","."]
-,["6",".",".","1","9","5",".",".","."]
-,[".","9","8",".",".",".",".","6","."]
-,["8",".",".",".","6",".",".",".","3"]
-,["4",".",".","8",".","3",".",".","1"]
-,["7",".",".",".","2",".",".",".","6"]
-,[".","6",".",".",".",".","2","8","."]
-,[".",".",".","4","1","9",".",".","5"]
-,[".",".",".",".","8",".",".","7","9"]]
-console.log(board[1])
+var firstUniqChar = function(s:string) {
+  let arr = Array.from(s)
+  let set = new Set()
+  for(const x of arr) {
+    set.add(x)
+  }
+  for(let i =0;i<=s.length;i++) {
+    if(set.has(arr[i])) {
+      
+    } else {
 
-var rotate__ = function(matrix:any) {
-// 暴力解法
+    }
+  }
+  return arr
 };
-let matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
+console.log(firstUniqChar('asdqqw'))

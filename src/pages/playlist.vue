@@ -30,10 +30,12 @@
            <van-image :style="{margin:'8px',boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, .6)'}" round width="34" height="34" :src='item.al.picUrl'></van-image>
         </template>
         <template #title>
-          <div  :style="{ fontSize: '16px', whiteSpace: 'nowrap',  overflow: 'hidden', width: '50vw',}">
+          <div  :style="{ fontSize: '16px', whiteSpace: 'nowrap',  overflow: 'hidden', width: '70vw',}">
             {{ item.name }}
             <!-- <van-tag v-if="item.resourceState" type="danger">有资源</van-tag> -->
+            
           </div>
+          <van-tag :style="{margin: '0px 1px'}" v-for="items__ in item.alia" type="warning">{{items__}}</van-tag>
           <p :style="{color:'rgba(0,0,0,.5)',fontSize:'12px'}">{{  '专辑：' +  item.al.name + '/艺术家：' + item.ar[0].name}}</p>
           <!-- <div :style="{color: 'rgb(218, 164, 90)', whiteSpace: 'nowrap'}">专辑：{{item.al.name}}</div> -->
           <!-- <van-notice-bar color="white" :style="{height:'32px',fontSize:'22px', whiteSpace: 'nowrap',overflow:'hidden'}" background='rgba(0,0,0,0)' speed='1' scrollable :text="item.name" /> -->

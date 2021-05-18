@@ -7,7 +7,7 @@
         <van-tag :style="{margin: '0px 1px'}" v-for="items__ in item.artists" type="warning">{{items__.name}}</van-tag>
       </template>
       <template #label>
-        <van-image radius='12px' :src='item.cover'></van-image>
+        <van-image  @click="getUrl(item.id)" radius='12px' :src='item.cover'></van-image>
         <p>{{item.name}}</p>
       </template>
     </van-cell>
@@ -16,10 +16,18 @@
 </template>
 
 <script lang="ts">
+import { MV_URL } from "@/api/index";
 export default {
   props: ['compData'],
-  setup(props) {
-    console.log(props.compData)
+  setup(props:object) {
+    console.log((props as any).compData)
+  },
+  methods: {
+    getUrl(id:number) {
+      MV_URL(id).then(res => {
+        console.log(res)
+      })
+    }
   }
 }
 </script>

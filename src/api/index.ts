@@ -111,3 +111,13 @@ export function HIGHT_QUALITY_PL(limit: any) {
     }
   })
 }
+
+export function MV_URL(id: any) {
+  return instance({
+    method: 'get',
+    url: '/mv/url',
+    params: {
+      id: id
+    }
+  })
+}

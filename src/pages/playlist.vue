@@ -26,17 +26,20 @@
         <!-- <van-button square type="danger" text="收藏" /> -->
       </template>
       <van-cell clickable :style="{ background: 'rgba(0,0,0,0)', color: 'rgb(18, 110, 130)' }"  @click="getSongUrl(item, item.id)">
+        <template #icon :style="{  display: 'flex',alignItems: 'center',justifyContent: 'center'}">
+           <van-image :style="{margin:'8px',boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, .6)'}" round width="34" height="34" :src='item.al.picUrl'></van-image>
+        </template>
         <template #title>
-          <div  :style="{ fontSize: '18px', whiteSpace: 'nowrap',  overflow: 'hidden', width: '80vw',}">
+          <div  :style="{ fontSize: '16px', whiteSpace: 'nowrap',  overflow: 'hidden', width: '50vw',}">
             {{ item.name }}
-            <van-tag v-if="item.resourceState" type="danger">有资源</van-tag>
+            <!-- <van-tag v-if="item.resourceState" type="danger">有资源</van-tag> -->
           </div>
+          <p :style="{color:'rgba(0,0,0,.5)',fontSize:'12px'}">{{  '专辑：' +  item.al.name + '/艺术家：' + item.ar[0].name}}</p>
           <!-- <div :style="{color: 'rgb(218, 164, 90)', whiteSpace: 'nowrap'}">专辑：{{item.al.name}}</div> -->
           <!-- <van-notice-bar color="white" :style="{height:'32px',fontSize:'22px', whiteSpace: 'nowrap',overflow:'hidden'}" background='rgba(0,0,0,0)' speed='1' scrollable :text="item.name" /> -->
-          <div :style="{ whiteSpace: 'nowrap' }">
-            <!-- <van-tag type="danger">标签</van-tag> -->
+          <!-- <div :style="{ whiteSpace: 'nowrap' }">
             <van-notice-bar :style="{ height: '16px', fontSize: '12px' }" background="rgba(0,0,0,0)" speed="10" scrollable :text="  '专辑：' +  item.al.name + '/艺术家：' + item.ar[0].name +'/发行时间：'" />
-          </div>
+          </div> -->
         </template>
         <template #default :style="{ color: 'white' }">
           <van-icon size="32" name="play-circle-o" />
@@ -120,5 +123,6 @@ export default {
 .main-color {
   /* color: aliceblue; */
   /* background: rgb(98, 22, 36); */
+
 }
 </style>

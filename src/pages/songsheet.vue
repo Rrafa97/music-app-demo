@@ -1,16 +1,6 @@
 <template>
   <div>
-    <!-- <span :style="{ textAlign: 'center' }" v-for="item in compData.playlists">
-      <van-image
-        :style="{ width: '40vw', height: '40vw', margin: '16px' }"
-        width="6rem"
-        height="6rem"
-        fit="cover"
-        radius="16px"
-        :src="item.coverImgUrl"
-        >123123</van-image
-      >
-    </span> -->
+    <van-cell-group  :title="'搜索结果：' + compData.playlistCount" ></van-cell-group>
     <van-grid :column-num="3" icon-size="96" :center='false'>
       <van-grid-item
         v-for="item in compData.playlists"
@@ -45,7 +35,8 @@ export default {
   methods: {
     toSongsList(id:any) {
       PLAYLIST_INFO(id).then( res => {
-        console.log(res)
+        console.log(res);
+        (this as any).$router.push({ name: "playlist",query: { playlistinfo: JSON.stringify(res.data.playlist), }, });
       })
     }
   }

@@ -176,7 +176,7 @@ export default {
       duration: 0,
     })
     var videoPlay: any = ref(null)
-    const mvdata = reactive(JSON.parse((useRoute().query as any).data).data)
+    const mvdata:any = reactive(JSON.parse((useRoute().query as any).data).data)
     function transmins(ms: number) {
       let min = Math.floor((ms / 1000 / 60) << 0)
       let sec = Math.floor((ms / 1000) % 60)
@@ -235,10 +235,10 @@ export default {
   },
   methods: {
     restUrl(id: number) {
-      this.state.refresh = false
+      (this as any).state.refresh = false
       MV_URL(id).then((res) => {
-        this.mvdata = res.data.data
-        this.getAllinfo(this.mvdata.id)
+        (this as any).mvdata = res.data.data
+        (this as any).getAllinfo((this as any).mvdata.id)
       })
     },
   },

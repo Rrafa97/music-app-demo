@@ -84,7 +84,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../pages/mvpage_s.vue'),
   },
   {
-    path: '/videoplay',
+    path: '/videoplay/:id/',
     name: 'videoplay',
     component: () => import(/* webpackChunkName: "about" */ '../pages/videoplay.vue'),
   },

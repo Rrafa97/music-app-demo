@@ -29,7 +29,8 @@ export default {
         (this as any).$router.push({
           name: 'videoplay',
           params: {
-            data: JSON.stringify( res.data)
+            data: JSON.stringify( res.data),
+            id: new Date().getTime()
           }
         });
       })

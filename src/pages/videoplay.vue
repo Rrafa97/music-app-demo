@@ -2,7 +2,6 @@
   <div :style="{ width: '100vw' }">
     <video
       autoplay
-      controls
       webkit-playsinline
       :style="{ objectFit: 'fill', width: '100vw' }"
     >
@@ -129,7 +128,7 @@
 <script lang="ts">
 import { MV_DETAIL, MV_DETAIL_INFO, SIMI_MV, MV_URL } from '@/api/'
 import { useRoute } from 'vue-router'
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, watch } from 'vue'
 export default {
   setup() {
     const reqdata = reactive({
@@ -157,7 +156,7 @@ export default {
       MV_DETAIL(mvdata.id).then((res) => {
         reqdata.data = res.data.data
       })
-    })
+    });
     return { reqdata, transmins, duro, mvdata }
   },
   methods: {

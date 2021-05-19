@@ -1,5 +1,5 @@
 <template>
-  <div :style="{ width: '100vw' }">
+  <div v-if="state.refresh" :style="{ width: '100vw' }">
     <video
       autoplay
       webkit-playsinline
@@ -100,11 +100,11 @@
         size="large"
         v-for="item in reqdata.simi.mvs"
         center
-        :label="item.name"
+        :label="item.briefDesc"
       >
         <template #title>
           <span :style="{ fontSize: '18px', fontWeight: '500' }">{{
-            item.artistName
+            item.name
           }}</span>
           <van-tag
             :style="{ margin: '0px 1px' }"
@@ -119,7 +119,7 @@
             radius="12px"
             :src="item.cover"
           ></van-image>
-          <p>{{ item.name }}</p>
+          <p>{{ item.briefDesc }}</p>
         </template>
       </van-cell>
     </van-cell-group>
@@ -131,6 +131,9 @@ import { useRoute } from 'vue-router'
 import { onMounted, reactive, watch } from 'vue'
 export default {
   setup() {
+    const state = reactive({
+      refresh: false
+    })
     const reqdata = reactive({
       data: {},
       info: {},
@@ -145,32 +148,28 @@ export default {
       return min + ':' + sec
     }
     let duro = transmins((reqdata.data as any).duration)
-    onMounted(() => {
-      MV_DETAIL_INFO(mvdata.id).then((res) => {
+    function getAllinfo(id:number) {
+      MV_DETAIL_INFO(id).then((res) => {
         reqdata.info = res.data
       })
-      SIMI_MV(mvdata.id).then((res) => {
+      SIMI_MV(id).then((res) => {
         reqdata.simi = res.data
-        console.log(reqdata)
+        console.log(reqdata.simi)
       })
-      MV_DETAIL(mvdata.id).then((res) => {
+      MV_DETAIL(id).then((res) => {
         reqdata.data = res.data.data
+        state.refresh = true
       })
-    });
-    return { reqdata, transmins, duro, mvdata }
+    }
+    onMounted(() => { getAllinfo(mvdata.id)})
+    return { reqdata, transmins,state, duro, mvdata,getAllinfo }
   },
   methods: {
     restUrl(id: number) {
+      this.state.refresh = false
       MV_URL(id).then((res) => {
-        console.log(res.data);
-        this.mvdata = res.data.data;
-        this.$router.push({
-           path: '/videoplay',
-          query: {
-            data: JSON.stringify(res.data),
-            id: new Date().getTime()
-          },
-        })
+        this.mvdata = res.data.data
+        this.getAllinfo(this.mvdata.id)
       })
     },
   },

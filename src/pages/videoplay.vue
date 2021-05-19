@@ -6,22 +6,34 @@
         webkit-playsinline
         :style="{ objectFit: 'fill', width: '100vw' }"
         ref="videoPlay"
+        :ontimeupdate="ontmupdate"
         @play="toPlays"
         @timeupdate="updateTime"
         @pause="toPause"
       >
         <source :src="mvdata.url" type="video/mp4" />
       </video>
-      <van-row>
+      <div :style="{height:'16px'}">
+        <van-row  justify="center">
         <van-col span="22">
-          <van-progress
-            :percentage="75"
+          <van-slider
+            @update:model-value="changeplayvalue"
+            v-model="state.plst.percentage"
+            bar-height="4px"
+            active-color="#ee0a24"
+          />
+          <!-- <van-progress
+            :percentage="state.plst.percentage"
+            :pivot-text="state.plst.pstm"
             pivot-color="#7232dd"
             color="linear-gradient(to right, #be99ff, #7232dd)"
-          />
-          <van-icon name="play-circle-o" />
+          /> -->
+          <!-- <van-icon name="play-circle-o" /> -->
         </van-col>
       </van-row>
+      </div>
+      {{state.plst.pstm}}
+      {{state.plst.percentage}}
     </div>
     <van-card
       :desc="reqdata.data.artistName"
@@ -143,12 +155,19 @@
 </template>
 <script lang="ts">
 import { MV_DETAIL, MV_DETAIL_INFO, SIMI_MV, MV_URL } from '@/api/'
+import { transfromTimeToMins } from '@/utils/'
 import { useRoute } from 'vue-router'
-import { onMounted, reactive, watch, ref } from 'vue'
+import { onMounted, reactive, watch, ref, Ref } from 'vue'
+declare type Nullable<T> = T | null
 export default {
   setup() {
     const state = reactive({
       refresh: false,
+      plst: {
+        currtime: 0,
+        percentage: 0,
+        pstm: '00:00',
+      },
     })
     const reqdata = reactive({
       data: {},
@@ -156,7 +175,7 @@ export default {
       simi: {},
       duration: 0,
     })
-    var videoPlay = ref(null)
+    var videoPlay: any = ref(null)
     const mvdata = reactive(JSON.parse((useRoute().query as any).data).data)
     function transmins(ms: number) {
       let min = Math.floor((ms / 1000 / 60) << 0)
@@ -177,13 +196,42 @@ export default {
         state.refresh = true
       })
     }
+    function ontmupdate() {
+      let vvl = videoPlay.value
+      state.plst.percentage = Math.floor((vvl.currentTime / vvl.duration ) * 100)
+      state.plst.pstm = transfromTimeToMins(videoPlay.value.currentTime)
+    }
+    function changeplayvalue() {
+     videoPlay.value.currentTime = (state.plst.percentage * videoPlay.value.duration)/100
+    }
     onMounted(() => {
       getAllinfo(mvdata.id)
       setTimeout(() => {
-        console.log((videoPlay as any).buffered)
-      }, 3000)
+        // console.log(videoPlay.value.ontimeupdate)
+        console.log('*******************************')
+        // console.log(transfromTimeToMins((videoPlay as any).value.currentTime))
+        console.log('当前进度条', state.plst.percentage)
+        console.log(
+          '播放数据差',
+          videoPlay.value.currentTime / videoPlay.value.duration,
+        )
+        console.log('视频长度', (videoPlay as any)._value.duration)
+        // console.log('所属媒介组合', (videoPlay as any)._value.mediaGroup)
+        // console.log('poster', (videoPlay as any)._value.poster)
+        // ontmupdate()
+      }, 2000)
     })
-    return { reqdata, videoPlay, transmins, state, duro, mvdata, getAllinfo }
+    return {
+      ontmupdate,
+      reqdata,
+      videoPlay,
+      transmins,
+      state,
+      duro,
+      mvdata,
+      getAllinfo,
+      changeplayvalue,
+    }
   },
   methods: {
     restUrl(id: number) {
@@ -194,14 +242,8 @@ export default {
       })
     },
   },
-  toPlays() {
-
-  },
-  updateTime() {
-
-  },
-  toPause() {
-    
-  }
+  toPlays() {},
+  updateTime() {},
+  toPause() {},
 }
 </script>

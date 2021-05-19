@@ -28,7 +28,7 @@ export default {
         console.log(res.data);
         (this as any).$router.push({
           name: 'videoplay',
-          query: {
+          params: {
             data: JSON.stringify( res.data)
           }
         });

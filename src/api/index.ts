@@ -141,3 +141,13 @@ export function MV_DETAIL_INFO(mvid: any) {
     }
   })
 }
+
+export function SIMI_MV(mvid: any) {
+  return instance({
+    method: 'get',
+    url: '/simi/mv',
+    params: {
+      mvid: mvid
+    }
+  })
+}

@@ -121,3 +121,23 @@ export function MV_URL(id: any) {
     }
   })
 }
+
+export function MV_DETAIL(mvid: any) {
+  return instance({
+    method: 'get',
+    url: '/mv/detail',
+    params: {
+      mvid: mvid
+    }
+  })
+}
+
+export function MV_DETAIL_INFO(mvid: any) {
+  return instance({
+    method: 'get',
+    url: '/mv/detail/info',
+    params: {
+      mvid: mvid
+    }
+  })
+}

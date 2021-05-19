@@ -137,7 +137,7 @@ export default {
       simi: {},
       duration: 0,
     })
-    const mvdata = JSON.parse((useRoute().params as any).data).data
+    const mvdata = reactive(JSON.parse((useRoute().query as any).data).data)
     function transmins(ms: number) {
       let min = Math.floor((ms / 1000 / 60) << 0)
       let sec = Math.floor((ms / 1000) % 60)
@@ -164,10 +164,11 @@ export default {
       MV_URL(id).then((res) => {
         console.log(res.data);
         this.mvdata = res.data.data;
-        (this as any).$router.replace({
-          name: 'videoplay',
+        this.$router.push({
+           path: '/videoplay',
           query: {
             data: JSON.stringify(res.data),
+            id: new Date().getTime()
           },
         })
       })

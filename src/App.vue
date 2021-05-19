@@ -1,5 +1,5 @@
 <template>
-  <router-view v-slot="{ Component }">
+  <router-view v-if="data.isRouterAlive" v-slot="{ Component }">
     <keep-alive :include="cachedViews" :exclude="normalViews">
       <component :is="Component" />
     </keep-alive>
@@ -7,20 +7,32 @@
 </template>
 
 <script>
-import { watch } from 'vue'
+import { reactive, watch } from 'vue'
 import { useRouter } from 'vue-router'
 export default {
   name: 'App',
-  setup () {
+  provide() {
+    return {
+      reload: this.reload,
+    }
+  },
+  setup() {
     let cachedViews = ['home']
-    let normalViews = ['lyrics']
-    function router (to, from) {
+    let normalViews = ['lyrics', 'videoplay']
+    const data = reactive({ isRouterAlive: true,})
+    function router(to, from) {
       if (!cachedViews.includes(to.name) && !normalViews.includes(to.name)) {
         cachedViews.push(to.name)
       }
     }
-    return { cachedViews, normalViews }
-  }
+    return { cachedViews, normalViews, data }
+  },
+  methods: {
+    reload() {
+      this.isRouterAlive = false
+      this.$nextTick(function() {this.isRouterAlive = true })
+    },
+  },
 }
 </script>
 

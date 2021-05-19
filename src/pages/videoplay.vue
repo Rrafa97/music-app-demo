@@ -1,12 +1,28 @@
 <template>
   <div v-if="state.refresh" :style="{ width: '100vw' }">
-    <video
-      autoplay
-      webkit-playsinline
-      :style="{ objectFit: 'fill', width: '100vw' }"
-    >
-      <source :src="mvdata.url" type="video/mp4" />
-    </video>
+    <div>
+      <video
+        autoplay
+        webkit-playsinline
+        :style="{ objectFit: 'fill', width: '100vw' }"
+        ref="videoPlay"
+        @play="toPlays"
+        @timeupdate="updateTime"
+        @pause="toPause"
+      >
+        <source :src="mvdata.url" type="video/mp4" />
+      </video>
+      <van-row>
+        <van-col span="22">
+          <van-progress
+            :percentage="75"
+            pivot-color="#7232dd"
+            color="linear-gradient(to right, #be99ff, #7232dd)"
+          />
+          <van-icon name="play-circle-o" />
+        </van-col>
+      </van-row>
+    </div>
     <van-card
       :desc="reqdata.data.artistName"
       :title="reqdata.data.name"
@@ -128,11 +144,11 @@
 <script lang="ts">
 import { MV_DETAIL, MV_DETAIL_INFO, SIMI_MV, MV_URL } from '@/api/'
 import { useRoute } from 'vue-router'
-import { onMounted, reactive, watch } from 'vue'
+import { onMounted, reactive, watch, ref } from 'vue'
 export default {
   setup() {
     const state = reactive({
-      refresh: false
+      refresh: false,
     })
     const reqdata = reactive({
       data: {},
@@ -140,6 +156,7 @@ export default {
       simi: {},
       duration: 0,
     })
+    var videoPlay = ref(null)
     const mvdata = reactive(JSON.parse((useRoute().query as any).data).data)
     function transmins(ms: number) {
       let min = Math.floor((ms / 1000 / 60) << 0)
@@ -148,21 +165,25 @@ export default {
       return min + ':' + sec
     }
     let duro = transmins((reqdata.data as any).duration)
-    function getAllinfo(id:number) {
+    function getAllinfo(id: number) {
       MV_DETAIL_INFO(id).then((res) => {
         reqdata.info = res.data
       })
       SIMI_MV(id).then((res) => {
         reqdata.simi = res.data
-        console.log(reqdata.simi)
       })
       MV_DETAIL(id).then((res) => {
         reqdata.data = res.data.data
         state.refresh = true
       })
     }
-    onMounted(() => { getAllinfo(mvdata.id)})
-    return { reqdata, transmins,state, duro, mvdata,getAllinfo }
+    onMounted(() => {
+      getAllinfo(mvdata.id)
+      setTimeout(() => {
+        console.log((videoPlay as any).buffered)
+      }, 3000)
+    })
+    return { reqdata, videoPlay, transmins, state, duro, mvdata, getAllinfo }
   },
   methods: {
     restUrl(id: number) {
@@ -173,5 +194,14 @@ export default {
       })
     },
   },
+  toPlays() {
+
+  },
+  updateTime() {
+
+  },
+  toPause() {
+    
+  }
 }
 </script>

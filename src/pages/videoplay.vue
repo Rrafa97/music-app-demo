@@ -1,40 +1,41 @@
 <template>
   <div v-if="state.refresh" :style="{ width: '100vw' }">
-    <div>
+    <div :style="{padding:'0px 0',background: '#000'}">
       <video
-        autoplay
-        controls
         webkit-playsinline
         :style="{ objectFit: 'fill', width: '100vw' }"
         ref="videoPlay"
+        :poster="reqdata.data.cover"
         :ontimeupdate="ontmupdate"
-        @play="toPlays"
         @timeupdate="updateTime"
         @pause="toPause"
+        @click="vplay"
       >
         <source :src="mvdata.url" type="video/mp4" />
       </video>
-      <div :style="{height:'16px'}">
-        <van-row  justify="center">
-        <van-col span="22">
-          <van-slider
-            @update:model-value="changeplayvalue"
-            v-model="state.plst.percentage"
-            bar-height="4px"
-            active-color="#ee0a24"
-          />
-          <!-- <van-progress
-            :percentage="state.plst.percentage"
-            :pivot-text="state.plst.pstm"
-            pivot-color="#7232dd"
-            color="linear-gradient(to right, #be99ff, #7232dd)"
-          /> -->
-          <!-- <van-icon name="play-circle-o" /> -->
+      <div :style="{position:'absolute',width:'100vw'}">
+        <!-- <van-icon class='icon-play' name="play-circle-o" /> -->
+        <div  
+        :style="{
+          height:'25px', 
+          padding:'15px 0vw', 
+          position: 'relative',
+          top:'-55px',
+          backgroundImage: 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.7))',
+          display:'flex',
+           justifyContent: 'center'
+          }">
+        <van-row class="constl" justify="center">
+          <!-- <van-icon size='12px' name="play-circle-o" color='white' :style="{margin:'0px 8px'}"/> -->
+          <p :style="{color:'white',fontSize:'13px'}">{{state.plst.pstm}}</p>
+          <van-col span="18">
+            <van-slider :style="{margin:'0px 12px'}" @update:model-value="changeplayvalue" v-model="state.plst.percentage" bar-height="5px" button-size='8px' active-color="rgba(255, 255, 255,.7)" inactive-color='rgba(43, 18, 22,.7)' />
         </van-col>
+        <van-icon name="setting-o" />
       </van-row>
       </div>
-      {{state.plst.pstm}}
-      {{state.plst.percentage}}
+      </div>
+      
     </div>
     <van-card
       :desc="reqdata.data.artistName"
@@ -167,7 +168,7 @@ export default {
       plst: {
         currtime: 0,
         percentage: 0,
-        pstm: '00:00',
+        pstm: '0:00',
       },
     })
     const reqdata = reactive({
@@ -181,10 +182,14 @@ export default {
     function transmins(ms: number) {
       let min = Math.floor((ms / 1000 / 60) << 0)
       let sec = Math.floor((ms / 1000) % 60)
-      // console.log(min + ':' + sec)
       return min + ':' + sec
     }
     let duro = transmins((reqdata.data as any).duration)
+    let vplay = function() {
+      console.log('当前视频状态',videoPlay.value.paused)
+      videoPlay.value.paused ? videoPlay.value.play() : videoPlay.value.pause()
+      
+    }
     function getAllinfo(id: number) {
       MV_DETAIL_INFO(id).then((res) => {
         reqdata.info = res.data
@@ -194,11 +199,13 @@ export default {
       })
       MV_DETAIL(id).then((res) => {
         reqdata.data = res.data.data
+        console.log(reqdata)
         state.refresh = true
       })
     }
     function ontmupdate() {
       let vvl = videoPlay.value
+
       state.plst.percentage = Math.floor((vvl.currentTime / vvl.duration ) * 100)
       state.plst.pstm = transfromTimeToMins(videoPlay.value.currentTime)
     }
@@ -207,20 +214,6 @@ export default {
     }
     onMounted(() => {
       getAllinfo(mvdata.id)
-      setTimeout(() => {
-        // console.log(videoPlay.value.ontimeupdate)
-        console.log('*******************************')
-        // console.log(transfromTimeToMins((videoPlay as any).value.currentTime))
-        console.log('当前进度条', state.plst.percentage)
-        console.log(
-          '播放数据差',
-          videoPlay.value.currentTime / videoPlay.value.duration,
-        )
-        console.log('视频长度', (videoPlay as any)._value.duration)
-        // console.log('所属媒介组合', (videoPlay as any)._value.mediaGroup)
-        // console.log('poster', (videoPlay as any)._value.poster)
-        // ontmupdate()
-      }, 2000)
     })
     return {
       ontmupdate,
@@ -232,19 +225,46 @@ export default {
       mvdata,
       getAllinfo,
       changeplayvalue,
+      vplay
     }
   },
   methods: {
     restUrl(id: number) {
-      (this as any).state.refresh = false
+      (this as any).state.refresh = false;
+      (this as any).state.plst.percentage = 0;
+      (this as any).state.plst.pstm = '0:00';
+      console.log('重置')
       MV_URL(id).then((res) => {
-        (this as any).mvdata = res.data.data
-        (this as any).getAllinfo((this as any).mvdata.id)
+        (this as any).mvdata = res.data.data;
+        (this as any).getAllinfo((this as any).mvdata.id);
       })
     },
   },
-  toPlays() {},
+  toPlays() {
+    console.log('事件触发')
+  },
   updateTime() {},
   toPause() {},
 }
 </script>
+
+
+<style lang="less" scoped>
+.constl {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content:stretch ;
+  justify-items: stretch;
+  flex-wrap: nowrap;
+  width: 80vw;
+  van-slider {
+    max-width: 70vw;
+    width: 70vw;
+    margin: 0 5px;
+  }
+}
+.icon-play {
+  position: absolute;
+}
+</style>

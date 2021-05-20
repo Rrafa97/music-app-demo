@@ -25,6 +25,7 @@ export default {
   },
   methods: {
     getUrl(id:number) {
+      console.log(id)
       MV_URL(id).then(res => {
         console.log(res.data);
         (this as any).$router.push({path: '/videoplay',query: { data: JSON.stringify( res.data), id: new Date().getTime() }});

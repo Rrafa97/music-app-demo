@@ -3,6 +3,7 @@
     <div>
       <video
         autoplay
+        controls
         webkit-playsinline
         :style="{ objectFit: 'fill', width: '100vw' }"
         ref="videoPlay"

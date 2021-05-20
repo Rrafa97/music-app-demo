@@ -7,6 +7,7 @@
         <van-tag :style="{margin: '0px 1px'}" v-for="items__ in item.artists" type="warning">{{items__.name}}</van-tag>
       </template>
       <template #label>
+        
         <van-image  @click="getUrl(item.id)" radius='12px' :src='item.cover'></van-image>
         <p>{{item.name}}</p>
       </template>

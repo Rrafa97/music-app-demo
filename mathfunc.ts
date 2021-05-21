@@ -224,4 +224,4 @@ var firstUniqChar = function(s:string) {
     }
   }
   return arr
-}
+};

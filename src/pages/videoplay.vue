@@ -1,9 +1,9 @@
 <template>
   <div v-if="state.refresh" :style="{ width: '100vw' }">
-    <div :style="{ padding: '0px 0', background: '#000' }" class="video-box">
+    <div ref="playbox" :style="{ padding: '0px 0', background: '#000' }" class="video-box">
       <video
         webkit-playsinline
-        :style="{ objectFit: 'fill',width:'100vw', height: '30vh' }"
+        :style="{ objectFit: 'fill',width: state.fullscreamdata.width, height: state.fullscreamdata.height }"
         ref="videoPlay"
         :poster="reqdata.data.cover"
         :ontimeupdate="ontmupdate"
@@ -27,10 +27,6 @@
           }"
         >
           <van-row class="constl" justify="center">
-            <!-- <van-icon size='12px' name="play-circle-o" color='white' :style="{margin:'0px 8px'}"/> -->
-            <!-- <svg :style="{margin:'0 8px'}" t="1621565479234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2421" width="16" height="16"><path d="M102.425742 102.393565v819.148516l614.361387-409.574258z" fill="#e6e6e6" p-id="2422"></path><path d="M153.622524 102.393565v819.148516l614.361387-409.574258z" fill="#e6e6e6" p-id="2423"></path><path d="M259.599863 15.871003V834.507551l619.481066-405.478515z" fill="#e6e6e6" p-id="2424"></path><path d="M261.135767 189.428094l-1.535904 818.636549L875.497154 599.002353z" fill="#e6e6e6" p-id="2425"></path><path d="M204.819306 102.393565m-102.393564 0a102.393565 102.393565 0 1 0 204.787129 0 102.393565 102.393565 0 1 0-204.787129 0Z" fill="#e6e6e6" p-id="2426"></path><path d="M819.180694 409.574258c-56.316461 0-102.393565 46.077104-102.393565 102.393565s46.077104 100.345693 102.393565 102.393564c57.852364 2.047871 102.905532-45.053168 102.393564-102.393564-0.511968-56.316461-46.077104-102.393565-102.393564-102.393565zM204.819306 819.148517c-56.316461 0-102.393565 46.077104-102.393564 102.393564s46.077104 100.345693 102.393564 102.393565c53.756621 2.047871 100.857661-45.053168 102.393565-102.393565 1.535903-56.316461-46.077104-102.393565-102.393565-102.393564z" fill="#e6e6e6" p-id="2427"></path></svg> -->
-            <!-- <svg v-if="state.playstau" :style="{margin:'0 8px'}" t="1621565634400" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1967" width="128" height="128"><path d="M191.397656 128.194684l191.080943 0 0 768.472256-191.080943 0 0-768.472256Z" p-id="1968" fill="#ffffff"></path><path d="M575.874261 128.194684l192.901405 0 0 768.472256-192.901405 0 0-768.472256Z" p-id="1969" fill="#ffffff"></path></svg>
-            <svg v-else :style="{margin:'0 8px'}" t="1621565574090" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2683" width="128" height="128"><path d="M989.155556 559.217778L373.048889 973.198222a56.888889 56.888889 0 0 1-88.604445-47.217778V98.019556a56.888889 56.888889 0 0 1 88.604445-47.217778L989.155556 464.782222a56.888889 56.888889 0 0 1 0 94.435556z" fill="#ffffff" p-id="2684"></path></svg> -->
             <van-icon size='18' color="white" v-if="state.playstau" :style="{margin:'0 8px'}" name="pause-circle-o" />
             <van-icon  size='18' color="white" v-else :style="{margin:'0 8px'}" name="play-circle-o" />
             <p :style="{ color: 'white', fontSize: '13px' }">
@@ -210,7 +206,11 @@ export default {
         percentage: 0,
         pstm: '0:00',
       },
-      playstau: false
+      playstau: false,
+      fullscreamdata: {
+        width: '100vw',
+        height: '30vh'
+      }
     })
     const reqdata = reactive({
       data: {},
@@ -219,6 +219,7 @@ export default {
       duration: 0,
     })
     var videoPlay: any = ref(null)
+    var playbox : any = ref(null)
     const mvdata: any = reactive(
       JSON.parse((useRoute().query as any).data).data,
     )
@@ -271,15 +272,38 @@ export default {
       { text: '选项二' },
       { text: '选项三' },
     ];
+    document.addEventListener('fullscreenchange', (event) => {
+  // document.fullscreenElement will point to the element that
+  // is in fullscreen mode if there is one. If there isn't one,
+  // the value of the property is null.
+  if (document.fullscreenElement) {
+    console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
+  } else {
+    console.log('Leaving full-screen mode.');
+  }
+});
     function setFullscrem () {
-      console.log(videoPlay.value.style.x5VideoOrientation)
-      // videoPlay.value.style.x5VideoOrientation= 'landscape'
-      // videoPlay.value.style.height = '100vw'
+
+      let stypotion = {
+        height: '100vh',
+        position: 'absolute',
+        width: '100vw',
+        left: '0',
+        top:'0',
+        transition: '.3s'
+      }
+      playbox.value.style = stypotion
+      state.fullscreamdata.width = '100vh'
+      state.fullscreamdata.height = '100vw'
+      console.log(state.fullscreamdata.width);
+
+      playbox.value.style.transform= 'rotateZ(90deg)'
     }
     return {showPopover,actions,
       ontmupdate,
       reqdata,
       videoPlay,
+      playbox,
       transmins,
       state,
       duro,
@@ -332,6 +356,7 @@ export default {
 .video-box {
   position: relative;
   text-align: center;
+  z-index: 9999;
   .video-play-sty {
     position: absolute;
     top: 0;

@@ -295,8 +295,9 @@ export default {
         (state.plst.percentage * videoPlay.value.duration) / 100
     }
 
-    function contrlstouchmove() {
-      console.log('触摸控制')
+    function contrlstouchmove(e:any) {
+            let line = e.changedTouches[0]
+      console.log(line)
     }
     onMounted(() => {
       getAllinfo(mvdata.id)
@@ -397,13 +398,13 @@ export default {
 .video-box {
   position: relative;
   text-align: center;
-  z-index: 9999;
+  z-index: 9;
   .video-play-sty {
     position: absolute;
     top: 0;
     bottom: 0;
     width: 100%;
-    z-index: 999;
+    z-index: 10;
     cursor: pointer;
   }
 }

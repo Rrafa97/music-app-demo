@@ -3,6 +3,7 @@
     <div ref="playbox" :style="{ padding: '0px 0', background: '#000' }" class="video-box">
       <video
         webkit-playsinline
+        @touchmove.prevent
         :style="{ objectFit: 'fill',width: state.fullscreamdata.width, height: state.fullscreamdata.height }"
         ref="videoPlay"
         :poster="reqdata.data.cover"
@@ -22,18 +23,18 @@
             position: 'relative',
             top: '-55px',
             backgroundImage: 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.5))',
-            display: 'flex',
+            display: state.contrlBox.display,
             justifyContent: 'center',
           }"
         >
-          <van-row class="constl" justify="center">
+          <van-row class="constl" :style="state.constl" justify="center">
             <van-icon size='18' color="white" v-if="state.playstau" :style="{margin:'0 8px'}" name="pause-circle-o" />
             <van-icon  size='18' color="white" v-else :style="{margin:'0 8px'}" name="play-circle-o" />
             <p :style="{ color: 'white', fontSize: '13px' }">
               {{ state.plst.pstm }}
             </p>
               <van-slider
-                :style="{ margin: '0 10px'}"
+                :style="state.constlVanSlider"
                 @update:model-value="changeplayvalue"
                 v-model="state.plst.percentage"
                 bar-height="3px"
@@ -210,6 +211,18 @@ export default {
       fullscreamdata: {
         width: '100vw',
         height: '30vh'
+      },
+      constl: {
+        width: "100vw",
+        maxWidth: '100vw'
+      },
+      constlVanSlider: {
+        maxWidth: '70vw',
+        width: '70vw',
+        margin: '0 10px'
+      },
+      contrlBox: {
+        display: 'flex'
       }
     })
     const reqdata = reactive({
@@ -292,10 +305,13 @@ export default {
         top:'0',
         transition: '.3s'
       }
+      state.constl = { width: '100vh',maxWidth:'100vh'};
+      state.constlVanSlider = { maxWidth:'70vh',width:'70vh',margin:'0 12px'};
       playbox.value.style = stypotion
       state.fullscreamdata.width = '100vh'
       state.fullscreamdata.height = '100vw'
       console.log(state.fullscreamdata.width);
+      state.contrlBox.display = ''
 
       playbox.value.style.transform= 'rotateZ(90deg)'
     }
@@ -342,12 +358,12 @@ export default {
   flex-direction: row;
   flex-wrap: nowrap;
   margin-bottom: -16px;
-  width: 100vw;
-  max-width: 100vw;
+  // width: 100vw;
+  // max-width: 100vw;
   van-slider {
-    max-width: 70vw;
-    width: 70vw;
-    margin: 0 5px;
+    // max-width: 70vw;
+    // width: 70vw;
+    // margin: 0 5px;
   }
 }
 .icon-play {

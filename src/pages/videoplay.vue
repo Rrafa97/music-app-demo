@@ -1,6 +1,10 @@
 <template>
   <div v-if="state.refresh" :style="{ width: '100vw' }">
+    <van-sticky>
     <div ref="playbox" :style="{ padding: '0px 0', background: '#000' }" class="video-box">
+      <div :style="state.playarea">
+        <van-icon v-if="!state.playstau" size='64' color="white" name="play-circle-o" />
+      </div>
       <video
         webkit-playsinline
         @touchmove.prevent
@@ -74,6 +78,7 @@
         @click="vplay"
       ></div> -->
     </div>
+    </van-sticky>
     <van-card
       :desc="reqdata.data.artistName"
       :title="reqdata.data.name"
@@ -200,6 +205,7 @@ import { onMounted, reactive, watch, ref, Ref } from 'vue'
 declare type Nullable<T> = T | null
 export default {
   setup() {
+    // 播放器配置
     const state = reactive({
       refresh: false,
       plst: {
@@ -223,8 +229,15 @@ export default {
       },
       contrlBox: {
         display: 'flex'
+      },
+      playarea: {
+        position: 'absolute',
+        width: '100%',
+        marginTop: '10vh',
+        opacity: '.6'
       }
     })
+    // mv数据
     const reqdata = reactive({
       data: {},
       info: {},
@@ -268,7 +281,6 @@ export default {
     }
     function ontmupdate() {
       let vvl = videoPlay.value
-
       state.plst.percentage = Math.floor((vvl.currentTime / vvl.duration) * 100)
       state.plst.pstm = transfromTimeToMins(videoPlay.value.currentTime)
     }

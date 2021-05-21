@@ -1,6 +1,6 @@
 <template>
   <div v-if="state.refresh" :style="{ width: '100vw' }">
-    <van-sticky>
+    
     <div ref="playbox" :style="{ padding: '0px 0', background: '#000' }" class="video-box">
       <div :style="state.playarea">
         <van-icon v-if="!state.playstau" size='64' color="white" name="play-circle-o" />
@@ -8,6 +8,7 @@
       <video
         webkit-playsinline
         @touchmove="contrlstouchmove"
+        @touchstart='contrlstouchstart'
         :style="{ objectFit: 'fill',width: state.fullscreamdata.width, height: state.fullscreamdata.height }"
         ref="videoPlay"
         :poster="reqdata.data.cover"
@@ -78,12 +79,8 @@
         @click="vplay"
       ></div> -->
     </div>
-    </van-sticky>
-    <van-card
-      :desc="reqdata.data.artistName"
-      :title="reqdata.data.name"
-      :thumb="reqdata.data.cover"
-    >
+    <div v-if="!state.fullscramState">
+      <van-card  :desc="reqdata.data.artistName" :title="reqdata.data.name" :thumb="reqdata.data.cover" >
       <template #footer>
         <van-icon
           :style="{
@@ -195,6 +192,7 @@
         </template>
       </van-cell>
     </van-cell-group>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -235,6 +233,11 @@ export default {
         width: '100%',
         marginTop: '10vh',
         opacity: '.6'
+      },
+      fullscramState: false,
+      movePoint: {
+        startPoint: [0,0],
+        movePoint: [0,0]
       }
     })
     // mv数据
@@ -296,9 +299,22 @@ export default {
     }
 
     function contrlstouchmove(e:any) {
-            let line = e.changedTouches[0]
-      console.log(line)
+      let rowmoves = e.changedTouches[0].clientX - state.movePoint.startPoint[0]
+      let colmoves = e.changedTouches[0].clientY - state.movePoint.startPoint[1]
+      if(rowmoves > colmoves) {
+        // 调节进图条
+      state.plst.pstm = transfromTimeToMins(videoPlay.value.currentTime + rowmoves/10)
+      videoPlay.value.currentTime = videoPlay.value.currentTime + rowmoves/10
+      } else {
+        // 调节音量
+      }
     }
+
+    function contrlstouchstart(e:any) {
+      let startPoint = [e.changedTouches[0].clientX, e.changedTouches[0].clientY]
+      state.movePoint.startPoint = startPoint
+    }
+
     onMounted(() => {
       getAllinfo(mvdata.id)
     })
@@ -310,19 +326,19 @@ export default {
       { text: '选项三' },
     ];
 
-    document.addEventListener('fullscreenchange', (event) => {
-       if (document.fullscreenElement) {
-          console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
-           } else {
-             console.log('Leaving full-screen mode.');
-              }
-              });
+    // document.addEventListener('fullscreenchange', (event) => {
+    //    if (document.fullscreenElement) {
+    //       console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
+    //        } else {
+    //          console.log('Leaving full-screen mode.');
+    //           }
+    //           });
 
 
     function setFullscrem () {
       let stypotion = {
         height: '100vh',
-        position: 'absolute',
+        position: 'fixed',
         width: '100vw',
         left: '0',
         top:'0',
@@ -337,6 +353,7 @@ export default {
       state.contrlBox.display = ''
       let playarea__ ={ position: 'absolute', top:"40vw", left: '40vh' };
       (state as any).playarea = playarea__
+      state.fullscramState = true
       playbox.value.style.transform= 'rotateZ(90deg)'
     }
 
@@ -353,7 +370,8 @@ export default {
       changeplayvalue,
       vplay,
       setFullscrem,
-      contrlstouchmove
+      contrlstouchmove,
+      contrlstouchstart
     }
   },
   methods: {
@@ -398,6 +416,7 @@ export default {
 .video-box {
   position: relative;
   text-align: center;
+  touch-action: pan-y;
   z-index: 9;
   .video-play-sty {
     position: absolute;

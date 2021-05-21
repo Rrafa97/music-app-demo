@@ -7,7 +7,7 @@
       </div>
       <video
         webkit-playsinline
-        @touchmove.prevent
+        @touchmove="contrlstouchmove"
         :style="{ objectFit: 'fill',width: state.fullscreamdata.width, height: state.fullscreamdata.height }"
         ref="videoPlay"
         :poster="reqdata.data.cover"
@@ -244,19 +244,22 @@ export default {
       simi: {},
       duration: 0,
     })
+
     var videoPlay: any = ref(null)
     var playbox : any = ref(null)
+
     const mvdata: any = reactive(
       JSON.parse((useRoute().query as any).data).data,
     )
+
     function transmins(ms: number) {
       let min = Math.floor((ms / 1000 / 60) << 0)
       let sec = Math.floor((ms / 1000) % 60)
       return min + ':' + sec
     }
+
     let duro = transmins((reqdata.data as any).duration)
     let vplay = function() {
-      
       if( videoPlay.value.paused ) {
         state.playstau = true
         videoPlay.value.play()
@@ -266,6 +269,7 @@ export default {
       }
       // videoPlay.value.paused ? videoPlay.value.play() : videoPlay.value.pause()
     }
+
     function getAllinfo(id: number) {
       MV_DETAIL_INFO(id).then((res) => {
         reqdata.info = res.data
@@ -279,36 +283,42 @@ export default {
         state.refresh = true
       })
     }
+
     function ontmupdate() {
       let vvl = videoPlay.value
       state.plst.percentage = Math.floor((vvl.currentTime / vvl.duration) * 100)
       state.plst.pstm = transfromTimeToMins(videoPlay.value.currentTime)
     }
+
     function changeplayvalue() {
       videoPlay.value.currentTime =
         (state.plst.percentage * videoPlay.value.duration) / 100
     }
+
+    function contrlstouchmove() {
+      console.log('触摸控制')
+    }
     onMounted(() => {
       getAllinfo(mvdata.id)
     })
+
     const showPopover = ref(false);
     const actions = [
       { text: '选项一' },
       { text: '选项二' },
       { text: '选项三' },
     ];
-    document.addEventListener('fullscreenchange', (event) => {
-  // document.fullscreenElement will point to the element that
-  // is in fullscreen mode if there is one. If there isn't one,
-  // the value of the property is null.
-  if (document.fullscreenElement) {
-    console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
-  } else {
-    console.log('Leaving full-screen mode.');
-  }
-});
-    function setFullscrem () {
 
+    document.addEventListener('fullscreenchange', (event) => {
+       if (document.fullscreenElement) {
+          console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
+           } else {
+             console.log('Leaving full-screen mode.');
+              }
+              });
+
+
+    function setFullscrem () {
       let stypotion = {
         height: '100vh',
         position: 'absolute',
@@ -324,9 +334,11 @@ export default {
       state.fullscreamdata.height = '100vw'
       console.log(state.fullscreamdata.width);
       state.contrlBox.display = ''
-
+      let playarea__ ={ position: 'absolute', top:"40vw", left: '40vh' };
+      (state as any).playarea = playarea__
       playbox.value.style.transform= 'rotateZ(90deg)'
     }
+
     return {showPopover,actions,
       ontmupdate,
       reqdata,
@@ -339,7 +351,8 @@ export default {
       getAllinfo,
       changeplayvalue,
       vplay,
-      setFullscrem
+      setFullscrem,
+      contrlstouchmove
     }
   },
   methods: {

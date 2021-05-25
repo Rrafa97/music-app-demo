@@ -1,7 +1,8 @@
 <template>
   <div>
     <!-- <div v-for="">{{}}</div> -->
-    <van-card :desc="'创建者：' + pinfo__.creator.nickname" :title="'歌单：' + pinfo__.name" :thumb="pinfo__.coverImgUrl" :style="{ paddingTop: '32px' }" class="main-color" >
+    <!-- <van-card :desc="'创建者：' + pinfo__.creator.nickname" :title="'歌单：' + pinfo__.name" :thumb="pinfo__.coverImgUrl" :style="{ paddingTop: '32px' }" class="main-color" > -->
+        <van-card :desc="`创建者：${pinfo__.creator.nickname}`" :title="'歌单：' + pinfo__.name" :thumb="pinfo__.coverImgUrl" :style="{ paddingTop: '32px' }" class="main-color" >
       <template #title>
         <p :style="{ fontSize: '18px',lineHigh:'36px' }">{{ pinfo__.name }}</p>
       </template>
@@ -36,12 +37,7 @@
             
           </div>
           <van-tag :style="{margin: '0px 1px'}" v-for="items__ in item.alia" type="warning">{{items__}}</van-tag>
-          <p :style="{color:'rgba(0,0,0,.5)',fontSize:'12px'}">{{  '专辑：' +  item.al.name + '/艺术家：' + item.ar[0].name}}</p>
-          <!-- <div :style="{color: 'rgb(218, 164, 90)', whiteSpace: 'nowrap'}">专辑：{{item.al.name}}</div> -->
-          <!-- <van-notice-bar color="white" :style="{height:'32px',fontSize:'22px', whiteSpace: 'nowrap',overflow:'hidden'}" background='rgba(0,0,0,0)' speed='1' scrollable :text="item.name" /> -->
-          <!-- <div :style="{ whiteSpace: 'nowrap' }">
-            <van-notice-bar :style="{ height: '16px', fontSize: '12px' }" background="rgba(0,0,0,0)" speed="10" scrollable :text="  '专辑：' +  item.al.name + '/艺术家：' + item.ar[0].name +'/发行时间：'" />
-          </div> -->
+          <p :style="{color:'rgba(0,0,0,.5)',fontSize:'12px'}">{{`专辑：${item.al.name}/艺术家:${item.ar[0].name}`}}</p>
         </template>
         <template #default :style="{ color: 'white' }">
           <van-icon size="32" name="play-circle-o" />
@@ -74,13 +70,8 @@ export default {
     });
     function timper(temp: string) {
       let ctemp = new Date(temp);
-      let ctime: string =
-        ctemp.getFullYear().toString() +
-        "-" +
-        ctemp.getMonth() +
-        1 +
-        "-" +
-        ctemp.getDate();
+      // let ctime: string =ctemp.getFullYear().toString() + "-" + ctemp.getMonth() + 1 +"-" +ctemp.getDate();
+      let ctime: string = `${ctemp.getFullYear().toString()}-${ctemp.getMonth() + 1}-${ctemp.getDate()}`
       return ctime;
     }
     // let ctimetemp = timper(pinfo.createTime);

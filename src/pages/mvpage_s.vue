@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-cell-group  :title="'搜索结果：' + compData.mvCount" >
+    <van-cell-group  :title="`搜索结果：${compData.mvCount}`">
     <van-cell size='large' v-for="item in compData.mvs" center :label="item.name">
       <template #title>
         <span :style="{fontSize:'18px',fontWeight:'500'}">{{item.artistName}}</span>

@@ -15,7 +15,8 @@
     </div>
     <van-sticky v-if="popShow" :offset-bottom="0" position="bottom">
       <div class="mask-play">
-        <p @click="toSongs"> {{ '‘' +  playInfo.name + '’' + '-' + playInfo.ar[0].name + '——专辑:' +  playInfo.al.name }}</p>
+        <!-- <p @click="toSongs"> {{ '‘' +  playInfo.name + '’' + '-' + playInfo.ar[0].name + '——专辑:' +  playInfo.al.name }}</p> -->
+        <p @click="toSongs">{{`‘${playInfo.name}’-${playInfo.ar[0].name}__专辑:`}}</p>
         <audio v-if="playShow" ref="audio" controls>
           <source :src="currentMp3" type="audio/mpeg" />
         </audio>

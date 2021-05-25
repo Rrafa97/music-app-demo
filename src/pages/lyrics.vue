@@ -143,7 +143,8 @@ export default {
       let line = e.changedTouches[0].clientX - this.startPoint[0]
       // console.log(e.changedTouches[0].clientX - this.startPoint[0])
       if (parseInt(line / 5.34) < 10 && parseInt(line / 5.34) > -10) {
-        let sr = 'scale(0.6) rotate(' + -parseInt(line / 5) + 'deg)'
+        // let sr = 'scale(0.6) rotate(' + -parseInt(line / 5) + 'deg)'
+        let sr = `scale(0.6) rotate(${-parseInt(line/5)}deg}`
         this.recordArm.$el.style.transform = sr
         // document.getElementById('recordArm').style.transform = sr
       }

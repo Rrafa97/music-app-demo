@@ -252,7 +252,7 @@ export default {
     var playbox : any = ref(null)
 
     const mvdata: any = reactive(
-      JSON.parse((useRoute().query as any).data).data,
+      JSON.parse((useRoute().query as any).data).data
     )
 
     function transmins(ms: number) {
